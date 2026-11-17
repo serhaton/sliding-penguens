@@ -1,0 +1,21 @@
+/** Tahta parçalarının renkleri: pastel kutup paleti. */
+export const BOARD = {
+  ice: '#DCEEFB',
+  iceAlt: '#CFE6F8',
+  iceShine: '#FFFFFF',
+  crack: '#7FA6CE',
+  crackedTint: '#C3DBF0',
+  water: '#3F86DC',
+  waterDeep: '#2F6FC4',
+  waterWave: '#9CC8F5',
+  rock: '#8C9FBC',
+  rockDark: '#6F84A5',
+  rockLight: '#A9B9D1',
+  snow: '#FFFFFF',
+  snowShade: '#D6E6F5',
+  snowLine: '#B4CDE6',
+  door: '#22305A',
+  pole: '#5B6E93',
+  smoke: '#FF8FA8',
+  shadow: '#1B2A4A',
+} as const;

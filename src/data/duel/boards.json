@@ -1,0 +1,3028 @@
+[
+  {
+    "id": "duel-1",
+    "mode": "duel",
+    "grid": [
+      ".~....",
+      "......",
+      "....#.",
+      ".#....",
+      "......",
+      "....~."
+    ],
+    "penguins": [
+      {
+        "id": "a1",
+        "color": "blue",
+        "team": 0,
+        "dir": "left",
+        "x": 0,
+        "y": 4
+      },
+      {
+        "id": "b1",
+        "color": "orange",
+        "team": 1,
+        "dir": "right",
+        "x": 5,
+        "y": 1
+      },
+      {
+        "id": "a2",
+        "color": "blue",
+        "team": 0,
+        "dir": "left",
+        "x": 2,
+        "y": 4
+      },
+      {
+        "id": "b2",
+        "color": "orange",
+        "team": 1,
+        "dir": "right",
+        "x": 3,
+        "y": 1
+      },
+      {
+        "id": "a3",
+        "color": "blue",
+        "team": 0,
+        "dir": "up",
+        "x": 3,
+        "y": 3
+      },
+      {
+        "id": "b3",
+        "color": "orange",
+        "team": 1,
+        "dir": "down",
+        "x": 2,
+        "y": 2
+      }
+    ],
+    "igloos": [
+      {
+        "id": "ga1",
+        "x": 0,
+        "y": 0,
+        "team": 0
+      },
+      {
+        "id": "gb1",
+        "x": 5,
+        "y": 5,
+        "team": 1
+      },
+      {
+        "id": "ga2",
+        "x": 1,
+        "y": 1,
+        "team": 0
+      },
+      {
+        "id": "gb2",
+        "x": 4,
+        "y": 4,
+        "team": 1
+      },
+      {
+        "id": "ga3",
+        "x": 4,
+        "y": 0,
+        "team": 0
+      },
+      {
+        "id": "gb3",
+        "x": 1,
+        "y": 5,
+        "team": 1
+      }
+    ]
+  },
+  {
+    "id": "duel-2",
+    "mode": "duel",
+    "grid": [
+      ".....",
+      ".....",
+      ".....",
+      ".....",
+      ".....",
+      ".....",
+      ".....",
+      "....."
+    ],
+    "penguins": [
+      {
+        "id": "a1",
+        "color": "blue",
+        "team": 0,
+        "dir": "left",
+        "x": 4,
+        "y": 4
+      },
+      {
+        "id": "b1",
+        "color": "orange",
+        "team": 1,
+        "dir": "right",
+        "x": 0,
+        "y": 3
+      },
+      {
+        "id": "a2",
+        "color": "blue",
+        "team": 0,
+        "dir": "up",
+        "x": 3,
+        "y": 4
+      },
+      {
+        "id": "b2",
+        "color": "orange",
+        "team": 1,
+        "dir": "down",
+        "x": 1,
+        "y": 3
+      },
+      {
+        "id": "a3",
+        "color": "blue",
+        "team": 0,
+        "dir": "up",
+        "x": 2,
+        "y": 7
+      },
+      {
+        "id": "b3",
+        "color": "orange",
+        "team": 1,
+        "dir": "down",
+        "x": 2,
+        "y": 0
+      }
+    ],
+    "igloos": [
+      {
+        "id": "ga1",
+        "x": 0,
+        "y": 1,
+        "team": 0
+      },
+      {
+        "id": "gb1",
+        "x": 4,
+        "y": 6,
+        "team": 1
+      },
+      {
+        "id": "ga2",
+        "x": 4,
+        "y": 2,
+        "team": 0
+      },
+      {
+        "id": "gb2",
+        "x": 0,
+        "y": 5,
+        "team": 1
+      },
+      {
+        "id": "ga3",
+        "x": 4,
+        "y": 0,
+        "team": 0
+      },
+      {
+        "id": "gb3",
+        "x": 0,
+        "y": 7,
+        "team": 1
+      }
+    ]
+  },
+  {
+    "id": "duel-3",
+    "mode": "duel",
+    "grid": [
+      ".....",
+      "....#",
+      ".....",
+      ".....",
+      ".....",
+      "#....",
+      "....."
+    ],
+    "penguins": [
+      {
+        "id": "a1",
+        "color": "blue",
+        "team": 0,
+        "dir": "left",
+        "x": 2,
+        "y": 5
+      },
+      {
+        "id": "b1",
+        "color": "orange",
+        "team": 1,
+        "dir": "right",
+        "x": 2,
+        "y": 1
+      },
+      {
+        "id": "a2",
+        "color": "blue",
+        "team": 0,
+        "dir": "up",
+        "x": 2,
+        "y": 6
+      },
+      {
+        "id": "b2",
+        "color": "orange",
+        "team": 1,
+        "dir": "down",
+        "x": 2,
+        "y": 0
+      },
+      {
+        "id": "a3",
+        "color": "blue",
+        "team": 0,
+        "dir": "up",
+        "x": 1,
+        "y": 4
+      },
+      {
+        "id": "b3",
+        "color": "orange",
+        "team": 1,
+        "dir": "down",
+        "x": 3,
+        "y": 2
+      }
+    ],
+    "igloos": [
+      {
+        "id": "ga1",
+        "x": 1,
+        "y": 1,
+        "team": 0
+      },
+      {
+        "id": "gb1",
+        "x": 3,
+        "y": 5,
+        "team": 1
+      },
+      {
+        "id": "ga2",
+        "x": 3,
+        "y": 0,
+        "team": 0
+      },
+      {
+        "id": "gb2",
+        "x": 1,
+        "y": 6,
+        "team": 1
+      },
+      {
+        "id": "ga3",
+        "x": 4,
+        "y": 2,
+        "team": 0
+      },
+      {
+        "id": "gb3",
+        "x": 0,
+        "y": 4,
+        "team": 1
+      }
+    ]
+  },
+  {
+    "id": "duel-4",
+    "mode": "duel",
+    "grid": [
+      "......",
+      "......",
+      "......",
+      "......",
+      "......",
+      "......",
+      "......"
+    ],
+    "penguins": [
+      {
+        "id": "a1",
+        "color": "blue",
+        "team": 0,
+        "dir": "left",
+        "x": 5,
+        "y": 4
+      },
+      {
+        "id": "b1",
+        "color": "orange",
+        "team": 1,
+        "dir": "right",
+        "x": 0,
+        "y": 2
+      },
+      {
+        "id": "a2",
+        "color": "blue",
+        "team": 0,
+        "dir": "up",
+        "x": 2,
+        "y": 4
+      },
+      {
+        "id": "b2",
+        "color": "orange",
+        "team": 1,
+        "dir": "down",
+        "x": 3,
+        "y": 2
+      },
+      {
+        "id": "a3",
+        "color": "blue",
+        "team": 0,
+        "dir": "left",
+        "x": 3,
+        "y": 5
+      },
+      {
+        "id": "b3",
+        "color": "orange",
+        "team": 1,
+        "dir": "right",
+        "x": 2,
+        "y": 1
+      }
+    ],
+    "igloos": [
+      {
+        "id": "ga1",
+        "x": 0,
+        "y": 1,
+        "team": 0
+      },
+      {
+        "id": "gb1",
+        "x": 5,
+        "y": 5,
+        "team": 1
+      },
+      {
+        "id": "ga2",
+        "x": 5,
+        "y": 0,
+        "team": 0
+      },
+      {
+        "id": "gb2",
+        "x": 0,
+        "y": 6,
+        "team": 1
+      },
+      {
+        "id": "ga3",
+        "x": 2,
+        "y": 2,
+        "team": 0
+      },
+      {
+        "id": "gb3",
+        "x": 3,
+        "y": 4,
+        "team": 1
+      }
+    ]
+  },
+  {
+    "id": "duel-5",
+    "mode": "duel",
+    "grid": [
+      ".....",
+      "..~..",
+      ".....",
+      ".....",
+      ".....",
+      "..~..",
+      "....."
+    ],
+    "penguins": [
+      {
+        "id": "a1",
+        "color": "blue",
+        "team": 0,
+        "dir": "up",
+        "x": 2,
+        "y": 4
+      },
+      {
+        "id": "b1",
+        "color": "orange",
+        "team": 1,
+        "dir": "down",
+        "x": 2,
+        "y": 2
+      },
+      {
+        "id": "a2",
+        "color": "blue",
+        "team": 0,
+        "dir": "down",
+        "x": 1,
+        "y": 5
+      },
+      {
+        "id": "b2",
+        "color": "orange",
+        "team": 1,
+        "dir": "up",
+        "x": 3,
+        "y": 1
+      },
+      {
+        "id": "a3",
+        "color": "blue",
+        "team": 0,
+        "dir": "up",
+        "x": 0,
+        "y": 6
+      },
+      {
+        "id": "b3",
+        "color": "orange",
+        "team": 1,
+        "dir": "down",
+        "x": 4,
+        "y": 0
+      }
+    ],
+    "igloos": [
+      {
+        "id": "ga1",
+        "x": 3,
+        "y": 2,
+        "team": 0
+      },
+      {
+        "id": "gb1",
+        "x": 1,
+        "y": 4,
+        "team": 1
+      },
+      {
+        "id": "ga2",
+        "x": 0,
+        "y": 1,
+        "team": 0
+      },
+      {
+        "id": "gb2",
+        "x": 4,
+        "y": 5,
+        "team": 1
+      },
+      {
+        "id": "ga3",
+        "x": 1,
+        "y": 2,
+        "team": 0
+      },
+      {
+        "id": "gb3",
+        "x": 3,
+        "y": 4,
+        "team": 1
+      }
+    ]
+  },
+  {
+    "id": "duel-6",
+    "mode": "duel",
+    "grid": [
+      "#.....",
+      "......",
+      "......",
+      "......",
+      "......",
+      ".....#"
+    ],
+    "penguins": [
+      {
+        "id": "a1",
+        "color": "blue",
+        "team": 0,
+        "dir": "left",
+        "x": 3,
+        "y": 5
+      },
+      {
+        "id": "b1",
+        "color": "orange",
+        "team": 1,
+        "dir": "right",
+        "x": 2,
+        "y": 0
+      },
+      {
+        "id": "a2",
+        "color": "blue",
+        "team": 0,
+        "dir": "left",
+        "x": 4,
+        "y": 4
+      },
+      {
+        "id": "b2",
+        "color": "orange",
+        "team": 1,
+        "dir": "right",
+        "x": 1,
+        "y": 1
+      },
+      {
+        "id": "a3",
+        "color": "blue",
+        "team": 0,
+        "dir": "down",
+        "x": 1,
+        "y": 3
+      },
+      {
+        "id": "b3",
+        "color": "orange",
+        "team": 1,
+        "dir": "up",
+        "x": 4,
+        "y": 2
+      }
+    ],
+    "igloos": [
+      {
+        "id": "ga1",
+        "x": 4,
+        "y": 1,
+        "team": 0
+      },
+      {
+        "id": "gb1",
+        "x": 1,
+        "y": 4,
+        "team": 1
+      },
+      {
+        "id": "ga2",
+        "x": 4,
+        "y": 0,
+        "team": 0
+      },
+      {
+        "id": "gb2",
+        "x": 1,
+        "y": 5,
+        "team": 1
+      },
+      {
+        "id": "ga3",
+        "x": 0,
+        "y": 1,
+        "team": 0
+      },
+      {
+        "id": "gb3",
+        "x": 5,
+        "y": 4,
+        "team": 1
+      }
+    ]
+  },
+  {
+    "id": "duel-7",
+    "mode": "duel",
+    "grid": [
+      ".....",
+      "....#",
+      ".....",
+      ".....",
+      "#....",
+      "....."
+    ],
+    "penguins": [
+      {
+        "id": "a1",
+        "color": "blue",
+        "team": 0,
+        "dir": "left",
+        "x": 3,
+        "y": 4
+      },
+      {
+        "id": "b1",
+        "color": "orange",
+        "team": 1,
+        "dir": "right",
+        "x": 1,
+        "y": 1
+      },
+      {
+        "id": "a2",
+        "color": "blue",
+        "team": 0,
+        "dir": "left",
+        "x": 4,
+        "y": 4
+      },
+      {
+        "id": "b2",
+        "color": "orange",
+        "team": 1,
+        "dir": "right",
+        "x": 0,
+        "y": 1
+      },
+      {
+        "id": "a3",
+        "color": "blue",
+        "team": 0,
+        "dir": "left",
+        "x": 4,
+        "y": 3
+      },
+      {
+        "id": "b3",
+        "color": "orange",
+        "team": 1,
+        "dir": "right",
+        "x": 0,
+        "y": 2
+      }
+    ],
+    "igloos": [
+      {
+        "id": "ga1",
+        "x": 4,
+        "y": 0,
+        "team": 0
+      },
+      {
+        "id": "gb1",
+        "x": 0,
+        "y": 5,
+        "team": 1
+      },
+      {
+        "id": "ga2",
+        "x": 1,
+        "y": 2,
+        "team": 0
+      },
+      {
+        "id": "gb2",
+        "x": 3,
+        "y": 3,
+        "team": 1
+      },
+      {
+        "id": "ga3",
+        "x": 4,
+        "y": 2,
+        "team": 0
+      },
+      {
+        "id": "gb3",
+        "x": 0,
+        "y": 3,
+        "team": 1
+      }
+    ]
+  },
+  {
+    "id": "duel-8",
+    "mode": "duel",
+    "grid": [
+      ".....",
+      ".....",
+      ".....",
+      ".....",
+      ".....",
+      "....."
+    ],
+    "penguins": [
+      {
+        "id": "a1",
+        "color": "blue",
+        "team": 0,
+        "dir": "down",
+        "x": 3,
+        "y": 4
+      },
+      {
+        "id": "b1",
+        "color": "orange",
+        "team": 1,
+        "dir": "up",
+        "x": 1,
+        "y": 1
+      },
+      {
+        "id": "a2",
+        "color": "blue",
+        "team": 0,
+        "dir": "up",
+        "x": 0,
+        "y": 5
+      },
+      {
+        "id": "b2",
+        "color": "orange",
+        "team": 1,
+        "dir": "down",
+        "x": 4,
+        "y": 0
+      },
+      {
+        "id": "a3",
+        "color": "blue",
+        "team": 0,
+        "dir": "left",
+        "x": 2,
+        "y": 5
+      },
+      {
+        "id": "b3",
+        "color": "orange",
+        "team": 1,
+        "dir": "right",
+        "x": 2,
+        "y": 0
+      }
+    ],
+    "igloos": [
+      {
+        "id": "ga1",
+        "x": 0,
+        "y": 0,
+        "team": 0
+      },
+      {
+        "id": "gb1",
+        "x": 4,
+        "y": 5,
+        "team": 1
+      },
+      {
+        "id": "ga2",
+        "x": 3,
+        "y": 1,
+        "team": 0
+      },
+      {
+        "id": "gb2",
+        "x": 1,
+        "y": 4,
+        "team": 1
+      },
+      {
+        "id": "ga3",
+        "x": 2,
+        "y": 1,
+        "team": 0
+      },
+      {
+        "id": "gb3",
+        "x": 2,
+        "y": 4,
+        "team": 1
+      }
+    ]
+  },
+  {
+    "id": "duel-9",
+    "mode": "duel",
+    "grid": [
+      "....#",
+      ".#...",
+      ".....",
+      ".....",
+      ".....",
+      "...#.",
+      "#...."
+    ],
+    "penguins": [
+      {
+        "id": "a1",
+        "color": "blue",
+        "team": 0,
+        "dir": "up",
+        "x": 0,
+        "y": 4
+      },
+      {
+        "id": "b1",
+        "color": "orange",
+        "team": 1,
+        "dir": "down",
+        "x": 4,
+        "y": 2
+      },
+      {
+        "id": "a2",
+        "color": "blue",
+        "team": 0,
+        "dir": "down",
+        "x": 2,
+        "y": 5
+      },
+      {
+        "id": "b2",
+        "color": "orange",
+        "team": 1,
+        "dir": "up",
+        "x": 2,
+        "y": 1
+      },
+      {
+        "id": "a3",
+        "color": "blue",
+        "team": 0,
+        "dir": "left",
+        "x": 1,
+        "y": 5
+      },
+      {
+        "id": "b3",
+        "color": "orange",
+        "team": 1,
+        "dir": "right",
+        "x": 3,
+        "y": 1
+      }
+    ],
+    "igloos": [
+      {
+        "id": "ga1",
+        "x": 2,
+        "y": 0,
+        "team": 0
+      },
+      {
+        "id": "gb1",
+        "x": 2,
+        "y": 6,
+        "team": 1
+      },
+      {
+        "id": "ga2",
+        "x": 0,
+        "y": 1,
+        "team": 0
+      },
+      {
+        "id": "gb2",
+        "x": 4,
+        "y": 5,
+        "team": 1
+      },
+      {
+        "id": "ga3",
+        "x": 3,
+        "y": 2,
+        "team": 0
+      },
+      {
+        "id": "gb3",
+        "x": 1,
+        "y": 4,
+        "team": 1
+      }
+    ]
+  },
+  {
+    "id": "duel-10",
+    "mode": "duel",
+    "grid": [
+      "......",
+      "......",
+      "......",
+      "......",
+      "......",
+      "......",
+      "......",
+      "......"
+    ],
+    "penguins": [
+      {
+        "id": "a1",
+        "color": "blue",
+        "team": 0,
+        "dir": "up",
+        "x": 3,
+        "y": 5
+      },
+      {
+        "id": "b1",
+        "color": "orange",
+        "team": 1,
+        "dir": "down",
+        "x": 2,
+        "y": 2
+      },
+      {
+        "id": "a2",
+        "color": "blue",
+        "team": 0,
+        "dir": "left",
+        "x": 2,
+        "y": 4
+      },
+      {
+        "id": "b2",
+        "color": "orange",
+        "team": 1,
+        "dir": "right",
+        "x": 3,
+        "y": 3
+      },
+      {
+        "id": "a3",
+        "color": "blue",
+        "team": 0,
+        "dir": "down",
+        "x": 2,
+        "y": 6
+      },
+      {
+        "id": "b3",
+        "color": "orange",
+        "team": 1,
+        "dir": "up",
+        "x": 3,
+        "y": 1
+      }
+    ],
+    "igloos": [
+      {
+        "id": "ga1",
+        "x": 5,
+        "y": 0,
+        "team": 0
+      },
+      {
+        "id": "gb1",
+        "x": 0,
+        "y": 7,
+        "team": 1
+      },
+      {
+        "id": "ga2",
+        "x": 0,
+        "y": 2,
+        "team": 0
+      },
+      {
+        "id": "gb2",
+        "x": 5,
+        "y": 5,
+        "team": 1
+      },
+      {
+        "id": "ga3",
+        "x": 1,
+        "y": 3,
+        "team": 0
+      },
+      {
+        "id": "gb3",
+        "x": 4,
+        "y": 4,
+        "team": 1
+      }
+    ]
+  },
+  {
+    "id": "duel-11",
+    "mode": "duel",
+    "grid": [
+      "....#",
+      "#....",
+      ".....",
+      ".....",
+      ".....",
+      ".....",
+      "....#",
+      "#...."
+    ],
+    "penguins": [
+      {
+        "id": "a1",
+        "color": "blue",
+        "team": 0,
+        "dir": "up",
+        "x": 0,
+        "y": 4
+      },
+      {
+        "id": "b1",
+        "color": "orange",
+        "team": 1,
+        "dir": "down",
+        "x": 4,
+        "y": 3
+      },
+      {
+        "id": "a2",
+        "color": "blue",
+        "team": 0,
+        "dir": "left",
+        "x": 2,
+        "y": 4
+      },
+      {
+        "id": "b2",
+        "color": "orange",
+        "team": 1,
+        "dir": "right",
+        "x": 2,
+        "y": 3
+      },
+      {
+        "id": "a3",
+        "color": "blue",
+        "team": 0,
+        "dir": "down",
+        "x": 4,
+        "y": 7
+      },
+      {
+        "id": "b3",
+        "color": "orange",
+        "team": 1,
+        "dir": "up",
+        "x": 0,
+        "y": 0
+      }
+    ],
+    "igloos": [
+      {
+        "id": "ga1",
+        "x": 2,
+        "y": 2,
+        "team": 0
+      },
+      {
+        "id": "gb1",
+        "x": 2,
+        "y": 5,
+        "team": 1
+      },
+      {
+        "id": "ga2",
+        "x": 0,
+        "y": 2,
+        "team": 0
+      },
+      {
+        "id": "gb2",
+        "x": 4,
+        "y": 5,
+        "team": 1
+      },
+      {
+        "id": "ga3",
+        "x": 1,
+        "y": 1,
+        "team": 0
+      },
+      {
+        "id": "gb3",
+        "x": 3,
+        "y": 6,
+        "team": 1
+      }
+    ]
+  },
+  {
+    "id": "duel-12",
+    "mode": "duel",
+    "grid": [
+      "..~...",
+      "......",
+      "......",
+      "......",
+      "......",
+      "...~.."
+    ],
+    "penguins": [
+      {
+        "id": "a1",
+        "color": "blue",
+        "team": 0,
+        "dir": "up",
+        "x": 0,
+        "y": 4
+      },
+      {
+        "id": "b1",
+        "color": "orange",
+        "team": 1,
+        "dir": "down",
+        "x": 5,
+        "y": 1
+      },
+      {
+        "id": "a2",
+        "color": "blue",
+        "team": 0,
+        "dir": "down",
+        "x": 3,
+        "y": 3
+      },
+      {
+        "id": "b2",
+        "color": "orange",
+        "team": 1,
+        "dir": "up",
+        "x": 2,
+        "y": 2
+      },
+      {
+        "id": "a3",
+        "color": "blue",
+        "team": 0,
+        "dir": "left",
+        "x": 0,
+        "y": 3
+      },
+      {
+        "id": "b3",
+        "color": "orange",
+        "team": 1,
+        "dir": "right",
+        "x": 5,
+        "y": 2
+      }
+    ],
+    "igloos": [
+      {
+        "id": "ga1",
+        "x": 1,
+        "y": 0,
+        "team": 0
+      },
+      {
+        "id": "gb1",
+        "x": 4,
+        "y": 5,
+        "team": 1
+      },
+      {
+        "id": "ga2",
+        "x": 0,
+        "y": 1,
+        "team": 0
+      },
+      {
+        "id": "gb2",
+        "x": 5,
+        "y": 4,
+        "team": 1
+      },
+      {
+        "id": "ga3",
+        "x": 3,
+        "y": 2,
+        "team": 0
+      },
+      {
+        "id": "gb3",
+        "x": 2,
+        "y": 3,
+        "team": 1
+      }
+    ]
+  },
+  {
+    "id": "duel-13",
+    "mode": "duel",
+    "grid": [
+      "......",
+      "......",
+      "......",
+      "......",
+      "......",
+      "......",
+      "......",
+      "......"
+    ],
+    "penguins": [
+      {
+        "id": "a1",
+        "color": "blue",
+        "team": 0,
+        "dir": "up",
+        "x": 1,
+        "y": 4
+      },
+      {
+        "id": "b1",
+        "color": "orange",
+        "team": 1,
+        "dir": "down",
+        "x": 4,
+        "y": 3
+      },
+      {
+        "id": "a2",
+        "color": "blue",
+        "team": 0,
+        "dir": "down",
+        "x": 4,
+        "y": 6
+      },
+      {
+        "id": "b2",
+        "color": "orange",
+        "team": 1,
+        "dir": "up",
+        "x": 1,
+        "y": 1
+      },
+      {
+        "id": "a3",
+        "color": "blue",
+        "team": 0,
+        "dir": "down",
+        "x": 0,
+        "y": 4
+      },
+      {
+        "id": "b3",
+        "color": "orange",
+        "team": 1,
+        "dir": "up",
+        "x": 5,
+        "y": 3
+      }
+    ],
+    "igloos": [
+      {
+        "id": "ga1",
+        "x": 4,
+        "y": 0,
+        "team": 0
+      },
+      {
+        "id": "gb1",
+        "x": 1,
+        "y": 7,
+        "team": 1
+      },
+      {
+        "id": "ga2",
+        "x": 2,
+        "y": 2,
+        "team": 0
+      },
+      {
+        "id": "gb2",
+        "x": 3,
+        "y": 5,
+        "team": 1
+      },
+      {
+        "id": "ga3",
+        "x": 0,
+        "y": 2,
+        "team": 0
+      },
+      {
+        "id": "gb3",
+        "x": 5,
+        "y": 5,
+        "team": 1
+      }
+    ]
+  },
+  {
+    "id": "duel-14",
+    "mode": "duel",
+    "grid": [
+      "..~...",
+      "......",
+      "......",
+      "......",
+      "......",
+      "...~.."
+    ],
+    "penguins": [
+      {
+        "id": "a1",
+        "color": "blue",
+        "team": 0,
+        "dir": "up",
+        "x": 2,
+        "y": 5
+      },
+      {
+        "id": "b1",
+        "color": "orange",
+        "team": 1,
+        "dir": "down",
+        "x": 3,
+        "y": 0
+      },
+      {
+        "id": "a2",
+        "color": "blue",
+        "team": 0,
+        "dir": "left",
+        "x": 5,
+        "y": 4
+      },
+      {
+        "id": "b2",
+        "color": "orange",
+        "team": 1,
+        "dir": "right",
+        "x": 0,
+        "y": 1
+      },
+      {
+        "id": "a3",
+        "color": "blue",
+        "team": 0,
+        "dir": "up",
+        "x": 0,
+        "y": 5
+      },
+      {
+        "id": "b3",
+        "color": "orange",
+        "team": 1,
+        "dir": "down",
+        "x": 5,
+        "y": 0
+      }
+    ],
+    "igloos": [
+      {
+        "id": "ga1",
+        "x": 3,
+        "y": 1,
+        "team": 0
+      },
+      {
+        "id": "gb1",
+        "x": 2,
+        "y": 4,
+        "team": 1
+      },
+      {
+        "id": "ga2",
+        "x": 3,
+        "y": 2,
+        "team": 0
+      },
+      {
+        "id": "gb2",
+        "x": 2,
+        "y": 3,
+        "team": 1
+      },
+      {
+        "id": "ga3",
+        "x": 1,
+        "y": 0,
+        "team": 0
+      },
+      {
+        "id": "gb3",
+        "x": 4,
+        "y": 5,
+        "team": 1
+      }
+    ]
+  },
+  {
+    "id": "duel-15",
+    "mode": "duel",
+    "grid": [
+      ".#...",
+      ".....",
+      ".....",
+      ".....",
+      ".....",
+      "...#."
+    ],
+    "penguins": [
+      {
+        "id": "a1",
+        "color": "blue",
+        "team": 0,
+        "dir": "down",
+        "x": 0,
+        "y": 3
+      },
+      {
+        "id": "b1",
+        "color": "orange",
+        "team": 1,
+        "dir": "up",
+        "x": 4,
+        "y": 2
+      },
+      {
+        "id": "a2",
+        "color": "blue",
+        "team": 0,
+        "dir": "left",
+        "x": 1,
+        "y": 5
+      },
+      {
+        "id": "b2",
+        "color": "orange",
+        "team": 1,
+        "dir": "right",
+        "x": 3,
+        "y": 0
+      },
+      {
+        "id": "a3",
+        "color": "blue",
+        "team": 0,
+        "dir": "left",
+        "x": 3,
+        "y": 4
+      },
+      {
+        "id": "b3",
+        "color": "orange",
+        "team": 1,
+        "dir": "right",
+        "x": 1,
+        "y": 1
+      }
+    ],
+    "igloos": [
+      {
+        "id": "ga1",
+        "x": 0,
+        "y": 0,
+        "team": 0
+      },
+      {
+        "id": "gb1",
+        "x": 4,
+        "y": 5,
+        "team": 1
+      },
+      {
+        "id": "ga2",
+        "x": 2,
+        "y": 1,
+        "team": 0
+      },
+      {
+        "id": "gb2",
+        "x": 2,
+        "y": 4,
+        "team": 1
+      },
+      {
+        "id": "ga3",
+        "x": 3,
+        "y": 2,
+        "team": 0
+      },
+      {
+        "id": "gb3",
+        "x": 1,
+        "y": 3,
+        "team": 1
+      }
+    ]
+  },
+  {
+    "id": "duel-16",
+    "mode": "duel",
+    "grid": [
+      "......",
+      "......",
+      "......",
+      "......",
+      "......",
+      "......"
+    ],
+    "penguins": [
+      {
+        "id": "a1",
+        "color": "blue",
+        "team": 0,
+        "dir": "down",
+        "x": 2,
+        "y": 3
+      },
+      {
+        "id": "b1",
+        "color": "orange",
+        "team": 1,
+        "dir": "up",
+        "x": 3,
+        "y": 2
+      },
+      {
+        "id": "a2",
+        "color": "blue",
+        "team": 0,
+        "dir": "up",
+        "x": 0,
+        "y": 3
+      },
+      {
+        "id": "b2",
+        "color": "orange",
+        "team": 1,
+        "dir": "down",
+        "x": 5,
+        "y": 2
+      },
+      {
+        "id": "a3",
+        "color": "blue",
+        "team": 0,
+        "dir": "up",
+        "x": 3,
+        "y": 4
+      },
+      {
+        "id": "b3",
+        "color": "orange",
+        "team": 1,
+        "dir": "down",
+        "x": 2,
+        "y": 1
+      }
+    ],
+    "igloos": [
+      {
+        "id": "ga1",
+        "x": 0,
+        "y": 0,
+        "team": 0
+      },
+      {
+        "id": "gb1",
+        "x": 5,
+        "y": 5,
+        "team": 1
+      },
+      {
+        "id": "ga2",
+        "x": 1,
+        "y": 1,
+        "team": 0
+      },
+      {
+        "id": "gb2",
+        "x": 4,
+        "y": 4,
+        "team": 1
+      },
+      {
+        "id": "ga3",
+        "x": 5,
+        "y": 0,
+        "team": 0
+      },
+      {
+        "id": "gb3",
+        "x": 0,
+        "y": 5,
+        "team": 1
+      }
+    ]
+  },
+  {
+    "id": "duel-17",
+    "mode": "duel",
+    "grid": [
+      "...~..",
+      "......",
+      "....#.",
+      "......",
+      "......",
+      ".#....",
+      "......",
+      "..~..."
+    ],
+    "penguins": [
+      {
+        "id": "a1",
+        "color": "blue",
+        "team": 0,
+        "dir": "left",
+        "x": 5,
+        "y": 5
+      },
+      {
+        "id": "b1",
+        "color": "orange",
+        "team": 1,
+        "dir": "right",
+        "x": 0,
+        "y": 2
+      },
+      {
+        "id": "a2",
+        "color": "blue",
+        "team": 0,
+        "dir": "up",
+        "x": 2,
+        "y": 6
+      },
+      {
+        "id": "b2",
+        "color": "orange",
+        "team": 1,
+        "dir": "down",
+        "x": 3,
+        "y": 1
+      },
+      {
+        "id": "a3",
+        "color": "blue",
+        "team": 0,
+        "dir": "left",
+        "x": 3,
+        "y": 4
+      },
+      {
+        "id": "b3",
+        "color": "orange",
+        "team": 1,
+        "dir": "right",
+        "x": 2,
+        "y": 3
+      }
+    ],
+    "igloos": [
+      {
+        "id": "ga1",
+        "x": 2,
+        "y": 2,
+        "team": 0
+      },
+      {
+        "id": "gb1",
+        "x": 3,
+        "y": 5,
+        "team": 1
+      },
+      {
+        "id": "ga2",
+        "x": 4,
+        "y": 3,
+        "team": 0
+      },
+      {
+        "id": "gb2",
+        "x": 1,
+        "y": 4,
+        "team": 1
+      },
+      {
+        "id": "ga3",
+        "x": 3,
+        "y": 3,
+        "team": 0
+      },
+      {
+        "id": "gb3",
+        "x": 2,
+        "y": 4,
+        "team": 1
+      }
+    ]
+  },
+  {
+    "id": "duel-18",
+    "mode": "duel",
+    "grid": [
+      ".....",
+      ".....",
+      ".#...",
+      ".....",
+      ".....",
+      "...#.",
+      ".....",
+      "....."
+    ],
+    "penguins": [
+      {
+        "id": "a1",
+        "color": "blue",
+        "team": 0,
+        "dir": "up",
+        "x": 2,
+        "y": 5
+      },
+      {
+        "id": "b1",
+        "color": "orange",
+        "team": 1,
+        "dir": "down",
+        "x": 2,
+        "y": 2
+      },
+      {
+        "id": "a2",
+        "color": "blue",
+        "team": 0,
+        "dir": "up",
+        "x": 0,
+        "y": 5
+      },
+      {
+        "id": "b2",
+        "color": "orange",
+        "team": 1,
+        "dir": "down",
+        "x": 4,
+        "y": 2
+      },
+      {
+        "id": "a3",
+        "color": "blue",
+        "team": 0,
+        "dir": "down",
+        "x": 1,
+        "y": 6
+      },
+      {
+        "id": "b3",
+        "color": "orange",
+        "team": 1,
+        "dir": "up",
+        "x": 3,
+        "y": 1
+      }
+    ],
+    "igloos": [
+      {
+        "id": "ga1",
+        "x": 4,
+        "y": 0,
+        "team": 0
+      },
+      {
+        "id": "gb1",
+        "x": 0,
+        "y": 7,
+        "team": 1
+      },
+      {
+        "id": "ga2",
+        "x": 1,
+        "y": 0,
+        "team": 0
+      },
+      {
+        "id": "gb2",
+        "x": 3,
+        "y": 7,
+        "team": 1
+      },
+      {
+        "id": "ga3",
+        "x": 1,
+        "y": 3,
+        "team": 0
+      },
+      {
+        "id": "gb3",
+        "x": 3,
+        "y": 4,
+        "team": 1
+      }
+    ]
+  },
+  {
+    "id": "duel-19",
+    "mode": "duel",
+    "grid": [
+      "......",
+      "....~.",
+      "......",
+      "......",
+      "......",
+      "......",
+      ".~....",
+      "......"
+    ],
+    "penguins": [
+      {
+        "id": "a1",
+        "color": "blue",
+        "team": 0,
+        "dir": "up",
+        "x": 2,
+        "y": 6
+      },
+      {
+        "id": "b1",
+        "color": "orange",
+        "team": 1,
+        "dir": "down",
+        "x": 3,
+        "y": 1
+      },
+      {
+        "id": "a2",
+        "color": "blue",
+        "team": 0,
+        "dir": "up",
+        "x": 4,
+        "y": 4
+      },
+      {
+        "id": "b2",
+        "color": "orange",
+        "team": 1,
+        "dir": "down",
+        "x": 1,
+        "y": 3
+      },
+      {
+        "id": "a3",
+        "color": "blue",
+        "team": 0,
+        "dir": "left",
+        "x": 2,
+        "y": 4
+      },
+      {
+        "id": "b3",
+        "color": "orange",
+        "team": 1,
+        "dir": "right",
+        "x": 3,
+        "y": 3
+      }
+    ],
+    "igloos": [
+      {
+        "id": "ga1",
+        "x": 5,
+        "y": 1,
+        "team": 0
+      },
+      {
+        "id": "gb1",
+        "x": 0,
+        "y": 6,
+        "team": 1
+      },
+      {
+        "id": "ga2",
+        "x": 5,
+        "y": 2,
+        "team": 0
+      },
+      {
+        "id": "gb2",
+        "x": 0,
+        "y": 5,
+        "team": 1
+      },
+      {
+        "id": "ga3",
+        "x": 0,
+        "y": 0,
+        "team": 0
+      },
+      {
+        "id": "gb3",
+        "x": 5,
+        "y": 7,
+        "team": 1
+      }
+    ]
+  },
+  {
+    "id": "duel-20",
+    "mode": "duel",
+    "grid": [
+      "......",
+      "......",
+      "......",
+      "......",
+      "......",
+      "......",
+      "......"
+    ],
+    "penguins": [
+      {
+        "id": "a1",
+        "color": "blue",
+        "team": 0,
+        "dir": "up",
+        "x": 3,
+        "y": 6
+      },
+      {
+        "id": "b1",
+        "color": "orange",
+        "team": 1,
+        "dir": "down",
+        "x": 2,
+        "y": 0
+      },
+      {
+        "id": "a2",
+        "color": "blue",
+        "team": 0,
+        "dir": "up",
+        "x": 1,
+        "y": 4
+      },
+      {
+        "id": "b2",
+        "color": "orange",
+        "team": 1,
+        "dir": "down",
+        "x": 4,
+        "y": 2
+      },
+      {
+        "id": "a3",
+        "color": "blue",
+        "team": 0,
+        "dir": "down",
+        "x": 1,
+        "y": 5
+      },
+      {
+        "id": "b3",
+        "color": "orange",
+        "team": 1,
+        "dir": "up",
+        "x": 4,
+        "y": 1
+      }
+    ],
+    "igloos": [
+      {
+        "id": "ga1",
+        "x": 4,
+        "y": 0,
+        "team": 0
+      },
+      {
+        "id": "gb1",
+        "x": 1,
+        "y": 6,
+        "team": 1
+      },
+      {
+        "id": "ga2",
+        "x": 3,
+        "y": 2,
+        "team": 0
+      },
+      {
+        "id": "gb2",
+        "x": 2,
+        "y": 4,
+        "team": 1
+      },
+      {
+        "id": "ga3",
+        "x": 0,
+        "y": 2,
+        "team": 0
+      },
+      {
+        "id": "gb3",
+        "x": 5,
+        "y": 4,
+        "team": 1
+      }
+    ]
+  },
+  {
+    "id": "duel-21",
+    "mode": "duel",
+    "grid": [
+      ".....",
+      ".....",
+      ".....",
+      ".....",
+      ".....",
+      ".....",
+      "....."
+    ],
+    "penguins": [
+      {
+        "id": "a1",
+        "color": "blue",
+        "team": 0,
+        "dir": "up",
+        "x": 2,
+        "y": 6
+      },
+      {
+        "id": "b1",
+        "color": "orange",
+        "team": 1,
+        "dir": "down",
+        "x": 2,
+        "y": 0
+      },
+      {
+        "id": "a2",
+        "color": "blue",
+        "team": 0,
+        "dir": "up",
+        "x": 1,
+        "y": 6
+      },
+      {
+        "id": "b2",
+        "color": "orange",
+        "team": 1,
+        "dir": "down",
+        "x": 3,
+        "y": 0
+      },
+      {
+        "id": "a3",
+        "color": "blue",
+        "team": 0,
+        "dir": "down",
+        "x": 4,
+        "y": 4
+      },
+      {
+        "id": "b3",
+        "color": "orange",
+        "team": 1,
+        "dir": "up",
+        "x": 0,
+        "y": 2
+      }
+    ],
+    "igloos": [
+      {
+        "id": "ga1",
+        "x": 4,
+        "y": 2,
+        "team": 0
+      },
+      {
+        "id": "gb1",
+        "x": 0,
+        "y": 4,
+        "team": 1
+      },
+      {
+        "id": "ga2",
+        "x": 4,
+        "y": 0,
+        "team": 0
+      },
+      {
+        "id": "gb2",
+        "x": 0,
+        "y": 6,
+        "team": 1
+      },
+      {
+        "id": "ga3",
+        "x": 1,
+        "y": 1,
+        "team": 0
+      },
+      {
+        "id": "gb3",
+        "x": 3,
+        "y": 5,
+        "team": 1
+      }
+    ]
+  },
+  {
+    "id": "duel-22",
+    "mode": "duel",
+    "grid": [
+      "......",
+      "......",
+      "......",
+      "......",
+      "......",
+      "......"
+    ],
+    "penguins": [
+      {
+        "id": "a1",
+        "color": "blue",
+        "team": 0,
+        "dir": "left",
+        "x": 3,
+        "y": 3
+      },
+      {
+        "id": "b1",
+        "color": "orange",
+        "team": 1,
+        "dir": "right",
+        "x": 2,
+        "y": 2
+      },
+      {
+        "id": "a2",
+        "color": "blue",
+        "team": 0,
+        "dir": "left",
+        "x": 0,
+        "y": 4
+      },
+      {
+        "id": "b2",
+        "color": "orange",
+        "team": 1,
+        "dir": "right",
+        "x": 5,
+        "y": 1
+      },
+      {
+        "id": "a3",
+        "color": "blue",
+        "team": 0,
+        "dir": "down",
+        "x": 3,
+        "y": 5
+      },
+      {
+        "id": "b3",
+        "color": "orange",
+        "team": 1,
+        "dir": "up",
+        "x": 2,
+        "y": 0
+      }
+    ],
+    "igloos": [
+      {
+        "id": "ga1",
+        "x": 4,
+        "y": 0,
+        "team": 0
+      },
+      {
+        "id": "gb1",
+        "x": 1,
+        "y": 5,
+        "team": 1
+      },
+      {
+        "id": "ga2",
+        "x": 0,
+        "y": 2,
+        "team": 0
+      },
+      {
+        "id": "gb2",
+        "x": 5,
+        "y": 3,
+        "team": 1
+      },
+      {
+        "id": "ga3",
+        "x": 2,
+        "y": 1,
+        "team": 0
+      },
+      {
+        "id": "gb3",
+        "x": 3,
+        "y": 4,
+        "team": 1
+      }
+    ]
+  },
+  {
+    "id": "duel-23",
+    "mode": "duel",
+    "grid": [
+      ".....",
+      ".....",
+      ".....",
+      ".....",
+      ".....",
+      "....."
+    ],
+    "penguins": [
+      {
+        "id": "a1",
+        "color": "blue",
+        "team": 0,
+        "dir": "left",
+        "x": 0,
+        "y": 4
+      },
+      {
+        "id": "b1",
+        "color": "orange",
+        "team": 1,
+        "dir": "right",
+        "x": 4,
+        "y": 1
+      },
+      {
+        "id": "a2",
+        "color": "blue",
+        "team": 0,
+        "dir": "left",
+        "x": 4,
+        "y": 4
+      },
+      {
+        "id": "b2",
+        "color": "orange",
+        "team": 1,
+        "dir": "right",
+        "x": 0,
+        "y": 1
+      },
+      {
+        "id": "a3",
+        "color": "blue",
+        "team": 0,
+        "dir": "left",
+        "x": 1,
+        "y": 4
+      },
+      {
+        "id": "b3",
+        "color": "orange",
+        "team": 1,
+        "dir": "right",
+        "x": 3,
+        "y": 1
+      }
+    ],
+    "igloos": [
+      {
+        "id": "ga1",
+        "x": 2,
+        "y": 0,
+        "team": 0
+      },
+      {
+        "id": "gb1",
+        "x": 2,
+        "y": 5,
+        "team": 1
+      },
+      {
+        "id": "ga2",
+        "x": 1,
+        "y": 0,
+        "team": 0
+      },
+      {
+        "id": "gb2",
+        "x": 3,
+        "y": 5,
+        "team": 1
+      },
+      {
+        "id": "ga3",
+        "x": 0,
+        "y": 0,
+        "team": 0
+      },
+      {
+        "id": "gb3",
+        "x": 4,
+        "y": 5,
+        "team": 1
+      }
+    ]
+  },
+  {
+    "id": "duel-24",
+    "mode": "duel",
+    "grid": [
+      "~.....",
+      "......",
+      "......",
+      "......",
+      "......",
+      ".....~"
+    ],
+    "penguins": [
+      {
+        "id": "a1",
+        "color": "blue",
+        "team": 0,
+        "dir": "left",
+        "x": 2,
+        "y": 5
+      },
+      {
+        "id": "b1",
+        "color": "orange",
+        "team": 1,
+        "dir": "right",
+        "x": 3,
+        "y": 0
+      },
+      {
+        "id": "a2",
+        "color": "blue",
+        "team": 0,
+        "dir": "left",
+        "x": 4,
+        "y": 5
+      },
+      {
+        "id": "b2",
+        "color": "orange",
+        "team": 1,
+        "dir": "right",
+        "x": 1,
+        "y": 0
+      },
+      {
+        "id": "a3",
+        "color": "blue",
+        "team": 0,
+        "dir": "down",
+        "x": 0,
+        "y": 4
+      },
+      {
+        "id": "b3",
+        "color": "orange",
+        "team": 1,
+        "dir": "up",
+        "x": 5,
+        "y": 1
+      }
+    ],
+    "igloos": [
+      {
+        "id": "ga1",
+        "x": 2,
+        "y": 1,
+        "team": 0
+      },
+      {
+        "id": "gb1",
+        "x": 3,
+        "y": 4,
+        "team": 1
+      },
+      {
+        "id": "ga2",
+        "x": 1,
+        "y": 1,
+        "team": 0
+      },
+      {
+        "id": "gb2",
+        "x": 4,
+        "y": 4,
+        "team": 1
+      },
+      {
+        "id": "ga3",
+        "x": 0,
+        "y": 2,
+        "team": 0
+      },
+      {
+        "id": "gb3",
+        "x": 5,
+        "y": 3,
+        "team": 1
+      }
+    ]
+  },
+  {
+    "id": "duel-25",
+    "mode": "duel",
+    "grid": [
+      "~....",
+      ".....",
+      ".....",
+      ".....",
+      ".....",
+      ".....",
+      "....~"
+    ],
+    "penguins": [
+      {
+        "id": "a1",
+        "color": "blue",
+        "team": 0,
+        "dir": "left",
+        "x": 4,
+        "y": 5
+      },
+      {
+        "id": "b1",
+        "color": "orange",
+        "team": 1,
+        "dir": "right",
+        "x": 0,
+        "y": 1
+      },
+      {
+        "id": "a2",
+        "color": "blue",
+        "team": 0,
+        "dir": "up",
+        "x": 3,
+        "y": 5
+      },
+      {
+        "id": "b2",
+        "color": "orange",
+        "team": 1,
+        "dir": "down",
+        "x": 1,
+        "y": 1
+      },
+      {
+        "id": "a3",
+        "color": "blue",
+        "team": 0,
+        "dir": "left",
+        "x": 2,
+        "y": 5
+      },
+      {
+        "id": "b3",
+        "color": "orange",
+        "team": 1,
+        "dir": "right",
+        "x": 2,
+        "y": 1
+      }
+    ],
+    "igloos": [
+      {
+        "id": "ga1",
+        "x": 3,
+        "y": 1,
+        "team": 0
+      },
+      {
+        "id": "gb1",
+        "x": 1,
+        "y": 5,
+        "team": 1
+      },
+      {
+        "id": "ga2",
+        "x": 4,
+        "y": 2,
+        "team": 0
+      },
+      {
+        "id": "gb2",
+        "x": 0,
+        "y": 4,
+        "team": 1
+      },
+      {
+        "id": "ga3",
+        "x": 2,
+        "y": 0,
+        "team": 0
+      },
+      {
+        "id": "gb3",
+        "x": 2,
+        "y": 6,
+        "team": 1
+      }
+    ]
+  },
+  {
+    "id": "duel-26",
+    "mode": "duel",
+    "grid": [
+      "#.~#..",
+      "...#..",
+      "......",
+      "......",
+      "..#...",
+      "..#~.#"
+    ],
+    "penguins": [
+      {
+        "id": "a1",
+        "color": "blue",
+        "team": 0,
+        "dir": "left",
+        "x": 1,
+        "y": 3
+      },
+      {
+        "id": "b1",
+        "color": "orange",
+        "team": 1,
+        "dir": "right",
+        "x": 4,
+        "y": 2
+      },
+      {
+        "id": "a2",
+        "color": "blue",
+        "team": 0,
+        "dir": "down",
+        "x": 4,
+        "y": 4
+      },
+      {
+        "id": "b2",
+        "color": "orange",
+        "team": 1,
+        "dir": "up",
+        "x": 1,
+        "y": 1
+      },
+      {
+        "id": "a3",
+        "color": "blue",
+        "team": 0,
+        "dir": "left",
+        "x": 4,
+        "y": 3
+      },
+      {
+        "id": "b3",
+        "color": "orange",
+        "team": 1,
+        "dir": "right",
+        "x": 1,
+        "y": 2
+      }
+    ],
+    "igloos": [
+      {
+        "id": "ga1",
+        "x": 2,
+        "y": 1,
+        "team": 0
+      },
+      {
+        "id": "gb1",
+        "x": 3,
+        "y": 4,
+        "team": 1
+      },
+      {
+        "id": "ga2",
+        "x": 4,
+        "y": 1,
+        "team": 0
+      },
+      {
+        "id": "gb2",
+        "x": 1,
+        "y": 4,
+        "team": 1
+      },
+      {
+        "id": "ga3",
+        "x": 0,
+        "y": 1,
+        "team": 0
+      },
+      {
+        "id": "gb3",
+        "x": 5,
+        "y": 4,
+        "team": 1
+      }
+    ]
+  },
+  {
+    "id": "duel-27",
+    "mode": "duel",
+    "grid": [
+      "......",
+      ".....#",
+      "......",
+      "......",
+      "......",
+      "......",
+      "#.....",
+      "......"
+    ],
+    "penguins": [
+      {
+        "id": "a1",
+        "color": "blue",
+        "team": 0,
+        "dir": "up",
+        "x": 3,
+        "y": 6
+      },
+      {
+        "id": "b1",
+        "color": "orange",
+        "team": 1,
+        "dir": "down",
+        "x": 2,
+        "y": 1
+      },
+      {
+        "id": "a2",
+        "color": "blue",
+        "team": 0,
+        "dir": "left",
+        "x": 1,
+        "y": 7
+      },
+      {
+        "id": "b2",
+        "color": "orange",
+        "team": 1,
+        "dir": "right",
+        "x": 4,
+        "y": 0
+      },
+      {
+        "id": "a3",
+        "color": "blue",
+        "team": 0,
+        "dir": "left",
+        "x": 2,
+        "y": 6
+      },
+      {
+        "id": "b3",
+        "color": "orange",
+        "team": 1,
+        "dir": "right",
+        "x": 3,
+        "y": 1
+      }
+    ],
+    "igloos": [
+      {
+        "id": "ga1",
+        "x": 5,
+        "y": 0,
+        "team": 0
+      },
+      {
+        "id": "gb1",
+        "x": 0,
+        "y": 7,
+        "team": 1
+      },
+      {
+        "id": "ga2",
+        "x": 1,
+        "y": 2,
+        "team": 0
+      },
+      {
+        "id": "gb2",
+        "x": 4,
+        "y": 5,
+        "team": 1
+      },
+      {
+        "id": "ga3",
+        "x": 3,
+        "y": 3,
+        "team": 0
+      },
+      {
+        "id": "gb3",
+        "x": 2,
+        "y": 4,
+        "team": 1
+      }
+    ]
+  },
+  {
+    "id": "duel-28",
+    "mode": "duel",
+    "grid": [
+      ".....",
+      ".....",
+      ".....",
+      "..#..",
+      "..#..",
+      ".....",
+      ".....",
+      "....."
+    ],
+    "penguins": [
+      {
+        "id": "a1",
+        "color": "blue",
+        "team": 0,
+        "dir": "left",
+        "x": 1,
+        "y": 7
+      },
+      {
+        "id": "b1",
+        "color": "orange",
+        "team": 1,
+        "dir": "right",
+        "x": 3,
+        "y": 0
+      },
+      {
+        "id": "a2",
+        "color": "blue",
+        "team": 0,
+        "dir": "up",
+        "x": 1,
+        "y": 4
+      },
+      {
+        "id": "b2",
+        "color": "orange",
+        "team": 1,
+        "dir": "down",
+        "x": 3,
+        "y": 3
+      },
+      {
+        "id": "a3",
+        "color": "blue",
+        "team": 0,
+        "dir": "left",
+        "x": 1,
+        "y": 5
+      },
+      {
+        "id": "b3",
+        "color": "orange",
+        "team": 1,
+        "dir": "right",
+        "x": 3,
+        "y": 2
+      }
+    ],
+    "igloos": [
+      {
+        "id": "ga1",
+        "x": 0,
+        "y": 0,
+        "team": 0
+      },
+      {
+        "id": "gb1",
+        "x": 4,
+        "y": 7,
+        "team": 1
+      },
+      {
+        "id": "ga2",
+        "x": 4,
+        "y": 2,
+        "team": 0
+      },
+      {
+        "id": "gb2",
+        "x": 0,
+        "y": 5,
+        "team": 1
+      },
+      {
+        "id": "ga3",
+        "x": 4,
+        "y": 0,
+        "team": 0
+      },
+      {
+        "id": "gb3",
+        "x": 0,
+        "y": 7,
+        "team": 1
+      }
+    ]
+  },
+  {
+    "id": "duel-29",
+    "mode": "duel",
+    "grid": [
+      ".....",
+      "~....",
+      ".....",
+      ".....",
+      ".....",
+      "....~",
+      "....."
+    ],
+    "penguins": [
+      {
+        "id": "a1",
+        "color": "blue",
+        "team": 0,
+        "dir": "up",
+        "x": 3,
+        "y": 5
+      },
+      {
+        "id": "b1",
+        "color": "orange",
+        "team": 1,
+        "dir": "down",
+        "x": 1,
+        "y": 1
+      },
+      {
+        "id": "a2",
+        "color": "blue",
+        "team": 0,
+        "dir": "left",
+        "x": 4,
+        "y": 4
+      },
+      {
+        "id": "b2",
+        "color": "orange",
+        "team": 1,
+        "dir": "right",
+        "x": 0,
+        "y": 2
+      },
+      {
+        "id": "a3",
+        "color": "blue",
+        "team": 0,
+        "dir": "up",
+        "x": 3,
+        "y": 4
+      },
+      {
+        "id": "b3",
+        "color": "orange",
+        "team": 1,
+        "dir": "down",
+        "x": 1,
+        "y": 2
+      }
+    ],
+    "igloos": [
+      {
+        "id": "ga1",
+        "x": 4,
+        "y": 2,
+        "team": 0
+      },
+      {
+        "id": "gb1",
+        "x": 0,
+        "y": 4,
+        "team": 1
+      },
+      {
+        "id": "ga2",
+        "x": 1,
+        "y": 0,
+        "team": 0
+      },
+      {
+        "id": "gb2",
+        "x": 3,
+        "y": 6,
+        "team": 1
+      },
+      {
+        "id": "ga3",
+        "x": 4,
+        "y": 1,
+        "team": 0
+      },
+      {
+        "id": "gb3",
+        "x": 0,
+        "y": 5,
+        "team": 1
+      }
+    ]
+  },
+  {
+    "id": "duel-30",
+    "mode": "duel",
+    "grid": [
+      "#...#",
+      ".....",
+      ".....",
+      ".....",
+      ".....",
+      "#...#"
+    ],
+    "penguins": [
+      {
+        "id": "a1",
+        "color": "blue",
+        "team": 0,
+        "dir": "up",
+        "x": 1,
+        "y": 3
+      },
+      {
+        "id": "b1",
+        "color": "orange",
+        "team": 1,
+        "dir": "down",
+        "x": 3,
+        "y": 2
+      },
+      {
+        "id": "a2",
+        "color": "blue",
+        "team": 0,
+        "dir": "left",
+        "x": 1,
+        "y": 4
+      },
+      {
+        "id": "b2",
+        "color": "orange",
+        "team": 1,
+        "dir": "right",
+        "x": 3,
+        "y": 1
+      },
+      {
+        "id": "a3",
+        "color": "blue",
+        "team": 0,
+        "dir": "left",
+        "x": 2,
+        "y": 4
+      },
+      {
+        "id": "b3",
+        "color": "orange",
+        "team": 1,
+        "dir": "right",
+        "x": 2,
+        "y": 1
+      }
+    ],
+    "igloos": [
+      {
+        "id": "ga1",
+        "x": 3,
+        "y": 0,
+        "team": 0
+      },
+      {
+        "id": "gb1",
+        "x": 1,
+        "y": 5,
+        "team": 1
+      },
+      {
+        "id": "ga2",
+        "x": 1,
+        "y": 1,
+        "team": 0
+      },
+      {
+        "id": "gb2",
+        "x": 3,
+        "y": 4,
+        "team": 1
+      },
+      {
+        "id": "ga3",
+        "x": 0,
+        "y": 1,
+        "team": 0
+      },
+      {
+        "id": "gb3",
+        "x": 4,
+        "y": 4,
+        "team": 1
+      }
+    ]
+  }
+]

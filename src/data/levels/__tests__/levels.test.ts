@@ -3,30 +3,46 @@ import { characters } from '@/data/characters';
 import { createGame, legalMoves, replay, stageLevel, waveCount } from '@/engine';
 import { analyzeLevel, solve } from '@/solver';
 
+import { antarctica } from '@/data/continents';
 import { getMechanic, mechanics } from '@/data/mechanics';
 
 import { FORGIVING_LEVELS, levels, levelSections } from '../index';
 
-describe('Dünya 1 yapısı', () => {
-  it('30 bölüm: 10 sabit yön, 10 çarpınca dön, 10 dalgalı', () => {
-    expect(levels).toHaveLength(30);
-    expect(levelSections.map((s) => [s.key, s.first, s.levels.length])).toEqual([
-      ['A', 1, 10],
-      ['B', 11, 10],
-      ['C', 21, 10],
+describe('Antarktika yapısı', () => {
+  it('90 bölüm: üç macera, her biri 10 bölümlük üç bölge', () => {
+    expect(levels).toHaveLength(90);
+    expect(levelSections.map((s) => [s.episode, s.key, s.first, s.levels.length])).toEqual([
+      [1, 'A', 1, 10],
+      [1, 'B', 11, 10],
+      [1, 'C', 21, 10],
+      [2, 'A', 31, 10],
+      [2, 'B', 41, 10],
+      [2, 'C', 51, 10],
+      [3, 'A', 61, 10],
+      [3, 'B', 71, 10],
+      [3, 'C', 81, 10],
     ]);
-    expect(levels.map((l) => l.id)).toEqual(Array.from({ length: 30 }, (_, i) => String(i + 1)));
+    expect(levels.map((l) => l.id)).toEqual(Array.from({ length: 90 }, (_, i) => String(i + 1)));
+    for (const section of levelSections) {
+      for (const level of section.levels) expect(level.world).toBe(section.episode);
+    }
   });
 
-  it('kurallar bölümlere göre: A kapalı, B ve C "çarpınca dön"', () => {
+  it('kıta tanımı katalogla uyumlu: her maceranın bölüm sayısı tutar', () => {
+    for (const episode of antarctica.episodes) {
+      expect(levels.filter((l) => l.world === episode.id)).toHaveLength(episode.levelCount);
+    }
+  });
+
+  it('kurallar: yalnızca Macera 1 A sabit yön, gerisi "çarpınca dön"', () => {
     for (const section of levelSections) {
       for (const level of section.levels) {
-        expect(createGame(level).rules.turnOnBump).toBe(section.key !== 'A');
+        expect(createGame(level).rules.turnOnBump).toBe(!(section.episode === 1 && section.key === 'A'));
       }
     }
   });
 
-  it('dalgalar yalnızca C bölümünde; her C bölümü en az 4 dalga', () => {
+  it('dalgalar yalnızca C bölgelerinde; her C bölümü en az 4 dalga', () => {
     for (const section of levelSections) {
       for (const level of section.levels) {
         if (section.key === 'C') {
@@ -39,10 +55,35 @@ describe('Dünya 1 yapısı', () => {
     }
   });
 
+  it('mekanikler macerasında başlar: çatlak buz 31\'den, uyuyan penguen 61\'den önce yok', () => {
+    for (const level of levels) {
+      const number = Number(level.id);
+      const stages = Array.from({ length: waveCount(level) }, (_, i) => stageLevel(level, i));
+      const cracked = level.grid.some((row) => row.includes('+'));
+      const asleep = stages.some((stage) => stage.penguins.some((p) => p.asleep));
+      if (number <= 30) expect(cracked).toBe(false);
+      if (number <= 60) expect(asleep).toBe(false);
+      // Macera 2'nin dalgasız bölümlerinin hepsinde çatlak buz var.
+      if (number > 30 && number <= 50) expect(cracked).toBe(true);
+      // Macera 3'ün dalgasız bölümlerinin hepsinde bir uykucu var.
+      if (number > 60 && number <= 80) expect(asleep).toBe(true);
+    }
+  });
+
+  it('uykucular: her aşamada en az bir uyanık penguen var', () => {
+    for (const level of levels) {
+      for (let i = 0; i < waveCount(level); i++) {
+        expect(stageLevel(level, i).penguins.some((p) => !p.asleep)).toBe(true);
+      }
+    }
+  });
+
   it('yeni mekanik ilk bölümünde tanıtılır ve tanıtımı tanımlıdır', () => {
     expect(levels.filter((l) => l.intro).map((l) => [l.id, l.intro])).toEqual([
       ['11', 'turn'],
       ['21', 'waves'],
+      ['31', 'cracked'],
+      ['61', 'sleep'],
     ]);
     for (const level of levels) if (level.intro) expect(getMechanic(level.intro)).toBeDefined();
   });

@@ -23,7 +23,7 @@ export default function LevelsViewer() {
   const packs = useMemo(
     () =>
       levelSections.map((section) => ({
-        title: t(`dev.section${section.key}`),
+        title: `${t('map.episode', { n: section.episode })} · ${section.key} · ${t(section.titleKey)}`,
         first: section.first,
         // Dalgalı bölümlerde ölçüt dalga başınadır; kartta toplam gösterilir.
         // Büyük durum uzaylı bölümlerde ölçüm cihazı yormasın diye sınırlı.

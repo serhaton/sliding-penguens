@@ -51,13 +51,6 @@ const CONTINENT = 1800;
 const OCEAN = 300;
 const CONTENT = CONTINENT + OCEAN * 2;
 
-/** Episode 1'in bölgeleri (A, B, C): renk ve ad. */
-const SECTION_STYLE: Record<string, { color: PenguinColor; titleKey: TranslationKey }> = {
-  A: { color: 'blue', titleKey: 'map.sectionA' },
-  B: { color: 'purple', titleKey: 'map.sectionB' },
-  C: { color: 'green', titleKey: 'map.sectionC' },
-};
-
 const NODE = 60;
 const CURRENT_NODE = 72;
 const DOT = 10;
@@ -74,16 +67,15 @@ interface MapNode {
   sectionTitleKey?: TranslationKey;
 }
 
-/** Hazır bölümler, yol sırasıyla (şimdilik yalnızca Episode 1). */
-const MAP_NODES: readonly MapNode[] = levelSections.flatMap((section) => {
-  const style = SECTION_STYLE[section.key]!;
-  return section.levels.map((level, i) => ({
+/** Hazır bölümler, yol sırasıyla. Her bölge (A, B, C) kendi rengini ve adını taşır. */
+const MAP_NODES: readonly MapNode[] = levelSections.flatMap((section) =>
+  section.levels.map((level, i) => ({
     id: level.id,
     number: section.first + i,
-    color: style.color,
-    sectionTitleKey: i === 0 ? style.titleKey : undefined,
-  }));
-});
+    color: section.color,
+    sectionTitleKey: i === 0 ? section.titleKey : undefined,
+  })),
+);
 
 const EPISODES = antarctica.episodes;
 
@@ -326,7 +318,7 @@ export function WorldMap({ progress, character = 'piti', onOpenLevel, stayFar = 
         );
       })}
 
-      {/* Bölge adları (Episode 1'in A, B, C bölgeleri) */}
+      {/* Bölge adları (her maceranın A, B, C bölgeleri) */}
       {MAP_NODES.map((node, i) => {
         if (!node.sectionTitleKey) return null;
         const point = LAYOUT.nodes[i]!;

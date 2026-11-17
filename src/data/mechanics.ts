@@ -9,7 +9,7 @@
 import type { LevelDef } from '@/engine';
 import type { TranslationKey } from '@/i18n';
 
-export type MechanicId = 'turn' | 'waves';
+export type MechanicId = 'turn' | 'waves' | 'cracked' | 'sleep';
 
 export interface MechanicIntro {
   id: MechanicId;
@@ -51,6 +51,46 @@ export const mechanics: Record<MechanicId, MechanicIntro> = {
       waves: [[{ id: 'nar', character: 'nar', color: 'red', dir: 'up', x: 1, y: 2 }]],
     },
     script: ['piti', 'nar'],
+  },
+
+  // Çatlak buz: Nar geçince buz kırılır; Pıtı suyun önünde durur, dönüp yuvasına iner.
+  cracked: {
+    id: 'cracked',
+    titleKey: 'intro.cracked',
+    demo: {
+      id: 'intro-cracked',
+      rules: { turnOnBump: true },
+      grid: ['.....', '..+..', '.....'],
+      penguins: [
+        { id: 'nar', character: 'nar', color: 'red', dir: 'up', x: 2, y: 2 },
+        { id: 'piti', character: 'piti', color: 'blue', dir: 'right', x: 0, y: 1 },
+      ],
+      igloos: [
+        { color: 'red', x: 2, y: 0 },
+        { color: 'blue', x: 1, y: 2 },
+      ],
+    },
+    script: ['nar', 'piti', 'piti'],
+  },
+
+  // Uyuyan penguen: Pıtı çarpınca Nar uyanır; ikisi de yuvasına gider.
+  sleep: {
+    id: 'sleep',
+    titleKey: 'intro.sleep',
+    demo: {
+      id: 'intro-sleep',
+      rules: { turnOnBump: true },
+      grid: ['....', '....', '....'],
+      penguins: [
+        { id: 'piti', character: 'piti', color: 'blue', dir: 'right', x: 0, y: 1 },
+        { id: 'nar', character: 'nar', color: 'red', dir: 'up', x: 3, y: 1, asleep: true },
+      ],
+      igloos: [
+        { color: 'blue', x: 2, y: 2 },
+        { color: 'red', x: 3, y: 0 },
+      ],
+    },
+    script: ['piti', 'nar', 'piti'],
   },
 };
 

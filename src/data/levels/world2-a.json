@@ -1,0 +1,422 @@
+[
+  {
+    "id": "33",
+    "grid": [
+      "++...",
+      "#....",
+      ".....",
+      "..+.#",
+      ".....",
+      "....."
+    ],
+    "penguins": [
+      {
+        "id": "erik",
+        "character": "erik",
+        "color": "purple",
+        "dir": "down",
+        "x": 2,
+        "y": 2
+      },
+      {
+        "id": "limon",
+        "character": "limon",
+        "color": "yellow",
+        "dir": "down",
+        "x": 2,
+        "y": 0
+      }
+    ],
+    "igloos": [
+      {
+        "color": "purple",
+        "x": 2,
+        "y": 5
+      },
+      {
+        "color": "yellow",
+        "x": 0,
+        "y": 2
+      }
+    ],
+    "rules": {
+      "turnOnBump": true
+    },
+    "par": 3,
+    "solution": [
+      "erik",
+      "limon",
+      "limon"
+    ]
+  },
+  {
+    "id": "34",
+    "grid": [
+      ".+...",
+      ".....",
+      ".....",
+      "..#.#",
+      "..+..",
+      ".+..."
+    ],
+    "penguins": [
+      {
+        "id": "erik",
+        "character": "erik",
+        "color": "purple",
+        "dir": "up",
+        "x": 1,
+        "y": 4
+      },
+      {
+        "id": "nane",
+        "character": "nane",
+        "color": "green",
+        "dir": "up",
+        "x": 0,
+        "y": 5
+      }
+    ],
+    "igloos": [
+      {
+        "color": "purple",
+        "x": 4,
+        "y": 1
+      },
+      {
+        "color": "green",
+        "x": 2,
+        "y": 0
+      }
+    ],
+    "rules": {
+      "turnOnBump": true
+    },
+    "par": 4,
+    "solution": [
+      "nane",
+      "nane",
+      "erik",
+      "erik"
+    ]
+  },
+  {
+    "id": "35",
+    "grid": [
+      "#.+..",
+      ".+..#",
+      ".....",
+      ".....",
+      ".....",
+      "+...."
+    ],
+    "penguins": [
+      {
+        "id": "erik",
+        "character": "erik",
+        "color": "purple",
+        "dir": "up",
+        "x": 1,
+        "y": 3
+      },
+      {
+        "id": "piti",
+        "character": "piti",
+        "color": "blue",
+        "dir": "up",
+        "x": 0,
+        "y": 3
+      }
+    ],
+    "igloos": [
+      {
+        "color": "purple",
+        "x": 4,
+        "y": 5
+      },
+      {
+        "color": "blue",
+        "x": 3,
+        "y": 1
+      }
+    ],
+    "rules": {
+      "turnOnBump": true
+    },
+    "par": 5,
+    "solution": [
+      "piti",
+      "piti",
+      "erik",
+      "erik",
+      "erik"
+    ]
+  },
+  {
+    "id": "36",
+    "grid": [
+      "....#",
+      ".....",
+      "..++.",
+      ".....",
+      ".....",
+      ".+..#"
+    ],
+    "penguins": [
+      {
+        "id": "nar",
+        "character": "nar",
+        "color": "red",
+        "dir": "up",
+        "x": 2,
+        "y": 3
+      },
+      {
+        "id": "limon",
+        "character": "limon",
+        "color": "yellow",
+        "dir": "right",
+        "x": 0,
+        "y": 2
+      }
+    ],
+    "igloos": [
+      {
+        "color": "red",
+        "x": 3,
+        "y": 5
+      },
+      {
+        "color": "yellow",
+        "x": 1,
+        "y": 4
+      }
+    ],
+    "rules": {
+      "turnOnBump": true
+    },
+    "par": 5,
+    "solution": [
+      "nar",
+      "nar",
+      "nar",
+      "limon",
+      "limon"
+    ]
+  },
+  {
+    "id": "37",
+    "grid": [
+      ".....",
+      "#...+",
+      ".....",
+      "#....",
+      "..++.",
+      "....."
+    ],
+    "penguins": [
+      {
+        "id": "erik",
+        "character": "erik",
+        "color": "purple",
+        "dir": "down",
+        "x": 3,
+        "y": 2
+      },
+      {
+        "id": "piti",
+        "character": "piti",
+        "color": "blue",
+        "dir": "up",
+        "x": 1,
+        "y": 5
+      }
+    ],
+    "igloos": [
+      {
+        "color": "purple",
+        "x": 4,
+        "y": 4
+      },
+      {
+        "color": "blue",
+        "x": 1,
+        "y": 3
+      }
+    ],
+    "rules": {
+      "turnOnBump": true
+    },
+    "par": 6,
+    "solution": [
+      "erik",
+      "erik",
+      "erik",
+      "erik",
+      "erik",
+      "piti"
+    ]
+  },
+  {
+    "id": "38",
+    "grid": [
+      ".....",
+      "#..+.",
+      "#....",
+      "....+",
+      ".....",
+      "...+."
+    ],
+    "penguins": [
+      {
+        "id": "mandi",
+        "character": "mandi",
+        "color": "orange",
+        "dir": "up",
+        "x": 2,
+        "y": 5
+      },
+      {
+        "id": "nane",
+        "character": "nane",
+        "color": "green",
+        "dir": "right",
+        "x": 2,
+        "y": 0
+      }
+    ],
+    "igloos": [
+      {
+        "color": "orange",
+        "x": 4,
+        "y": 4
+      },
+      {
+        "color": "green",
+        "x": 3,
+        "y": 2
+      }
+    ],
+    "rules": {
+      "turnOnBump": true
+    },
+    "par": 6,
+    "solution": [
+      "mandi",
+      "mandi",
+      "mandi",
+      "nane",
+      "nane",
+      "nane"
+    ]
+  },
+  {
+    "id": "39",
+    "grid": [
+      "#....",
+      "..+..",
+      ".....",
+      "....#",
+      ".....",
+      ".+..+"
+    ],
+    "penguins": [
+      {
+        "id": "nar",
+        "character": "nar",
+        "color": "red",
+        "dir": "left",
+        "x": 3,
+        "y": 5
+      },
+      {
+        "id": "nane",
+        "character": "nane",
+        "color": "green",
+        "dir": "left",
+        "x": 3,
+        "y": 1
+      }
+    ],
+    "igloos": [
+      {
+        "color": "red",
+        "x": 1,
+        "y": 3
+      },
+      {
+        "color": "green",
+        "x": 2,
+        "y": 0
+      }
+    ],
+    "rules": {
+      "turnOnBump": true
+    },
+    "par": 7,
+    "solution": [
+      "nar",
+      "nar",
+      "nane",
+      "nane",
+      "nar",
+      "nar",
+      "nane"
+    ]
+  },
+  {
+    "id": "40",
+    "grid": [
+      "....+",
+      ".+...",
+      ".....",
+      "#.+..",
+      "..#..",
+      "....."
+    ],
+    "penguins": [
+      {
+        "id": "limon",
+        "character": "limon",
+        "color": "yellow",
+        "dir": "down",
+        "x": 3,
+        "y": 0
+      },
+      {
+        "id": "erik",
+        "character": "erik",
+        "color": "purple",
+        "dir": "down",
+        "x": 2,
+        "y": 2
+      }
+    ],
+    "igloos": [
+      {
+        "color": "yellow",
+        "x": 3,
+        "y": 4
+      },
+      {
+        "color": "purple",
+        "x": 0,
+        "y": 1
+      }
+    ],
+    "rules": {
+      "turnOnBump": true
+    },
+    "par": 8,
+    "solution": [
+      "erik",
+      "erik",
+      "erik",
+      "erik",
+      "limon",
+      "erik",
+      "erik",
+      "erik"
+    ]
+  }
+]

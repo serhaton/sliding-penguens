@@ -29,6 +29,10 @@ export interface GenParams {
   freeIgloos?: boolean;
   /** Adaya yazılacak kural ayarları (ör. { turnOnBump: true }). */
   rules?: LevelDef['rules'];
+  /** Çatlak buz hücresi sayısı (penguen ve igloo olmayan boş buzlara konur). */
+  cracked?: number;
+  /** Uyuyarak başlayan penguen sayısı (en az bir penguen uyanık kalır). */
+  sleepers?: number;
 }
 
 const COLORS: readonly PenguinColor[] = ['blue', 'red', 'yellow', 'green', 'orange', 'purple'];
@@ -130,6 +134,23 @@ export function generateCandidate(rng: Rng, params: GenParams): LevelDef | null 
     }
     if (!placed) return null;
   }
+
+  // Çatlak buz: boş buz hücrelerine. Yolların üstüne düşüp düşmediğini ölçüm söyler.
+  for (let i = 0; i < (params.cracked ?? 0); i++) {
+    let placed = false;
+    for (let attempt = 0; attempt < 40 && !placed; attempt++) {
+      const x = rng.int(0, width - 1);
+      const y = rng.int(0, height - 1);
+      if (!free(x, y)) continue;
+      grid[y]![x] = '+';
+      placed = true;
+    }
+    if (!placed) return null;
+  }
+
+  // Uyuyanlar: listenin sonundaki penguenler uyuyarak başlar.
+  const sleepers = Math.min(params.sleepers ?? 0, penguins.length - 1);
+  for (let i = penguins.length - sleepers; i < penguins.length; i++) penguins[i] = { ...penguins[i]!, asleep: true };
 
   return {
     id: 'candidate',

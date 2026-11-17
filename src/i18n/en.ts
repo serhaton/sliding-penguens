@@ -29,6 +29,12 @@ export const en: Translations = {
   'map.sectionA': 'Calm Shore',
   'map.sectionB': 'Spin Glacier',
   'map.sectionC': 'Wave Bay',
+  'map.section2A': 'Thin Ice',
+  'map.section2B': 'Broken Pass',
+  'map.section2C': 'Glacier Lake',
+  'map.section3A': 'Sleepy Valley',
+  'map.section3B': 'Snore Hill',
+  'map.section3C': 'Dream Bay',
   'map.locked': 'Locked',
   'map.overview': 'Whole continent',
   'map.focus': 'Back to my level',
@@ -106,6 +112,8 @@ export const en: Translations = {
   // Mechanic intros (when a new rule first appears)
   'intro.turn': 'Bump and turn!',
   'intro.waves': 'More penguins incoming!',
+  'intro.cracked': 'Cracked ice holds only once!',
+  'intro.sleep': 'Bump to wake up!',
   'intro.gotIt': 'Got it',
 
   // Screens that are not built yet
@@ -124,9 +132,6 @@ export const en: Translations = {
   'dev.characters': 'Character scene',
   'dev.levels': 'Level viewer',
   'dev.waves': 'waves',
-  'dev.sectionA': 'A · Fixed direction (1–10)',
-  'dev.sectionB': 'B · Turn on bump (11–20)',
-  'dev.sectionC': 'C · Waves (21–30)',
   'dev.resetIntros': 'Reset intros',
   'dev.wallet': 'Wallet diagnostics',
   'dev.preview': 'Preview',

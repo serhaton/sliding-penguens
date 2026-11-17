@@ -1,0 +1,1790 @@
+[
+  {
+    "id": "51",
+    "grid": [
+      "#....",
+      "....+",
+      "...#.",
+      ".....",
+      ".....",
+      ".+..."
+    ],
+    "penguins": [
+      {
+        "id": "nane",
+        "character": "nane",
+        "color": "green",
+        "dir": "right",
+        "x": 1,
+        "y": 2
+      }
+    ],
+    "igloos": [
+      {
+        "color": "yellow",
+        "x": 2,
+        "y": 4
+      },
+      {
+        "color": "green",
+        "x": 1,
+        "y": 3
+      },
+      {
+        "color": "orange",
+        "x": 1,
+        "y": 1
+      }
+    ],
+    "rules": {
+      "turnOnBump": true
+    },
+    "waves": [
+      [
+        {
+          "id": "mandi",
+          "character": "mandi",
+          "color": "orange",
+          "dir": "down",
+          "x": 3,
+          "y": 4
+        },
+        {
+          "id": "limon",
+          "character": "limon",
+          "color": "yellow",
+          "dir": "left",
+          "x": 4,
+          "y": 5
+        }
+      ],
+      [
+        {
+          "id": "nane",
+          "character": "nane",
+          "color": "green",
+          "dir": "up",
+          "x": 0,
+          "y": 5
+        },
+        {
+          "id": "limon",
+          "character": "limon",
+          "color": "yellow",
+          "dir": "right",
+          "x": 0,
+          "y": 2
+        }
+      ],
+      [
+        {
+          "id": "limon",
+          "character": "limon",
+          "color": "yellow",
+          "dir": "down",
+          "x": 4,
+          "y": 2
+        },
+        {
+          "id": "mandi",
+          "character": "mandi",
+          "color": "orange",
+          "dir": "left",
+          "x": 2,
+          "y": 5
+        }
+      ]
+    ],
+    "par": 19,
+    "wavePars": [
+      3,
+      6,
+      4,
+      6
+    ],
+    "waveSolutions": [
+      [
+        "nane",
+        "nane",
+        "nane"
+      ],
+      [
+        "mandi",
+        "mandi",
+        "mandi",
+        "mandi",
+        "limon",
+        "limon"
+      ],
+      [
+        "nane",
+        "nane",
+        "limon",
+        "limon"
+      ],
+      [
+        "limon",
+        "mandi",
+        "limon",
+        "limon",
+        "mandi",
+        "mandi"
+      ]
+    ]
+  },
+  {
+    "id": "52",
+    "grid": [
+      "....+",
+      ".....",
+      ".....",
+      "+..#.",
+      ".....",
+      ".+.#."
+    ],
+    "penguins": [
+      {
+        "id": "mandi",
+        "character": "mandi",
+        "color": "orange",
+        "dir": "up",
+        "x": 0,
+        "y": 5
+      },
+      {
+        "id": "nane",
+        "character": "nane",
+        "color": "green",
+        "dir": "up",
+        "x": 0,
+        "y": 4
+      }
+    ],
+    "igloos": [
+      {
+        "color": "orange",
+        "x": 3,
+        "y": 4
+      },
+      {
+        "color": "blue",
+        "x": 1,
+        "y": 2
+      },
+      {
+        "color": "green",
+        "x": 3,
+        "y": 0
+      }
+    ],
+    "rules": {
+      "turnOnBump": true
+    },
+    "waves": [
+      [
+        {
+          "id": "piti",
+          "character": "piti",
+          "color": "blue",
+          "dir": "right",
+          "x": 0,
+          "y": 1
+        },
+        {
+          "id": "nane",
+          "character": "nane",
+          "color": "green",
+          "dir": "up",
+          "x": 2,
+          "y": 1
+        }
+      ],
+      [
+        {
+          "id": "mandi",
+          "character": "mandi",
+          "color": "orange",
+          "dir": "down",
+          "x": 2,
+          "y": 3
+        },
+        {
+          "id": "nane",
+          "character": "nane",
+          "color": "green",
+          "dir": "up",
+          "x": 0,
+          "y": 4
+        }
+      ],
+      [
+        {
+          "id": "nane",
+          "character": "nane",
+          "color": "green",
+          "dir": "down",
+          "x": 1,
+          "y": 3
+        },
+        {
+          "id": "piti",
+          "character": "piti",
+          "color": "blue",
+          "dir": "left",
+          "x": 2,
+          "y": 3
+        }
+      ]
+    ],
+    "par": 20,
+    "wavePars": [
+      4,
+      4,
+      6,
+      6
+    ],
+    "waveSolutions": [
+      [
+        "nane",
+        "mandi",
+        "mandi",
+        "nane"
+      ],
+      [
+        "piti",
+        "piti",
+        "nane",
+        "nane"
+      ],
+      [
+        "mandi",
+        "mandi",
+        "nane",
+        "mandi",
+        "mandi",
+        "nane"
+      ],
+      [
+        "nane",
+        "nane",
+        "nane",
+        "nane",
+        "piti",
+        "piti"
+      ]
+    ]
+  },
+  {
+    "id": "53",
+    "grid": [
+      "...#.",
+      "..#..",
+      "+....",
+      ".....",
+      "..+..",
+      "....+"
+    ],
+    "penguins": [
+      {
+        "id": "nar",
+        "character": "nar",
+        "color": "red",
+        "dir": "left",
+        "x": 1,
+        "y": 3
+      },
+      {
+        "id": "limon",
+        "character": "limon",
+        "color": "yellow",
+        "dir": "left",
+        "x": 1,
+        "y": 5
+      }
+    ],
+    "igloos": [
+      {
+        "color": "red",
+        "x": 0,
+        "y": 1
+      },
+      {
+        "color": "yellow",
+        "x": 4,
+        "y": 3
+      },
+      {
+        "color": "green",
+        "x": 3,
+        "y": 5
+      }
+    ],
+    "rules": {
+      "turnOnBump": true
+    },
+    "waves": [
+      [
+        {
+          "id": "nar",
+          "character": "nar",
+          "color": "red",
+          "dir": "up",
+          "x": 0,
+          "y": 5
+        },
+        {
+          "id": "nane",
+          "character": "nane",
+          "color": "green",
+          "dir": "left",
+          "x": 1,
+          "y": 5
+        }
+      ],
+      [
+        {
+          "id": "limon",
+          "character": "limon",
+          "color": "yellow",
+          "dir": "up",
+          "x": 1,
+          "y": 4
+        },
+        {
+          "id": "nar",
+          "character": "nar",
+          "color": "red",
+          "dir": "down",
+          "x": 1,
+          "y": 2
+        }
+      ],
+      [
+        {
+          "id": "nar",
+          "character": "nar",
+          "color": "red",
+          "dir": "left",
+          "x": 1,
+          "y": 4
+        },
+        {
+          "id": "nane",
+          "character": "nane",
+          "color": "green",
+          "dir": "left",
+          "x": 3,
+          "y": 4
+        }
+      ],
+      [
+        {
+          "id": "limon",
+          "character": "limon",
+          "color": "yellow",
+          "dir": "down",
+          "x": 1,
+          "y": 0
+        },
+        {
+          "id": "nar",
+          "character": "nar",
+          "color": "red",
+          "dir": "left",
+          "x": 2,
+          "y": 3
+        }
+      ]
+    ],
+    "par": 27,
+    "wavePars": [
+      5,
+      5,
+      5,
+      6,
+      6
+    ],
+    "waveSolutions": [
+      [
+        "nar",
+        "nar",
+        "limon",
+        "limon",
+        "limon"
+      ],
+      [
+        "nar",
+        "nane",
+        "nane",
+        "nane",
+        "nane"
+      ],
+      [
+        "limon",
+        "limon",
+        "nar",
+        "nar",
+        "nar"
+      ],
+      [
+        "nar",
+        "nar",
+        "nane",
+        "nane",
+        "nane",
+        "nane"
+      ],
+      [
+        "limon",
+        "limon",
+        "nar",
+        "nar",
+        "limon",
+        "limon"
+      ]
+    ]
+  },
+  {
+    "id": "54",
+    "grid": [
+      "......",
+      ".+.+..",
+      "......",
+      ".+....",
+      "...#..",
+      "..#..."
+    ],
+    "penguins": [
+      {
+        "id": "nane",
+        "character": "nane",
+        "color": "green",
+        "dir": "right",
+        "x": 0,
+        "y": 1
+      },
+      {
+        "id": "limon",
+        "character": "limon",
+        "color": "yellow",
+        "dir": "down",
+        "x": 3,
+        "y": 2
+      }
+    ],
+    "igloos": [
+      {
+        "color": "orange",
+        "x": 0,
+        "y": 3
+      },
+      {
+        "color": "yellow",
+        "x": 5,
+        "y": 4
+      },
+      {
+        "color": "green",
+        "x": 5,
+        "y": 1
+      },
+      {
+        "color": "red",
+        "x": 4,
+        "y": 5
+      }
+    ],
+    "rules": {
+      "turnOnBump": true
+    },
+    "waves": [
+      [
+        {
+          "id": "mandi",
+          "character": "mandi",
+          "color": "orange",
+          "dir": "right",
+          "x": 0,
+          "y": 1
+        },
+        {
+          "id": "nane",
+          "character": "nane",
+          "color": "green",
+          "dir": "right",
+          "x": 2,
+          "y": 1
+        }
+      ],
+      [
+        {
+          "id": "nar",
+          "character": "nar",
+          "color": "red",
+          "dir": "right",
+          "x": 0,
+          "y": 1
+        },
+        {
+          "id": "limon",
+          "character": "limon",
+          "color": "yellow",
+          "dir": "up",
+          "x": 3,
+          "y": 3
+        }
+      ],
+      [
+        {
+          "id": "nane",
+          "character": "nane",
+          "color": "green",
+          "dir": "down",
+          "x": 1,
+          "y": 0
+        },
+        {
+          "id": "mandi",
+          "character": "mandi",
+          "color": "orange",
+          "dir": "left",
+          "x": 2,
+          "y": 3
+        }
+      ],
+      [
+        {
+          "id": "mandi",
+          "character": "mandi",
+          "color": "orange",
+          "dir": "right",
+          "x": 2,
+          "y": 2
+        },
+        {
+          "id": "nar",
+          "character": "nar",
+          "color": "red",
+          "dir": "up",
+          "x": 2,
+          "y": 4
+        }
+      ]
+    ],
+    "par": 28,
+    "wavePars": [
+      6,
+      5,
+      5,
+      6,
+      6
+    ],
+    "waveSolutions": [
+      [
+        "nane",
+        "limon",
+        "limon",
+        "limon",
+        "limon",
+        "limon"
+      ],
+      [
+        "mandi",
+        "mandi",
+        "mandi",
+        "mandi",
+        "nane"
+      ],
+      [
+        "nar",
+        "nar",
+        "limon",
+        "limon",
+        "limon"
+      ],
+      [
+        "mandi",
+        "nane",
+        "nane",
+        "nane",
+        "nane",
+        "nane"
+      ],
+      [
+        "nar",
+        "mandi",
+        "mandi",
+        "nar",
+        "nar",
+        "mandi"
+      ]
+    ]
+  },
+  {
+    "id": "55",
+    "grid": [
+      ".....",
+      "....#",
+      ".....",
+      "...+.",
+      ".....",
+      ".+..#"
+    ],
+    "penguins": [
+      {
+        "id": "nane",
+        "character": "nane",
+        "color": "green",
+        "dir": "down",
+        "x": 2,
+        "y": 4
+      }
+    ],
+    "igloos": [
+      {
+        "color": "green",
+        "x": 0,
+        "y": 3
+      },
+      {
+        "color": "purple",
+        "x": 1,
+        "y": 1
+      },
+      {
+        "color": "blue",
+        "x": 0,
+        "y": 0
+      }
+    ],
+    "rules": {
+      "turnOnBump": true
+    },
+    "waves": [
+      [
+        {
+          "id": "erik",
+          "character": "erik",
+          "color": "purple",
+          "dir": "left",
+          "x": 4,
+          "y": 3
+        },
+        {
+          "id": "piti",
+          "character": "piti",
+          "color": "blue",
+          "dir": "down",
+          "x": 3,
+          "y": 1
+        }
+      ],
+      [
+        {
+          "id": "piti",
+          "character": "piti",
+          "color": "blue",
+          "dir": "right",
+          "x": 2,
+          "y": 1
+        },
+        {
+          "id": "nane",
+          "character": "nane",
+          "color": "green",
+          "dir": "left",
+          "x": 4,
+          "y": 3
+        }
+      ],
+      [
+        {
+          "id": "piti",
+          "character": "piti",
+          "color": "blue",
+          "dir": "left",
+          "x": 1,
+          "y": 2
+        },
+        {
+          "id": "erik",
+          "character": "erik",
+          "color": "purple",
+          "dir": "left",
+          "x": 3,
+          "y": 2
+        }
+      ]
+    ],
+    "par": 17,
+    "wavePars": [
+      3,
+      5,
+      5,
+      4
+    ],
+    "waveSolutions": [
+      [
+        "nane",
+        "nane",
+        "nane"
+      ],
+      [
+        "erik",
+        "erik",
+        "piti",
+        "piti",
+        "piti"
+      ],
+      [
+        "piti",
+        "nane",
+        "piti",
+        "piti",
+        "piti"
+      ],
+      [
+        "piti",
+        "erik",
+        "piti",
+        "erik"
+      ]
+    ]
+  },
+  {
+    "id": "56",
+    "grid": [
+      "....+.",
+      "..#...",
+      ".....#",
+      "...+..",
+      "......",
+      "..+..."
+    ],
+    "penguins": [
+      {
+        "id": "mandi",
+        "character": "mandi",
+        "color": "orange",
+        "dir": "left",
+        "x": 5,
+        "y": 5
+      },
+      {
+        "id": "limon",
+        "character": "limon",
+        "color": "yellow",
+        "dir": "down",
+        "x": 4,
+        "y": 3
+      }
+    ],
+    "igloos": [
+      {
+        "color": "orange",
+        "x": 1,
+        "y": 0
+      },
+      {
+        "color": "red",
+        "x": 1,
+        "y": 2
+      },
+      {
+        "color": "purple",
+        "x": 1,
+        "y": 1
+      },
+      {
+        "color": "yellow",
+        "x": 3,
+        "y": 4
+      }
+    ],
+    "rules": {
+      "turnOnBump": true
+    },
+    "waves": [
+      [
+        {
+          "id": "nar",
+          "character": "nar",
+          "color": "red",
+          "dir": "down",
+          "x": 3,
+          "y": 0
+        },
+        {
+          "id": "mandi",
+          "character": "mandi",
+          "color": "orange",
+          "dir": "right",
+          "x": 1,
+          "y": 3
+        }
+      ],
+      [
+        {
+          "id": "nar",
+          "character": "nar",
+          "color": "red",
+          "dir": "left",
+          "x": 2,
+          "y": 3
+        },
+        {
+          "id": "mandi",
+          "character": "mandi",
+          "color": "orange",
+          "dir": "left",
+          "x": 1,
+          "y": 5
+        },
+        {
+          "id": "erik",
+          "character": "erik",
+          "color": "purple",
+          "dir": "right",
+          "x": 0,
+          "y": 1
+        }
+      ],
+      [
+        {
+          "id": "mandi",
+          "character": "mandi",
+          "color": "orange",
+          "dir": "left",
+          "x": 5,
+          "y": 3
+        },
+        {
+          "id": "nar",
+          "character": "nar",
+          "color": "red",
+          "dir": "down",
+          "x": 3,
+          "y": 1
+        }
+      ],
+      [
+        {
+          "id": "mandi",
+          "character": "mandi",
+          "color": "orange",
+          "dir": "down",
+          "x": 2,
+          "y": 2
+        },
+        {
+          "id": "erik",
+          "character": "erik",
+          "color": "purple",
+          "dir": "down",
+          "x": 2,
+          "y": 4
+        }
+      ]
+    ],
+    "par": 33,
+    "wavePars": [
+      6,
+      7,
+      7,
+      5,
+      8
+    ],
+    "waveSolutions": [
+      [
+        "mandi",
+        "mandi",
+        "mandi",
+        "limon",
+        "limon",
+        "limon"
+      ],
+      [
+        "mandi",
+        "nar",
+        "nar",
+        "mandi",
+        "mandi",
+        "mandi",
+        "mandi"
+      ],
+      [
+        "nar",
+        "nar",
+        "nar",
+        "mandi",
+        "erik",
+        "mandi",
+        "mandi"
+      ],
+      [
+        "mandi",
+        "mandi",
+        "mandi",
+        "nar",
+        "nar"
+      ],
+      [
+        "mandi",
+        "mandi",
+        "mandi",
+        "erik",
+        "erik",
+        "erik",
+        "mandi",
+        "erik"
+      ]
+    ]
+  },
+  {
+    "id": "57",
+    "grid": [
+      "......",
+      "..++.#",
+      ".+....",
+      ".....#",
+      "......",
+      "...#+.",
+      "......"
+    ],
+    "penguins": [
+      {
+        "id": "mandi",
+        "character": "mandi",
+        "color": "orange",
+        "dir": "down",
+        "x": 4,
+        "y": 3
+      },
+      {
+        "id": "nane",
+        "character": "nane",
+        "color": "green",
+        "dir": "down",
+        "x": 4,
+        "y": 4
+      }
+    ],
+    "igloos": [
+      {
+        "color": "orange",
+        "x": 2,
+        "y": 4
+      },
+      {
+        "color": "yellow",
+        "x": 1,
+        "y": 5
+      },
+      {
+        "color": "red",
+        "x": 4,
+        "y": 0
+      },
+      {
+        "color": "green",
+        "x": 3,
+        "y": 0
+      }
+    ],
+    "rules": {
+      "turnOnBump": true
+    },
+    "waves": [
+      [
+        {
+          "id": "limon",
+          "character": "limon",
+          "color": "yellow",
+          "dir": "right",
+          "x": 1,
+          "y": 1
+        },
+        {
+          "id": "nane",
+          "character": "nane",
+          "color": "green",
+          "dir": "right",
+          "x": 0,
+          "y": 0
+        }
+      ],
+      [
+        {
+          "id": "mandi",
+          "character": "mandi",
+          "color": "orange",
+          "dir": "down",
+          "x": 2,
+          "y": 3
+        },
+        {
+          "id": "nane",
+          "character": "nane",
+          "color": "green",
+          "dir": "left",
+          "x": 4,
+          "y": 6
+        },
+        {
+          "id": "limon",
+          "character": "limon",
+          "color": "yellow",
+          "dir": "down",
+          "x": 5,
+          "y": 5
+        }
+      ],
+      [
+        {
+          "id": "nane",
+          "character": "nane",
+          "color": "green",
+          "dir": "down",
+          "x": 4,
+          "y": 4
+        },
+        {
+          "id": "mandi",
+          "character": "mandi",
+          "color": "orange",
+          "dir": "right",
+          "x": 0,
+          "y": 3
+        }
+      ],
+      [
+        {
+          "id": "limon",
+          "character": "limon",
+          "color": "yellow",
+          "dir": "left",
+          "x": 2,
+          "y": 6
+        },
+        {
+          "id": "nane",
+          "character": "nane",
+          "color": "green",
+          "dir": "left",
+          "x": 1,
+          "y": 6
+        },
+        {
+          "id": "mandi",
+          "character": "mandi",
+          "color": "orange",
+          "dir": "up",
+          "x": 0,
+          "y": 1
+        }
+      ]
+    ],
+    "par": 35,
+    "wavePars": [
+      6,
+      7,
+      7,
+      7,
+      8
+    ],
+    "waveSolutions": [
+      [
+        "nane",
+        "mandi",
+        "mandi",
+        "nane",
+        "nane",
+        "nane"
+      ],
+      [
+        "limon",
+        "limon",
+        "limon",
+        "limon",
+        "limon",
+        "limon",
+        "nane"
+      ],
+      [
+        "mandi",
+        "nane",
+        "limon",
+        "limon",
+        "nane",
+        "nane",
+        "limon"
+      ],
+      [
+        "nane",
+        "nane",
+        "mandi",
+        "nane",
+        "nane",
+        "mandi",
+        "mandi"
+      ],
+      [
+        "nane",
+        "limon",
+        "limon",
+        "mandi",
+        "mandi",
+        "nane",
+        "mandi",
+        "nane"
+      ]
+    ]
+  },
+  {
+    "id": "58",
+    "grid": [
+      "....#.",
+      "......",
+      ".+....",
+      "..+.#+",
+      "......",
+      ".#....",
+      ".+...."
+    ],
+    "penguins": [
+      {
+        "id": "nane",
+        "character": "nane",
+        "color": "green",
+        "dir": "up",
+        "x": 3,
+        "y": 6
+      },
+      {
+        "id": "piti",
+        "character": "piti",
+        "color": "blue",
+        "dir": "right",
+        "x": 1,
+        "y": 3
+      }
+    ],
+    "igloos": [
+      {
+        "color": "purple",
+        "x": 5,
+        "y": 1
+      },
+      {
+        "color": "yellow",
+        "x": 4,
+        "y": 5
+      },
+      {
+        "color": "green",
+        "x": 4,
+        "y": 4
+      },
+      {
+        "color": "blue",
+        "x": 0,
+        "y": 3
+      }
+    ],
+    "rules": {
+      "turnOnBump": true
+    },
+    "waves": [
+      [
+        {
+          "id": "erik",
+          "character": "erik",
+          "color": "purple",
+          "dir": "right",
+          "x": 3,
+          "y": 1
+        },
+        {
+          "id": "nane",
+          "character": "nane",
+          "color": "green",
+          "dir": "right",
+          "x": 1,
+          "y": 1
+        },
+        {
+          "id": "piti",
+          "character": "piti",
+          "color": "blue",
+          "dir": "up",
+          "x": 0,
+          "y": 5
+        }
+      ],
+      [
+        {
+          "id": "nane",
+          "character": "nane",
+          "color": "green",
+          "dir": "down",
+          "x": 2,
+          "y": 1
+        },
+        {
+          "id": "piti",
+          "character": "piti",
+          "color": "blue",
+          "dir": "left",
+          "x": 3,
+          "y": 3
+        }
+      ],
+      [
+        {
+          "id": "piti",
+          "character": "piti",
+          "color": "blue",
+          "dir": "up",
+          "x": 0,
+          "y": 2
+        },
+        {
+          "id": "erik",
+          "character": "erik",
+          "color": "purple",
+          "dir": "right",
+          "x": 4,
+          "y": 1
+        },
+        {
+          "id": "limon",
+          "character": "limon",
+          "color": "yellow",
+          "dir": "up",
+          "x": 3,
+          "y": 5
+        }
+      ],
+      [
+        {
+          "id": "nane",
+          "character": "nane",
+          "color": "green",
+          "dir": "up",
+          "x": 2,
+          "y": 6
+        },
+        {
+          "id": "piti",
+          "character": "piti",
+          "color": "blue",
+          "dir": "up",
+          "x": 2,
+          "y": 5
+        }
+      ]
+    ],
+    "par": 37,
+    "wavePars": [
+      6,
+      7,
+      9,
+      8,
+      7
+    ],
+    "waveSolutions": [
+      [
+        "piti",
+        "nane",
+        "nane",
+        "piti",
+        "piti",
+        "piti"
+      ],
+      [
+        "nane",
+        "erik",
+        "nane",
+        "nane",
+        "piti",
+        "nane",
+        "nane"
+      ],
+      [
+        "piti",
+        "nane",
+        "nane",
+        "nane",
+        "nane",
+        "nane",
+        "nane",
+        "nane",
+        "nane"
+      ],
+      [
+        "piti",
+        "piti",
+        "piti",
+        "erik",
+        "limon",
+        "piti",
+        "piti",
+        "limon"
+      ],
+      [
+        "piti",
+        "nane",
+        "nane",
+        "piti",
+        "piti",
+        "piti",
+        "piti"
+      ]
+    ]
+  },
+  {
+    "id": "59",
+    "grid": [
+      ".+....",
+      "......",
+      "..+...",
+      ".+..#.",
+      ".#....",
+      "......",
+      ".+...#"
+    ],
+    "penguins": [
+      {
+        "id": "mandi",
+        "character": "mandi",
+        "color": "orange",
+        "dir": "left",
+        "x": 4,
+        "y": 2
+      },
+      {
+        "id": "nar",
+        "character": "nar",
+        "color": "red",
+        "dir": "down",
+        "x": 0,
+        "y": 1
+      }
+    ],
+    "igloos": [
+      {
+        "color": "blue",
+        "x": 4,
+        "y": 5
+      },
+      {
+        "color": "green",
+        "x": 2,
+        "y": 3
+      },
+      {
+        "color": "orange",
+        "x": 5,
+        "y": 2
+      },
+      {
+        "color": "red",
+        "x": 0,
+        "y": 6
+      }
+    ],
+    "rules": {
+      "turnOnBump": true
+    },
+    "waves": [
+      [
+        {
+          "id": "piti",
+          "character": "piti",
+          "color": "blue",
+          "dir": "right",
+          "x": 2,
+          "y": 5
+        },
+        {
+          "id": "mandi",
+          "character": "mandi",
+          "color": "orange",
+          "dir": "up",
+          "x": 3,
+          "y": 3
+        },
+        {
+          "id": "nane",
+          "character": "nane",
+          "color": "green",
+          "dir": "up",
+          "x": 1,
+          "y": 1
+        }
+      ],
+      [
+        {
+          "id": "nar",
+          "character": "nar",
+          "color": "red",
+          "dir": "down",
+          "x": 3,
+          "y": 1
+        },
+        {
+          "id": "nane",
+          "character": "nane",
+          "color": "green",
+          "dir": "right",
+          "x": 0,
+          "y": 5
+        }
+      ],
+      [
+        {
+          "id": "mandi",
+          "character": "mandi",
+          "color": "orange",
+          "dir": "up",
+          "x": 2,
+          "y": 1
+        },
+        {
+          "id": "nar",
+          "character": "nar",
+          "color": "red",
+          "dir": "down",
+          "x": 3,
+          "y": 0
+        },
+        {
+          "id": "nane",
+          "character": "nane",
+          "color": "green",
+          "dir": "up",
+          "x": 1,
+          "y": 1
+        }
+      ],
+      [
+        {
+          "id": "piti",
+          "character": "piti",
+          "color": "blue",
+          "dir": "up",
+          "x": 3,
+          "y": 6
+        },
+        {
+          "id": "nane",
+          "character": "nane",
+          "color": "green",
+          "dir": "left",
+          "x": 3,
+          "y": 3
+        },
+        {
+          "id": "nar",
+          "character": "nar",
+          "color": "red",
+          "dir": "down",
+          "x": 3,
+          "y": 0
+        }
+      ]
+    ],
+    "par": 33,
+    "wavePars": [
+      5,
+      7,
+      6,
+      8,
+      7
+    ],
+    "waveSolutions": [
+      [
+        "nar",
+        "mandi",
+        "mandi",
+        "mandi",
+        "mandi"
+      ],
+      [
+        "piti",
+        "mandi",
+        "nane",
+        "nane",
+        "mandi",
+        "mandi",
+        "nane"
+      ],
+      [
+        "nar",
+        "nar",
+        "nane",
+        "nane",
+        "nane",
+        "nane"
+      ],
+      [
+        "nane",
+        "nane",
+        "mandi",
+        "mandi",
+        "mandi",
+        "nar",
+        "nar",
+        "nane"
+      ],
+      [
+        "piti",
+        "piti",
+        "piti",
+        "piti",
+        "nane",
+        "nar",
+        "nar"
+      ]
+    ]
+  },
+  {
+    "id": "60",
+    "grid": [
+      "..#...",
+      "......",
+      "+#....",
+      "....+.",
+      "......",
+      "......",
+      "+.#...",
+      "...+.+"
+    ],
+    "penguins": [
+      {
+        "id": "piti",
+        "character": "piti",
+        "color": "blue",
+        "dir": "left",
+        "x": 1,
+        "y": 6
+      },
+      {
+        "id": "limon",
+        "character": "limon",
+        "color": "yellow",
+        "dir": "up",
+        "x": 0,
+        "y": 4
+      }
+    ],
+    "igloos": [
+      {
+        "color": "purple",
+        "x": 4,
+        "y": 7
+      },
+      {
+        "color": "green",
+        "x": 2,
+        "y": 5
+      },
+      {
+        "color": "yellow",
+        "x": 0,
+        "y": 0
+      },
+      {
+        "color": "red",
+        "x": 3,
+        "y": 4
+      },
+      {
+        "color": "blue",
+        "x": 5,
+        "y": 3
+      }
+    ],
+    "rules": {
+      "turnOnBump": true
+    },
+    "waves": [
+      [
+        {
+          "id": "nar",
+          "character": "nar",
+          "color": "red",
+          "dir": "right",
+          "x": 2,
+          "y": 3
+        },
+        {
+          "id": "piti",
+          "character": "piti",
+          "color": "blue",
+          "dir": "up",
+          "x": 4,
+          "y": 6
+        }
+      ],
+      [
+        {
+          "id": "nar",
+          "character": "nar",
+          "color": "red",
+          "dir": "down",
+          "x": 3,
+          "y": 3
+        },
+        {
+          "id": "erik",
+          "character": "erik",
+          "color": "purple",
+          "dir": "left",
+          "x": 2,
+          "y": 1
+        },
+        {
+          "id": "piti",
+          "character": "piti",
+          "color": "blue",
+          "dir": "right",
+          "x": 4,
+          "y": 1
+        }
+      ],
+      [
+        {
+          "id": "limon",
+          "character": "limon",
+          "color": "yellow",
+          "dir": "up",
+          "x": 0,
+          "y": 7
+        },
+        {
+          "id": "nar",
+          "character": "nar",
+          "color": "red",
+          "dir": "left",
+          "x": 1,
+          "y": 4
+        }
+      ],
+      [
+        {
+          "id": "nar",
+          "character": "nar",
+          "color": "red",
+          "dir": "left",
+          "x": 1,
+          "y": 5
+        },
+        {
+          "id": "piti",
+          "character": "piti",
+          "color": "blue",
+          "dir": "right",
+          "x": 0,
+          "y": 3
+        },
+        {
+          "id": "nane",
+          "character": "nane",
+          "color": "green",
+          "dir": "up",
+          "x": 0,
+          "y": 5
+        }
+      ],
+      [
+        {
+          "id": "nane",
+          "character": "nane",
+          "color": "green",
+          "dir": "down",
+          "x": 3,
+          "y": 5
+        },
+        {
+          "id": "limon",
+          "character": "limon",
+          "color": "yellow",
+          "dir": "left",
+          "x": 2,
+          "y": 3
+        },
+        {
+          "id": "piti",
+          "character": "piti",
+          "color": "blue",
+          "dir": "up",
+          "x": 1,
+          "y": 6
+        }
+      ]
+    ],
+    "par": 39,
+    "wavePars": [
+      4,
+      5,
+      7,
+      7,
+      7,
+      9
+    ],
+    "waveSolutions": [
+      [
+        "piti",
+        "limon",
+        "piti",
+        "piti"
+      ],
+      [
+        "piti",
+        "nar",
+        "nar",
+        "piti",
+        "piti"
+      ],
+      [
+        "nar",
+        "erik",
+        "erik",
+        "piti",
+        "erik",
+        "erik",
+        "piti"
+      ],
+      [
+        "limon",
+        "nar",
+        "nar",
+        "nar",
+        "nar",
+        "nar",
+        "nar"
+      ],
+      [
+        "nane",
+        "nar",
+        "nane",
+        "nar",
+        "piti",
+        "nane",
+        "nar"
+      ],
+      [
+        "nane",
+        "nane",
+        "limon",
+        "nane",
+        "nane",
+        "nane",
+        "limon",
+        "piti",
+        "piti"
+      ]
+    ]
+  }
+]

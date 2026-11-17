@@ -23,12 +23,18 @@ export interface WaveSpec {
   maxSpins?: number;
   /** Çıkmaz serbest mi (varsayılan hayır). */
   allowDeadEnds?: boolean;
+  /** Bu dalgada uyuyarak gelen penguen sayısı. */
+  sleepers?: number;
+  /** Bu dalgada çatlaklar bulmacayı değiştirmeli. */
+  cracksMatter?: boolean;
 }
 
 export interface WaveLevelParams {
   width: number;
   height: number;
   rocks: number;
+  /** Çatlak buz hücresi sayısı. Her dalgada buz yeniden donar (tahta baştan kurulur). */
+  cracked?: number;
   /** Tahtadaki igloo (renk) sayısı. */
   colors: number;
   waves: readonly WaveSpec[];
@@ -87,6 +93,13 @@ export function generateWaveLevel(rng: Rng, params: WaveLevelParams): WaveLevel 
     igloos.push({ color, x: spot.x, y: spot.y });
   }
 
+  // Çatlak buz: igloo olmayan boş buzlara. Penguenler çatlağın üstünde başlamaz.
+  for (let i = 0; i < (params.cracked ?? 0); i++) {
+    const spot = randomFree(taken);
+    if (!spot) return null;
+    grid[spot.y]![spot.x] = '+';
+  }
+
   const base: LevelDef = {
     id: 'candidate',
     grid: grid.map((row) => row.join('')),
@@ -122,11 +135,14 @@ export function generateWaveLevel(rng: Rng, params: WaveLevelParams): WaveLevel 
         penguins.push({ id, character: id, color, dir: rng.pick(DIRECTIONS), x: spot.x, y: spot.y });
       }
       if (penguins.length < spec.penguins) continue;
+      const sleepers = Math.min(spec.sleepers ?? 0, penguins.length - 1);
+      for (let i = penguins.length - sleepers; i < penguins.length; i++) penguins[i] = { ...penguins[i]!, asleep: true };
 
       const m = measure({ ...base, penguins }, params.maxStates);
       if (!m) continue;
       if (m.spins > (spec.maxSpins ?? 0)) continue;
       if (!spec.allowDeadEnds && m.deadEnds !== 0) continue;
+      if (spec.cracksMatter && !m.cracksMatter) continue;
       const teamworkMiss = Math.max(0, (spec.minTeamwork ?? 0) - m.teamwork);
       // Park gerektiren dalgada en az bir park hamlesi şart; fazlası gevşetilebilir.
       if (teamworkMiss > TEAMWORK_SLACK || ((spec.minTeamwork ?? 0) > 0 && m.teamwork === 0)) continue;

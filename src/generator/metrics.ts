@@ -37,6 +37,15 @@ export interface Metrics {
   teamwork: number;
   /** En iyi çözümde yerinde dönme (kaymadan) hamlesi sayısı: azı iyidir. */
   spins: number;
+  /** En iyi çözümde kırılan çatlak buz sayısı. */
+  cracks: number;
+  /**
+   * Çatlaklar bulmacayı değiştiriyor mu: aynı tahta düz buzla kurulunca en az
+   * hamle sayısı farklı çıkıyorsa (ya da çözülemiyorsa) evet. Süs çatlakları eler.
+   */
+  cracksMatter: boolean;
+  /** En iyi çözümde uyandırılan penguen sayısı. */
+  wakes: number;
   /** Tek sayılık zorluk puanı (yalnızca sıralama için). */
   difficulty: number;
 }
@@ -77,6 +86,17 @@ export function measure(level: LevelDef, maxStates: number = MEASURE_MAX_STATES)
   ).length;
   const spins = events.filter((move) => !move.some((e) => e.type === 'slide')).length;
 
+  const flat = events.flat();
+  const cracks = flat.filter((e) => e.type === 'crackBreak').length;
+  const wakes = flat.filter((e) => e.type === 'wakeUp').length;
+  let cracksMatter = false;
+  if (level.grid.some((row) => row.includes('+'))) {
+    const plain = solve(createGame({ ...level, grid: level.grid.map((row) => row.replaceAll('+', '.')) }), {
+      maxStates: MAX_STATES,
+    });
+    cracksMatter = plain.status !== 'solved' || plain.par !== solved.par;
+  }
+
   const penguins = start.penguins.length;
   const extraTaps = solved.par - penguins;
   const difficulty =
@@ -85,6 +105,8 @@ export function measure(level: LevelDef, maxStates: number = MEASURE_MAX_STATES)
     extraTaps * 1.5 +
     (1 - optimalFirstRatio) * 3 +
     Math.log2(analysis.states) * 0.4 +
+    cracks * 0.5 +
+    wakes * 0.5 +
     (!analysis.truncated && analysis.deadEnds > 0 ? 2 + Math.min(3, analysis.losingFirstMoves) : 0);
 
   return {
@@ -100,6 +122,9 @@ export function measure(level: LevelDef, maxStates: number = MEASURE_MAX_STATES)
     losingFirstMoves: analysis.losingFirstMoves,
     teamwork,
     spins,
+    cracks,
+    cracksMatter,
+    wakes,
     difficulty: Math.round(difficulty * 10) / 10,
   };
 }

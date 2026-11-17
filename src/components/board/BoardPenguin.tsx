@@ -162,7 +162,9 @@ export function BoardPenguin({ view, cell, character, color, largeSymbol, hinted
   }, [cell, dir.x, dir.y]);
 
   const tone = penguinColors[color];
-  const showArrow = view.pose !== 'slide' && view.pose !== 'sleep' && !view.gone;
+  // Uyuyan penguenin oku da görünür (soluk): uyanınca nereye kayacağı bilinmeden plan yapılamaz.
+  const showArrow = view.pose !== 'slide' && !view.gone;
+  const asleep = view.pose === 'sleep';
   const inset = cell * 0.04;
 
   return (
@@ -184,7 +186,7 @@ export function BoardPenguin({ view, cell, character, color, largeSymbol, hinted
       </Group>
       {/* Yön oku penguenin üstünde çizilir: aşağı/yukarı bakarken de görünsün */}
       {showArrow && (
-        <Group transform={arrowTransform} origin={arrowOrigin}>
+        <Group transform={arrowTransform} origin={arrowOrigin} opacity={asleep ? 0.55 : 1}>
           <Path path={arrow} color="#FFFFFF" style="stroke" strokeWidth={cell * 0.06} strokeJoin="round" opacity={arrowOpacity} />
           <Path path={arrow} color={hinted ? '#FFB800' : tone.main} opacity={arrowOpacity} />
         </Group>

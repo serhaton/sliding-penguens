@@ -32,6 +32,12 @@ export const tr = {
   'map.sectionA': 'Sakin Kıyı',
   'map.sectionB': 'Dönme Buzulu',
   'map.sectionC': 'Dalga Koyu',
+  'map.section2A': 'İnce Buz',
+  'map.section2B': 'Kırık Geçit',
+  'map.section2C': 'Buzul Gölü',
+  'map.section3A': 'Uyku Vadisi',
+  'map.section3B': 'Horultu Tepesi',
+  'map.section3C': 'Rüya Koyu',
   'map.locked': 'Kilitli',
   'map.overview': 'Tüm kıta',
   'map.focus': 'Kaldığım yere dön',
@@ -109,6 +115,8 @@ export const tr = {
   // Mekanik tanıtımları (yeni kural ilk kez geldiğinde)
   'intro.turn': 'Çarpınca döner!',
   'intro.waves': 'Yeni penguenler geliyor!',
+  'intro.cracked': 'Çatlak buz bir kez taşır!',
+  'intro.sleep': 'Çarp, uyansın!',
   'intro.gotIt': 'Anladım',
 
   // Henüz yapılmamış ekranlar
@@ -127,9 +135,6 @@ export const tr = {
   'dev.characters': 'Karakter sahnesi',
   'dev.levels': 'Bölüm görüntüleyici',
   'dev.waves': 'dalga',
-  'dev.sectionA': 'A · Sabit yön (1–10)',
-  'dev.sectionB': 'B · Çarpınca dön (11–20)',
-  'dev.sectionC': 'C · Dalgalar (21–30)',
   'dev.resetIntros': 'Tanıtımları sıfırla',
   'dev.wallet': 'Cüzdan tanılama',
   'dev.preview': 'Önizleme',

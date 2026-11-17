@@ -21,6 +21,15 @@ export interface Slot {
   minTeamwork?: number;
   /** En iyi çözümde en fazla kaç yerinde dönme olsun. */
   maxSpins?: number;
+  /** En iyi çözümde en az kaç çatlak buz kırılsın. */
+  minCracks?: number;
+  /** Çatlaklar bulmacayı değiştirmeli (süs çatlaklı adaylar elenir). */
+  cracksMatter?: boolean;
+  /**
+   * İlk hamlelerin en fazla bu kadarı (0–1) en iyi çözüme götürsün: 1'in altı
+   * "ilk hamlede gerçek bir seçim var" demektir.
+   */
+  maxOptimalFirst?: number;
   /** Bu yuvanın havuzu için aday sayısı (verilmezse genel ayar). */
   candidates?: number;
   /** Ölçümde gezilecek en fazla durum (verilmezse ölçümün varsayılanı). */
@@ -94,6 +103,9 @@ export function selectLevels(
       if (!within(metrics.extraTaps, slot.extraTaps)) return false;
       if (metrics.teamwork < (slot.minTeamwork ?? 0)) return false;
       if (metrics.spins > (slot.maxSpins ?? Infinity)) return false;
+      if (metrics.cracks < (slot.minCracks ?? 0)) return false;
+      if (slot.cracksMatter && !metrics.cracksMatter) return false;
+      if (metrics.optimalFirstRatio > (slot.maxOptimalFirst ?? 1)) return false;
       // Çıkmaz yasaksa, çıkmaz olmadığı kanıtlanmış olmalı (bilinmiyor = -1 de elenir).
       if (!slot.allowDeadEnds && metrics.deadEnds !== 0) return false;
       return true;

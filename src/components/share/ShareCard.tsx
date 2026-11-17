@@ -11,6 +11,7 @@ import { StyleSheet, View } from 'react-native';
 import { Penguin } from '@/components/penguin';
 import { AppText } from '@/components/ui';
 import type { CharacterId } from '@/data/characters';
+import type { PenguinColor } from '@/engine';
 import { useTranslation } from '@/i18n';
 import type { CardRef } from '@/services/share';
 import { dayColors, radii, spacing } from '@/theme';
@@ -23,13 +24,20 @@ export const SHARE_CARD_ASPECT = SHARE_CARD_HEIGHT / SHARE_CARD_WIDTH;
 export interface ShareCardProps {
   /** Görüntüsü alınacak kök görünüm. */
   cardRef: CardRef;
-  levelNumber: number;
-  stars: number;
-  moveCount: number;
+  /** Büyük başlık: "Bölüm 12" ya da "Düello". */
+  title: string;
+  /** Yıldızlar (bölüm sonucu). Verilmezse gösterilmez. */
+  stars?: number;
+  /** Yıldızların yerine büyük bir yazı (düello skoru: "3 – 1"). */
+  headline?: string;
+  /** Alt satır: "8 hamle" ya da "Kazandım!". */
+  caption: string;
   character?: CharacterId;
+  /** Penguenin atkı rengi (düelloda takım rengi). */
+  color?: PenguinColor;
 }
 
-export function ShareCard({ cardRef, levelNumber, stars, moveCount, character = 'piti' }: ShareCardProps) {
+export function ShareCard({ cardRef, title, stars, headline, caption, character = 'piti', color }: ShareCardProps) {
   const { t } = useTranslation();
   const c = dayColors;
 
@@ -46,25 +54,32 @@ export function ShareCard({ cardRef, levelNumber, stars, moveCount, character = 
         </AppText>
 
         <View style={styles.penguin}>
-          <Penguin character={character} size={170} pose="dance" mood="excited" interactive={false} />
+          <Penguin character={character} color={color} size={170} pose="dance" mood="excited" interactive={false} />
         </View>
 
         <View style={[styles.panel, { backgroundColor: c.surface }]}>
           <AppText variant="title" center color={c.text}>
-            {t('level.title', { n: levelNumber })}
+            {title}
           </AppText>
-          <View style={styles.stars}>
-            {[1, 2, 3].map((n) => (
-              <SymbolView
-                key={n}
-                name="star.fill"
-                size={n === 2 ? 44 : 36}
-                tintColor={n <= stars ? c.coin : c.surfaceSunken}
-              />
-            ))}
-          </View>
+          {stars !== undefined && (
+            <View style={styles.stars}>
+              {[1, 2, 3].map((n) => (
+                <SymbolView
+                  key={n}
+                  name="star.fill"
+                  size={n === 2 ? 44 : 36}
+                  tintColor={n <= stars ? c.coin : c.surfaceSunken}
+                />
+              ))}
+            </View>
+          )}
+          {headline !== undefined && (
+            <AppText variant="display" center color={c.text}>
+              {headline}
+            </AppText>
+          )}
           <AppText variant="label" center color={c.textMuted}>
-            {t('level.completeMoves', { n: moveCount })}
+            {caption}
           </AppText>
         </View>
       </View>

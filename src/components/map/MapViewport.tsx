@@ -18,6 +18,7 @@ import Animated, {
   cancelAnimation,
   Easing,
   useAnimatedStyle,
+  useDerivedValue,
   useSharedValue,
   withDecay,
   withTiming,
@@ -42,6 +43,9 @@ const FOCUS_SCALE = 0.62;
 /** Haritanın o anki ölçeği; içerideki bileşenler buna göre kendini ayarlar. */
 const ZoomContext = createContext<SharedValue<number> | null>(null);
 
+/** Kameranın Skia dönüşümü: içerik koordinatlarını pencereye taşır. */
+export type MapCameraTransform = SharedValue<({ translateX: number } | { translateY: number } | { scale: number })[]>;
+
 export interface MapViewportProps {
   /** Kare içeriğin kenarı (pt). */
   contentSize: number;
@@ -55,10 +59,24 @@ export interface MapViewportProps {
   overviewLabel: string;
   /** Yalnızca geliştirme: açılışta yakınlaşma; uzak görünümde kal. */
   stayFar?: boolean;
+  /**
+   * İçeriğin arkasındaki Skia çizimi (kıta). Pencereyi dolduran, ölçeklenmeyen
+   * bir tuval döndürmeli, verilen kamera dönüşümünü kendi içinde uygulamalı ve
+   * pencerenin yuvarlak köşelerine göre kendini kırpmalı (`size`: pencere boyu).
+   */
+  backdrop?: (camera: MapCameraTransform, size: { width: number; height: number }) => ReactNode;
+  /**
+   * `focus` noktasının üstünde duran işaret (bekleyen penguen). Harita küçülse
+   * de ekranda aynı boyda kalır; `pinSize` kenarı, `pinLift` odak noktasının
+   * ne kadar üstünde duracağıdır (içerik ölçüsünde).
+   */
+  pin?: ReactNode;
+  pinSize?: number;
+  pinLift?: number;
   children: ReactNode;
 }
 
-export function MapViewport({ contentSize, inset = 0, focus, focusLabel, overviewLabel, stayFar = false, children }: MapViewportProps) {
+export function MapViewport({ contentSize, inset = 0, focus, focusLabel, overviewLabel, stayFar = false, backdrop, pin, pinSize = 0, pinLift = 0, children }: MapViewportProps) {
   const { colors } = useTheme();
   const [viewport, setViewport] = useState({ width: 0, height: 0 });
 
@@ -161,6 +179,23 @@ export function MapViewport({ contentSize, inset = 0, focus, focusLabel, overvie
     transform: [{ translateX: x.get() }, { translateY: y.get() }, { scale: scale.get() }],
   }));
 
+  // Aynı kamera, Skia tuvali için dönüşüm olarak.
+  const cameraTransform = useDerivedValue(() => [
+    { translateX: x.get() },
+    { translateY: y.get() },
+    { scale: scale.get() },
+  ]);
+
+  // İşaret ölçeklenen katmanın dışında durur; konumu kameradan hesaplanır.
+  const pinStyle = useAnimatedStyle(() => {
+    const left = x.get() + focus.x * scale.get() - pinSize / 2;
+    const top = y.get() + (focus.y - pinLift) * scale.get() - pinSize;
+    const v = view.get();
+    // Kırpılan alanın dışında durduğu için pencereden taşınca gizlenir.
+    const inside = left >= 0 && top >= 0 && left <= v.width - pinSize && top <= v.height - pinSize;
+    return { left, top, opacity: inside ? 1 : 0 };
+  });
+
   const onLayout = (e: LayoutChangeEvent) => {
     const { width, height } = e.nativeEvent.layout;
     setViewport({ width, height });
@@ -168,14 +203,28 @@ export function MapViewport({ contentSize, inset = 0, focus, focusLabel, overvie
 
   return (
     <View style={[styles.window, { backgroundColor: colors.sea }]} onLayout={onLayout}>
+      {/*
+        Skia tuvalleri (kıta ve işaret) kırpılan / hareket dinleyen görünümün
+        DIŞINDA, doğrudan bu düz görünümün çocuğu olarak durur. Gerçek cihazda
+        o görünümlerin içindeki tuvaller çizilmiyordu (simülatörde çiziliyor).
+        Köşe yuvarlaması tuvalin içinde, Skia ile yapılır.
+      */}
+      {ready && backdrop?.(cameraTransform, viewport)}
       {ready && (
-        <GestureDetector gesture={gesture}>
-          <View style={StyleSheet.absoluteFill}>
-            <Animated.View style={[styles.content, { width: contentSize, height: contentSize }, contentStyle]}>
-              <ZoomContext.Provider value={scale}>{children}</ZoomContext.Provider>
-            </Animated.View>
-          </View>
-        </GestureDetector>
+        <View style={styles.clip}>
+          <GestureDetector gesture={gesture}>
+            <View style={StyleSheet.absoluteFill}>
+              <Animated.View style={[styles.content, { width: contentSize, height: contentSize }, contentStyle]}>
+                <ZoomContext.Provider value={scale}>{children}</ZoomContext.Provider>
+              </Animated.View>
+            </View>
+          </GestureDetector>
+        </View>
+      )}
+      {ready && pin && (
+        <Animated.View pointerEvents="none" style={[styles.pin, { width: pinSize, height: pinSize }, pinStyle]}>
+          {pin}
+        </Animated.View>
       )}
       <View style={styles.buttons}>
         <IconButton icon="globe" label={overviewLabel} onPress={flyToOverview} />
@@ -215,14 +264,16 @@ export function KeepReadable({
 }
 
 const styles = StyleSheet.create({
-  // Harita bir pencere gibi durur: köşeleri yuvarlak, içi okyanus.
+  // Harita bir pencere gibi durur: köşeleri yuvarlak, içi okyanus. Bu görünüm
+  // kırpmaz (içinde Skia tuvali var); kırpma `clip` katmanındadır.
   window: {
     flex: 1,
     marginTop: spacing.md,
     marginHorizontal: -spacing.sm,
     borderRadius: radii.lg,
-    overflow: 'hidden',
   },
+  clip: { position: 'absolute', left: 0, top: 0, right: 0, bottom: 0, borderRadius: radii.lg, overflow: 'hidden' },
   content: { position: 'absolute', left: 0, top: 0, transformOrigin: 'top left' },
+  pin: { position: 'absolute' },
   buttons: { position: 'absolute', right: spacing.md, bottom: spacing.md, gap: spacing.sm },
 });

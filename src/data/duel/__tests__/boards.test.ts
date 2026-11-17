@@ -1,8 +1,8 @@
 import { playGame } from '@/ai/simulate';
 import { createGame, DUEL_RULES } from '@/engine';
-import { createRng, duelLayoutKey, isRotationSymmetric } from '@/generator';
+import { createRng, DUEL_TEAM_COLORS, duelLayoutKey, isRotationSymmetric } from '@/generator';
 
-import { duelBoardAt, duelBoards, getDuelBoard } from '../index';
+import { duelBoardAt, duelBoards, duelTeamColors, getDuelBoard } from '../index';
 
 describe('düello tahtaları', () => {
   it('ilk sürümde 30 tahta var', () => {
@@ -35,6 +35,11 @@ describe('düello tahtaları', () => {
 
     // Adalet: tahta 180° döndürülünce iki takım yer değiştirir.
     expect(isRotationSymmetric(board)).toBe(true);
+  });
+
+  it('takım renkleri üreticiyle aynı', () => {
+    expect(duelTeamColors).toEqual(DUEL_TEAM_COLORS);
+    for (const p of duelBoards[0]!.penguins) expect(p.color).toBe(duelTeamColors[p.team ?? 0]);
   });
 
   it('bozuk simetri yakalanır', () => {

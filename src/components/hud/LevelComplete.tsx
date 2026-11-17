@@ -107,7 +107,13 @@ export function LevelComplete({
 
   return (
     <Animated.View entering={FadeIn.duration(200)} style={[StyleSheet.absoluteFill, styles.scrim]}>
-      <ShareCard cardRef={cardRef} levelNumber={levelNumber} stars={stars} moveCount={moveCount} character={character} />
+      <ShareCard
+        cardRef={cardRef}
+        title={t('level.title', { n: levelNumber })}
+        stars={stars}
+        caption={t('level.completeMoves', { n: moveCount })}
+        character={character}
+      />
 
       <View style={[styles.card, shadows.lifted(colors.shadow), { backgroundColor: colors.surface }]}>
         <AppText variant="title" center>

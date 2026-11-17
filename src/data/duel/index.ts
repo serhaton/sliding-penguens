@@ -3,7 +3,7 @@
  * bilgisayara maçlarla ölçülüp seçilmiştir (`npm run duel:generate`).
  * Ekranlar tahtalara yalnızca buradan ulaşır.
  */
-import type { LevelDef } from '@/engine';
+import type { LevelDef, PenguinColor } from '@/engine';
 
 import boards from './boards.json';
 
@@ -21,3 +21,6 @@ export function duelBoardAt(index: number): LevelDef {
   const count = duelBoards.length;
   return duelBoards[((index % count) + count) % count]!;
 }
+
+/** Takım renkleri: takım 0 (alttaki oyuncu) mavi, takım 1 (üstteki) turuncu. */
+export const duelTeamColors: readonly PenguinColor[] = ['blue', 'orange'];

@@ -5,17 +5,17 @@
  *           (tamamen rastgele hamle). Yeni oyuncu kazanabilmeli.
  *  - medium Tek hamle ileriye bakan açgözlü seçim: hamleden hemen sonraki durumu
  *           en iyi yapan hamle. Rakibin cevabını düşünmez.
- *  - hard   Alfa-beta minimax (4 yarım hamle): rakibin en iyi cevaplarını da hesaba
+ *  - hard   Alfa-beta minimax (6 yarım hamle): rakibin en iyi cevaplarını da hesaba
  *           katar, bloklar ve bloklanmaktan kaçınır.
  *
  * Yapay zekâ motorun aynısını kullanır (`applyMove`), kendi kuralı yoktur.
  * Rastgelelik dışarıdan verilir: aynı tohum aynı maçı üretir (test ve simülasyon).
  */
-import { applyMove, legalMoves, type GameState, type Move } from '@/engine';
+import { applyMove, type GameState, type Move } from '@/engine';
 import type { Rng } from '@/generator/rng';
 
 import { teamDistance } from './evaluate';
-import { scoreMoves, type ScoredMove } from './search';
+import { computerMoves, scoreMoves, type ScoredMove } from './search';
 
 export * from './evaluate';
 export * from './search';
@@ -24,9 +24,9 @@ export type Difficulty = 'easy' | 'medium' | 'hard';
 
 export const AI_SETTINGS = {
   /** Kolay: bu olasılıkla tamamen rastgele bir hamle yapar ("hata"). */
-  easyMistakeRate: 0.3,
+  easyMistakeRate: 0.5,
   /** Zor: aramanın derinliği (yarım hamle). */
-  hardDepth: 4,
+  hardDepth: 6,
   /** Eşit sayılan hamleler arasındaki en büyük puan farkı. */
   tieEpsilon: 1e-6,
 } as const;
@@ -40,21 +40,6 @@ function topMoves(scored: readonly ScoredMove[]): ScoredMove[] {
 /** En iyi puanlı hamlelerden rastgele biri (eşitlikte hep aynı hamleyi oynamasın). */
 function pickBest(scored: readonly ScoredMove[], rng: Rng): Move {
   return rng.pick(topMoves(scored)).move;
-}
-
-/**
- * Zor: derin aramada eşit çıkan hamleler arasında, hemen şimdi en çok işe
- * yarayanı seçer. Yoksa "nasılsa birkaç hamle sonra da girerim" diye yuvanın
- * önünde oyalanır; iyi oyuncu fırsatı ertelemez.
- */
-function hardMove(state: GameState, rng: Rng): Move {
-  const deep = topMoves(scoreMoves(state, AI_SETTINGS.hardDepth));
-  if (deep.length === 1) return deep[0]!.move;
-  const candidates = new Set(deep.map((s) => s.move.penguinId));
-  return pickBest(
-    scoreMoves(state, 1).filter((s) => candidates.has(s.move.penguinId)),
-    rng,
-  );
 }
 
 function easyMove(state: GameState, moves: readonly Move[], rng: Rng): Move {
@@ -72,7 +57,8 @@ function easyMove(state: GameState, moves: readonly Move[], rng: Rng): Move {
  * sıradaki takımın her zaman en az bir hamlesi vardır.
  */
 export function chooseMove(state: GameState, difficulty: Difficulty, rng: Rng): Move | null {
-  const moves = legalMoves(state);
+  // Yerinde dönme yalnızca başka hamle yoksa oynanır (bkz. computerMoves).
+  const moves = computerMoves(state);
   if (moves.length === 0) return null;
   if (moves.length === 1) return moves[0]!;
 
@@ -82,6 +68,6 @@ export function chooseMove(state: GameState, difficulty: Difficulty, rng: Rng): 
     case 'medium':
       return pickBest(scoreMoves(state, 1), rng);
     case 'hard':
-      return hardMove(state, rng);
+      return pickBest(scoreMoves(state, AI_SETTINGS.hardDepth), rng);
   }
 }

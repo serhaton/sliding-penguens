@@ -20,12 +20,14 @@ import Animated, {
   withSequence,
   withSpring,
   withTiming,
+  type SharedValue,
 } from 'react-native-reanimated';
 
 import { PenguinSprite } from '@/components/penguin';
 
 import type { CharacterId } from '@/data/characters';
-import type { CellType, GameState, LevelDef, PenguinColor, Vec } from '@/engine';
+import { duelTeamColors } from '@/data/duel';
+import type { CellType, GameState, Igloo, LevelDef, PenguinColor, Vec } from '@/engine';
 import type { BoardSignal } from '@/game/useLevelSession';
 import { audio, type SoundName } from '@/services/audio';
 import { haptics } from '@/services/haptics';
@@ -54,6 +56,12 @@ export interface BoardProps {
    * bittikten sonra çağrılır. Dalga aralarında kapalıdır (akışı yavaşlatmasın).
    */
   celebrate?: boolean;
+  /**
+   * Penguenler ve igloolar ters dursun (180°). Yüz yüze düelloda sıra üstteki
+   * oyuncuya geçince açılır: karşıda oturan kişi tahtayı kendi yönünden görür.
+   * Yalnızca çizimler döner; konumlar ve yön okları aynı kalır.
+   */
+  flipped?: boolean;
   onTapPenguin: (penguinId: string) => void;
   /** Bölüm bitti ve son animasyon tamamlandı. */
   onFinished?: () => void;
@@ -66,6 +74,9 @@ const OOPS_MS = 750;
 const MAX_CELL = 88;
 /** Bölüm sonu dansının süresi: bitiş kartı bundan sonra açılır. */
 const PARTY_MS = 1100;
+/** Sıra değişince çizimlerin karşı oyuncuya dönmesi: bekleme ve dönüş süresi (ms). */
+const FLIP_DELAY_MS = 700;
+const FLIP_MS = 320;
 
 interface Trail {
   id: number;
@@ -103,6 +114,7 @@ export function Board({
   largeSymbols = false,
   silent = false,
   celebrate = false,
+  flipped = false,
   onTapPenguin,
   onFinished,
 }: BoardProps) {
@@ -120,6 +132,23 @@ export function Board({
   const [trail, setTrail] = useState<Trail | null>(null);
   /** Bölüm sonu: penguenler igloolardan çıkmış dans ediyor. */
   const [party, setParty] = useState(false);
+  /**
+   * Dolu igloolar (yalnızca yeri sınırlı igloolarda, yani düelloda): kapısında
+   * sahibi durur. Dolu igloo kendi takımı için de engeldir; oyuncu bunu görmeli.
+   */
+  const [residents, setResidents] = useState(() => fullIgloos(state));
+
+  // Dönüş, önceki hamlenin animasyonu bittikten sonra başlar. `turned`, çizimin
+  // şu an hangi yöne baktığıdır (penguenin bakış yönü buna göre düzeltilir).
+  const spin = useSharedValue(flipped ? Math.PI : 0);
+  const [turned, setTurned] = useState(flipped);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setTurned(flipped);
+      spin.set(withTiming(flipped ? Math.PI : 0, { duration: FLIP_MS }));
+    }, FLIP_DELAY_MS);
+    return () => clearTimeout(timer);
+  }, [flipped, spin]);
 
   /** Bekleyen zamanlayıcılar; sıfırlamada ve ekrandan çıkarken iptal edilir. */
   const timers = useRef<ReturnType<typeof setTimeout>[]>([]);
@@ -181,6 +210,7 @@ export function Board({
       setSmoking({});
       setTrail(null);
       setParty(false);
+      setResidents(fullIgloos(now));
       return;
     }
 
@@ -195,6 +225,38 @@ export function Board({
       return;
     }
 
+    /**
+     * Oyun bitti: (istenirse) önce küçük bir dans, sonra `onFinished`.
+     * `at`: son animasyonun bittiği an (ms).
+     */
+    const finishGame = (at: number) => {
+      if (!celebrateRef.current) {
+        later(at + 150, () => onFinishedRef.current?.());
+        return;
+      }
+      later(at + 150, () => {
+        setParty(true);
+        buzz('success');
+        // Düello: yalnızca kazanan takım sevinir, kaybeden takım tatlı tatlı
+        // surat asar. Berabere biten maçta kimse dans etmez.
+        const final = stateRef.current;
+        if (final.teams.length > 1) {
+          const winner = final.result?.winner ?? null;
+          setViews((all) => {
+            const next = { ...all };
+            for (const p of final.penguins) {
+              const view = next[p.id];
+              if (!view || p.status === 'home' || winner === null) continue;
+              next[p.id] =
+                p.team === winner ? { ...view, pose: 'dance', mood: 'excited' } : { ...view, mood: 'sad' };
+            }
+            return next;
+          });
+        }
+      });
+      later(at + 150 + PARTY_MS, () => onFinishedRef.current?.());
+    };
+
     const slide = signal.events.find((e) => e.type === 'slide');
     if (!slide) {
       // Kayma yok: önü kapalı penguen yerinde döndü ("çarpınca dön" kuralı).
@@ -202,12 +264,20 @@ export function Board({
       if (turn) {
         setViews((all) => {
           const v = all[turn.penguinId];
-          return v ? { ...all, [turn.penguinId]: { ...v, dir: turn.to, squashTick: v.squashTick + 1 } } : all;
+          // Şaşkın bir bakışla döner: "hamle yapıldı" belli olsun (düelloda
+          // rakibin yerinde dönmesi yoksa hiçbir şey olmamış gibi görünüyordu).
+          return v
+            ? { ...all, [turn.penguinId]: { ...v, dir: turn.to, mood: 'surprised', squashTick: v.squashTick + 1 } }
+            : all;
         });
-        sfx('tap');
-        buzz('tap');
+        later(OOPS_MS, () => patch(turn.penguinId, { mood: 'happy' }));
+        sfx('bump');
+        buzz('bump');
         busyUntil.current = Date.now() + 120;
       }
+      // Maçın son hamlesi yerinde dönme olabilir (hamle sınırı): oyun sonu
+      // burada da işlenmeli, yoksa sonuç kartı hiç açılmaz.
+      if (signal.events.some((e) => e.type === 'gameOver')) finishGame(250);
       return;
     }
     const id = slide.penguinId;
@@ -285,20 +355,16 @@ export function Board({
             setSmoking((s) => ({ ...s, [event.iglooId]: true }));
           });
           later(ms + WAVE_MS + 2600, () => setSmoking((s) => ({ ...s, [event.iglooId]: false })));
+          // Igloo dolduysa penguen kapıda görünür: buraya artık kimse giremez.
+          if (fullIgloos(now)[event.iglooId]) {
+            later(ms + WAVE_MS + 260, () => setResidents((r) => ({ ...r, [event.iglooId]: true })));
+          }
           endsAt = Math.max(endsAt, ms + WAVE_MS + 350);
           break;
 
         // Bölüm bitti: önce küçük bir dans, sonra bitiş kartı.
         case 'gameOver':
-          if (celebrateRef.current) {
-            later(endsAt + 150, () => {
-              setParty(true);
-              buzz('success');
-            });
-            later(endsAt + 150 + PARTY_MS, () => onFinishedRef.current?.());
-          } else {
-            later(endsAt + 150, () => onFinishedRef.current?.());
-          }
+          finishGame(endsAt);
           break;
       }
     }
@@ -353,27 +419,51 @@ export function Board({
           ) : null,
         )}
         {state.igloos.map((g) => (
-          <IglooSprite
-            key={g.id}
-            x={padX + g.x * cell}
-            y={padTop + g.y * cell}
-            size={cell}
-            color={(g.color ?? 'blue') as PenguinColor}
-            largeSymbol={largeSymbols}
-            smoking={!!smoking[g.id]}
-          />
-        ))}
-        {/* Bölüm sonu: her igloonun kapısında sahibi dans eder */}
-        {party &&
-          state.igloos.map((g) => (
-            <IglooParty
-              key={`party-${g.id}`}
+          <Flip key={g.id} spin={spin} cx={padX + (g.x + 0.5) * cell} cy={padTop + (g.y + 0.5) * cell}>
+            <IglooSprite
               x={padX + g.x * cell}
               y={padTop + g.y * cell}
-              cell={cell}
-              color={(g.color ?? 'blue') as PenguinColor}
+              size={cell}
+              color={iglooColor(g)}
               largeSymbol={largeSymbols}
+              smoking={!!smoking[g.id]}
             />
+          </Flip>
+        ))}
+        {/* Dolu igloolar: kapıda sahibi durur */}
+        {!party &&
+          state.igloos
+            .filter((g) => residents[g.id])
+            .map((g) => (
+              <Flip key={`home-${g.id}`} spin={spin} cx={padX + (g.x + 0.5) * cell} cy={padTop + (g.y + 0.5) * cell}>
+                <IglooParty
+                  x={padX + g.x * cell}
+                  y={padTop + g.y * cell}
+                  cell={cell}
+                  color={iglooColor(g)}
+                  largeSymbol={largeSymbols}
+                  dancing={false}
+                />
+              </Flip>
+            ))}
+        {/*
+          Bölüm sonu: igloonun kapısında sahibi dans eder. Düelloda yalnızca
+          kazanan takımın penguenleri dans eder; kaybedenler kapıda surat asar,
+          berabere biten maçta herkes sakin durur. Boş igloolarda kimse yoktur.
+        */}
+        {party &&
+          state.igloos.filter((g) => g.occupants > 0).map((g) => (
+            <Flip key={`party-${g.id}`} spin={spin} cx={padX + (g.x + 0.5) * cell} cy={padTop + (g.y + 0.5) * cell}>
+              <IglooParty
+                x={padX + g.x * cell}
+                y={padTop + g.y * cell}
+                cell={cell}
+                color={iglooColor(g)}
+                largeSymbol={largeSymbols}
+                dancing={state.teams.length === 1 || state.result?.winner === g.team}
+                sad={state.teams.length > 1 && state.result?.winner != null && state.result.winner !== g.team}
+              />
+            </Flip>
           ))}
         {/* Penguenler ve kar zerreleri: tahtanın sol üst köşesine göre konumlanır */}
         <BoardLayer x={padX} y={padTop}>
@@ -390,6 +480,8 @@ export function Board({
                 color={p.color}
                 largeSymbol={largeSymbols}
                 hinted={hintPenguinId === p.id}
+                spin={spin}
+                turned={turned}
               />
             );
           })}
@@ -403,6 +495,28 @@ export function Board({
   );
 }
 
+/** Çocuklarını (cx, cy) çevresinde `spin` radyan döndürür. */
+function Flip({ spin, cx, cy, children }: { spin: SharedValue<number>; cx: number; cy: number; children: ReactNode }) {
+  const transform = useDerivedValue(() => [{ rotate: spin.value }]);
+  return (
+    <Group transform={transform} origin={{ x: cx, y: cy }}>
+      {children}
+    </Group>
+  );
+}
+
+/** Yeri sınırlı ve dolmuş igloolar: igloo kimliği → true. */
+function fullIgloos(state: GameState): Record<string, boolean> {
+  const full: Record<string, boolean> = {};
+  for (const g of state.igloos) if (g.capacity !== null && g.occupants >= g.capacity) full[g.id] = true;
+  return full;
+}
+
+/** Igloonun rengi: tek oyunculuda penguen rengi, düelloda takım rengi. */
+function iglooColor(igloo: Igloo): PenguinColor {
+  return igloo.color ?? duelTeamColors[igloo.team ?? 0] ?? 'blue';
+}
+
 /**
  * Igloonun kapısından çıkıp dans eden küçük penguen. Kapının dibinden
  * esneyerek büyür; igloonun önünde durduğu için kapıdan çıkmış görünür.
@@ -413,12 +527,18 @@ function IglooParty({
   cell,
   color,
   largeSymbol,
+  dancing = true,
+  sad = false,
 }: {
   x: number;
   y: number;
   cell: number;
   color: PenguinColor;
   largeSymbol: boolean;
+  /** Dans etsin mi (bölüm sonu)? Kapalıyken yalnızca kapıda durur. */
+  dancing?: boolean;
+  /** Surat assın mı (düelloyu kaybeden takım)? */
+  sad?: boolean;
 }) {
   const pop = useSharedValue(0);
   useEffect(() => {
@@ -435,8 +555,8 @@ function IglooParty({
         y={y + cell * 0.92 - size}
         size={size}
         color={color}
-        pose="dance"
-        mood="excited"
+        pose={dancing ? 'dance' : 'idle'}
+        mood={dancing ? 'excited' : sad ? 'sad' : 'happy'}
         largeSymbol={largeSymbol}
       />
     </Group>

@@ -31,7 +31,7 @@ export default function HomeScreen() {
   const firstRunDone = useSettings((s) => s.firstRunDone);
   const markFirstRunDone = useSettings((s) => s.markFirstRunDone);
 
-  const play = () => router.push({ pathname: '/level/[id]', params: { id: progress.currentId } });
+    const play = () => router.push({ pathname: '/level/[id]', params: { id: progress.currentId } });
 
   // İlk açılış: doğrudan 1. bölüm. Bir kez yapılır; ilerlemesi olan oyuncuya
   // (ör. iCloud'dan geri yüklenen) hiç yapılmaz.
@@ -80,7 +80,7 @@ export default function HomeScreen() {
           icon="person.2.fill"
           tone="accent"
           size="medium"
-          onPress={() => openSoon('home.duel')}
+          onPress={() => router.push('/duel')}
         />
       </View>
 

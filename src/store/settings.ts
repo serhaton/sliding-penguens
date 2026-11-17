@@ -25,6 +25,8 @@ export interface SettingsState {
   seenIntros: string[];
   /** İlk açılış karşılaması yapıldı (uygulama doğrudan 1. bölümle açıldı). */
   firstRunDone: boolean;
+  /** Başlatılan düello sayısı: her maçta sıradaki tahta gelsin diye. */
+  duelMatches: number;
 
   setLanguage: (language: LanguagePreference) => void;
   setTheme: (theme: ThemePreference) => void;
@@ -33,6 +35,7 @@ export interface SettingsState {
   /** Bütün tanıtımları yeniden gösterilecek hâle getirir (geliştirici aracı). */
   resetIntros: () => void;
   markFirstRunDone: () => void;
+  countDuelMatch: () => void;
 }
 
 export const useSettings = create<SettingsState>()(
@@ -46,6 +49,7 @@ export const useSettings = create<SettingsState>()(
       largeSymbols: false,
       seenIntros: [],
       firstRunDone: false,
+      duelMatches: 0,
 
       setLanguage: (language) => set({ language }),
       setTheme: (theme) => set({ theme }),
@@ -54,12 +58,13 @@ export const useSettings = create<SettingsState>()(
         set((s) => (s.seenIntros.includes(mechanic) ? s : { seenIntros: [...s.seenIntros, mechanic] })),
       resetIntros: () => set({ seenIntros: [] }),
       markFirstRunDone: () => set({ firstRunDone: true }),
+      countDuelMatch: () => set((s) => ({ duelMatches: s.duelMatches + 1 })),
     }),
     {
       name: 'settings.v1',
       storage: createJSONStorage(() => zustandKvStorage),
       // Yalnızca veriyi sakla; fonksiyonlar her açılışta yeniden kurulur.
-      partialize: ({ language, theme, music, sfx, haptics, largeSymbols, seenIntros, firstRunDone }) => ({
+      partialize: ({ language, theme, music, sfx, haptics, largeSymbols, seenIntros, firstRunDone, duelMatches }) => ({
         language,
         theme,
         music,
@@ -68,6 +73,7 @@ export const useSettings = create<SettingsState>()(
         largeSymbols,
         seenIntros,
         firstRunDone,
+        duelMatches,
       }),
     },
   ),

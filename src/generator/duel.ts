@@ -30,7 +30,7 @@ export interface DuelGenParams {
   maxTaps?: number;
 }
 
-/** Takım renkleri: 0 → mavi, 1 → turuncu. */
+/** Takım renkleri: 0 → mavi, 1 → turuncu (data/duel/index.ts ile aynı olmalı; test denetler). */
 export const DUEL_TEAM_COLORS: readonly [PenguinColor, PenguinColor] = ['blue', 'orange'];
 
 const OPPOSITE: Record<Direction, Direction> = { up: 'down', down: 'up', left: 'right', right: 'left' };

@@ -2,7 +2,7 @@
  * Alfa-beta budamalı minimax. Sıra motorun kurallarından okunur (`state.turn`):
  * pas ve "ikinci oyuncuya ekstra hamle" kuralı kendiliğinden doğru işler.
  */
-import { applyMove, legalMoves, type GameState, type Move, type TeamId } from '@/engine';
+import { applyMove, canSlide, legalMoves, type GameState, type Move, type TeamId } from '@/engine';
 
 import { evaluate, WIN } from './evaluate';
 
@@ -10,6 +10,21 @@ export interface ScoredMove {
   move: Move;
   /** Hamlenin, arama derinliği sonundaki değeri (`team` açısından). */
   value: number;
+}
+
+/**
+ * Bilgisayarın oynayabileceği hamleler. Bilgisayar, kayabilecek bir pengueni
+ * varken önü kapalı bir pengueni yerinde döndürmez: oyuncuya "hamle yapmadı"
+ * gibi görünüyor ve oyunu oyalıyordu. Yerinde dönme yalnızca hiçbir pengueni
+ * kayamıyorsa oynanır. (İnsan oyuncu için böyle bir kısıt yoktur.)
+ */
+export function computerMoves(state: GameState): Move[] {
+  const all = legalMoves(state);
+  const sliding = all.filter((move) => {
+    const penguin = state.penguins.find((p) => p.id === move.penguinId);
+    return penguin !== undefined && canSlide(state, penguin);
+  });
+  return sliding.length > 0 ? sliding : all;
 }
 
 /**
@@ -25,8 +40,10 @@ function search(state: GameState, team: TeamId, depth: number, ply: number, alph
   }
   if (depth === 0) return evaluate(state, team);
 
-  const moves = legalMoves(state);
   const maximizing = state.turn === team;
+  // Arama, bilgisayarın kendi kısıtını bilir: yerinde dönmeye güvenen planlar
+  // kurmaz. Rakibin (insanın) bütün hamleleri hesaba katılır.
+  const moves = maximizing ? computerMoves(state) : legalMoves(state);
   let best = maximizing ? -Infinity : Infinity;
 
   for (const move of moves) {
@@ -45,13 +62,14 @@ function search(state: GameState, team: TeamId, depth: number, ply: number, alph
 }
 
 /**
- * Sıradaki takımın her hamlesini `depth` yarım hamle ileriye bakarak puanlar.
+ * Sıradaki takımın (bilgisayarın) oynayabileceği her hamleyi `depth` yarım
+ * hamle ileriye bakarak puanlar.
  * Kökte budama yapılmaz: her hamlenin gerçek değeri gerekir (eşit hamleler
  * arasında rastgele seçim ve zorluk ayarı için).
  */
 export function scoreMoves(state: GameState, depth: number): ScoredMove[] {
   const team = state.turn;
-  return legalMoves(state).map((move) => ({
+  return computerMoves(state).map((move) => ({
     move,
     value: search(applyMove(state, move).state, team, Math.max(0, depth - 1), 1, -Infinity, Infinity),
   }));

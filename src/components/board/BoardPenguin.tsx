@@ -15,6 +15,7 @@ import {
   withSequence,
   withSpring,
   withTiming,
+  type SharedValue,
 } from 'react-native-reanimated';
 
 import { PenguinSprite, type Mood, type Pose } from '@/components/penguin';
@@ -48,12 +49,21 @@ export interface BoardPenguinProps {
   largeSymbol: boolean;
   /** İpucu: parlar ve yön oku yanıp söner. */
   hinted: boolean;
+  /**
+   * Yüz yüze düello: penguenin çizimi hücresinin ortası çevresinde bu kadar
+   * (radyan) döner. Yön oku dönmez: ok her zaman gerçek kayma yönünü gösterir.
+   */
+  spin?: SharedValue<number>;
+  /** Çizim şu an ters duruyor (bakış yönü buna göre düzeltilir). */
+  turned?: boolean;
 }
+
+const OPPOSITE: Record<Direction, Direction> = { up: 'down', down: 'up', left: 'right', right: 'left' };
 
 /** Buzda kayma: çabuk hızlanır, sabit gider, engelde aniden durur. */
 const SLIDE_EASING = Easing.bezier(0.35, 0, 0.85, 0.9);
 
-export function BoardPenguin({ view, cell, character, color, largeSymbol, hinted }: BoardPenguinProps) {
+export function BoardPenguin({ view, cell, character, color, largeSymbol, hinted, spin, turned = false }: BoardPenguinProps) {
   const direction = view.dir;
   const px = useSharedValue(view.x);
   const py = useSharedValue(view.y);
@@ -130,6 +140,7 @@ export function BoardPenguin({ view, cell, character, color, largeSymbol, hinted
     ];
   });
   const opacity = useDerivedValue(() => Math.min(1, presence.value * 1.5));
+  const spriteSpin = useDerivedValue(() => [{ rotate: spin ? spin.value : 0 }]);
   const glowOpacity = useDerivedValue(() => 0.25 + pulse.value * 0.45);
   const glowRadius = useDerivedValue(() => cell * (0.5 + pulse.value * 0.08));
   const arrowOpacity = useDerivedValue(() => (hinted ? 0.4 + pulse.value * 0.6 : 0.9));
@@ -157,17 +168,20 @@ export function BoardPenguin({ view, cell, character, color, largeSymbol, hinted
   return (
     <Group transform={transform} opacity={opacity}>
       {hinted && <Circle cx={cell / 2} cy={cell / 2} r={glowRadius} color="#FFD45E" opacity={glowOpacity} />}
-      <PenguinSprite
-        x={inset}
-        y={inset}
-        size={cell - inset * 2}
-        character={character}
-        color={color}
-        direction={direction}
-        pose={view.pose}
-        mood={view.mood}
-        largeSymbol={largeSymbol}
-      />
+      <Group transform={spriteSpin} origin={{ x: cell / 2, y: cell / 2 }}>
+        <PenguinSprite
+          x={inset}
+          y={inset}
+          size={cell - inset * 2}
+          character={character}
+          color={color}
+          // Ters çizilirken bakış yönü de ters verilir: ekranda yine doğru yöne bakar.
+          direction={turned ? OPPOSITE[direction] : direction}
+          pose={view.pose}
+          mood={view.mood}
+          largeSymbol={largeSymbol}
+        />
+      </Group>
       {/* Yön oku penguenin üstünde çizilir: aşağı/yukarı bakarken de görünsün */}
       {showArrow && (
         <Group transform={arrowTransform} origin={arrowOrigin}>

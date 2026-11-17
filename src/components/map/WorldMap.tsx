@@ -12,7 +12,19 @@
  *
  * Geometri saf fonksiyondadır (layout.ts); bu bileşen yalnızca çizer.
  */
-import { Canvas, DashPathEffect, Group, Line, Oval, Path, Rect, Skia, vec } from '@shopify/react-native-skia';
+import {
+  Canvas,
+  DashPathEffect,
+  Group,
+  Line,
+  Oval,
+  Path,
+  Rect,
+  rect,
+  rrect,
+  Skia,
+  vec,
+} from '@shopify/react-native-skia';
 import { SymbolView } from 'expo-symbols';
 import { useMemo } from 'react';
 import { StyleSheet, View } from 'react-native';
@@ -29,7 +41,7 @@ import { haptics } from '@/services/haptics';
 import { fonts, penguinColors, radii, shadows, spacing, useTheme } from '@/theme';
 
 import { coastline, mapLayout } from './layout';
-import { KeepReadable, MapViewport } from './MapViewport';
+import { KeepReadable, MapViewport, type MapCameraTransform } from './MapViewport';
 
 /**
  * Kıtanın kenarı ve çevresindeki okyanus payı (pt). Pay geniştir: harita kıyının
@@ -38,11 +50,6 @@ import { KeepReadable, MapViewport } from './MapViewport';
 const CONTINENT = 1800;
 const OCEAN = 300;
 const CONTENT = CONTINENT + OCEAN * 2;
-/**
- * Kıta tuvali küçük çizilip büyütülür: 1800 pt’lik bir tuval
- * 3× ekranda gereksiz büyük bir doku olurdu; kar ve kıyı için bu keskinlik yeter.
- */
-const CANVAS_SCALE = 3;
 
 /** Episode 1'in bölgeleri (A, B, C): renk ve ad. */
 const SECTION_STYLE: Record<string, { color: PenguinColor; titleKey: TranslationKey }> = {
@@ -130,6 +137,66 @@ export function WorldMap({ progress, character = 'piti', onOpenLevel, stayFar = 
   const currentIndex = progress.currentNumber - 1;
   const here = LAYOUT.nodes[currentIndex] ?? LAYOUT.nodes[0]!;
 
+  /**
+   * Kıta: sığ kıyı suyu, kar, episode kuşakları. Pencere boyutunda sabit bir
+   * tuvalde çizilir; kaydırma ve yakınlaştırma tuvalin içinde uygulanır.
+   * (Ölçeklenen görünümün içindeki Skia tuvali gerçek cihazda çizilmiyordu.)
+   */
+  const backdrop = (camera: MapCameraTransform, size: { width: number; height: number }) => (
+    <Canvas style={StyleSheet.absoluteFill} pointerEvents="none">
+      {/* Pencerenin yuvarlak köşeleri: tuval kendi kendini kırpar. */}
+      <Group clip={rrect(rect(0, 0, size.width, size.height), radii.lg, radii.lg)}>
+        <Group transform={camera}>
+          <Group transform={[{ translateX: OCEAN }, { translateY: OCEAN }]}>
+            {FLOES.map((f, i) => (
+              <Oval
+                key={i}
+                x={f.x * CONTINENT}
+                y={f.y * CONTINENT}
+                width={f.w}
+                height={f.h}
+                color={colors.land}
+                opacity={0.55}
+              />
+            ))}
+            <Path path={land} color={colors.seaShallow} style="stroke" strokeWidth={56} strokeJoin="round" />
+            <Path path={land} color={colors.land} />
+            <Group clip={land}>
+              {EPISODES.map((episode, w) => {
+                const band = LAYOUT.episodes[w]!;
+                return (
+                  <Rect
+                    key={episode.id}
+                    x={0}
+                    y={band.top}
+                    width={CONTINENT}
+                    height={band.bottom - band.top}
+                    color={penguinColors[episode.color].main}
+                    opacity={isNight ? 0.16 : 0.1}
+                  />
+                );
+              })}
+              {/* Episode sınırları: kesikli çizgi */}
+              {LAYOUT.episodes.slice(1).map((band, w) => (
+                <Line
+                  key={w}
+                  p1={vec(0, band.bottom)}
+                  p2={vec(CONTINENT, band.bottom)}
+                  color={colors.textMuted}
+                  opacity={0.45}
+                  strokeWidth={4}
+                  strokeCap="round"
+                >
+                  <DashPathEffect intervals={[14, 16]} />
+                </Line>
+              ))}
+            </Group>
+          </Group>
+        </Group>
+      </Group>
+    </Canvas>
+  );
+
   return (
     <MapViewport
       contentSize={CONTENT}
@@ -139,56 +206,13 @@ export function WorldMap({ progress, character = 'piti', onOpenLevel, stayFar = 
       focusLabel={t('map.focus')}
       overviewLabel={t('map.overview')}
       stayFar={stayFar}
+      backdrop={backdrop}
+      // Sıradaki düğümde bekleyen penguen: harita küçülse de aynı boyda kalır.
+      pin={<Penguin character={character} size={PENGUIN} interactive={false} />}
+      pinSize={PENGUIN}
+      // Penguenin ayakları düğümün üst kenarına basar.
+      pinLift={CURRENT_NODE / 2 - 6}
     >
-      {/* Kıta: sığ kıyı suyu, kar, episode kuşakları */}
-      <Canvas style={styles.canvas} pointerEvents="none">
-        <Group transform={[{ scale: 1 / CANVAS_SCALE }]}>
-          {FLOES.map((f, i) => (
-            <Oval
-              key={i}
-              x={f.x * CONTINENT}
-              y={f.y * CONTINENT}
-              width={f.w}
-              height={f.h}
-              color={colors.land}
-              opacity={0.55}
-            />
-          ))}
-          <Path path={land} color={colors.seaShallow} style="stroke" strokeWidth={56} strokeJoin="round" />
-          <Path path={land} color={colors.land} />
-          <Group clip={land}>
-            {EPISODES.map((episode, w) => {
-              const band = LAYOUT.episodes[w]!;
-              return (
-                <Rect
-                  key={episode.id}
-                  x={0}
-                  y={band.top}
-                  width={CONTINENT}
-                  height={band.bottom - band.top}
-                  color={penguinColors[episode.color].main}
-                  opacity={isNight ? 0.16 : 0.1}
-                />
-              );
-            })}
-            {/* Episode sınırları: kesikli çizgi */}
-            {LAYOUT.episodes.slice(1).map((band, w) => (
-              <Line
-                key={w}
-                p1={vec(0, band.bottom)}
-                p2={vec(CONTINENT, band.bottom)}
-                color={colors.textMuted}
-                opacity={0.45}
-                strokeWidth={4}
-                strokeCap="round"
-              >
-                <DashPathEffect intervals={[14, 16]} />
-              </Line>
-            ))}
-          </Group>
-        </Group>
-      </Canvas>
-
       {/* Ayak izleri */}
       {LAYOUT.trail.map((dots, i) => {
         const node = MAP_NODES[i];
@@ -298,12 +322,6 @@ export function WorldMap({ progress, character = 'piti', onOpenLevel, stayFar = 
                 ))}
               </View>
             )}
-
-            {status === 'current' && (
-              <KeepReadable minVisible={0.7} style={styles.waiting} pointerEvents="none">
-                <Penguin character={character} size={PENGUIN} interactive={false} />
-              </KeepReadable>
-            )}
           </View>
         );
       })}
@@ -379,15 +397,6 @@ export function WorldMap({ progress, character = 'piti', onOpenLevel, stayFar = 
 const LABEL_WIDTH = 260;
 
 const styles = StyleSheet.create({
-  canvas: {
-    position: 'absolute',
-    left: OCEAN,
-    top: OCEAN,
-    width: CONTINENT / CANVAS_SCALE,
-    height: CONTINENT / CANVAS_SCALE,
-    transformOrigin: 'top left',
-    transform: [{ scale: CANVAS_SCALE }],
-  },
   dot: { position: 'absolute', width: DOT, height: DOT, borderRadius: DOT / 2 },
   ghost: {
     position: 'absolute',
@@ -405,12 +414,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   stars: { flexDirection: 'row', gap: 1, marginTop: spacing.xs },
-  // Penguen düğümün üstünde durur (ayakları dairenin üst kenarında).
-  waiting: {
-    position: 'absolute',
-    top: -PENGUIN * 0.82,
-    transformOrigin: 'bottom',
-  },
   label: { position: 'absolute', width: LABEL_WIDTH, alignItems: 'center' },
   sectionPill: {
     paddingHorizontal: spacing.sm + spacing.xs,

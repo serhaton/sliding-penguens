@@ -59,7 +59,24 @@
       "expo-sharing",
       "expo-asset",
       "@nauverse/expo-cloud-settings",
-      "expo-iap"
+      "expo-iap",
+      [
+        "react-native-google-mobile-ads",
+        {
+          "iosAppId": "ca-app-pub-4475107857161348~1452749598",
+          "delayAppMeasurementInit": true,
+          "userTrackingUsageDescription": "This lets the ads you see be more relevant. The game works the same either way.",
+          "skAdNetworkItems": [
+            "cstr6suwn9.skadnetwork"
+          ]
+        }
+      ],
+      [
+        "expo-tracking-transparency",
+        {
+          "userTrackingPermission": "This lets the ads you see be more relevant. The game works the same either way."
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true

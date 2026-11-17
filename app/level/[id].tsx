@@ -10,6 +10,8 @@ import { AppText, IconButton, Screen } from '@/components/ui';
 import { getLevel, levelNumber, nextLevel } from '@/data/levels';
 import { wallet } from '@/economy/wallet';
 import { useTranslation } from '@/i18n';
+import { ads } from '@/services/ads';
+import { adsConfig } from '@/services/ads.config';
 
 export default function LevelRoute() {
   const { id, auto, autoNext, autoShare, offer } = useLocalSearchParams<{
@@ -43,11 +45,18 @@ export default function LevelRoute() {
       tutorial={number === 1}
       // İlerleme ve coinler cüzdana yazılır (aynı bölüm tekrar coin vermez).
       rewardFor={(stars) => wallet().previewLevelReward(level.id, stars)}
-      onWin={(stars) => void wallet().recordLevelResult(level.id, stars)}
+      onWin={(stars) => {
+        void wallet().recordLevelResult(level.id, stars);
+        // Reklam izinleri ve ilk yükleme: ilk açılışta değil, birkaç bölümden sonra.
+        if (number >= adsConfig.startAfterLevel) void ads.warmUp();
+      }}
       hasNext={!!nextId}
       onNext={() => {
-        if (nextId) router.replace({ pathname: '/level/[id]', params: { id: nextId } });
-        else router.dismissTo('/');
+        // Gerekiyorsa araya giren reklam; kapanınca devam edilir.
+        void ads.afterLevel(number).then(() => {
+          if (nextId) router.replace({ pathname: '/level/[id]', params: { id: nextId } });
+          else router.dismissTo('/');
+        });
       }}
       autoplay={__DEV__ ? auto : undefined}
       autoNext={__DEV__ && autoNext === '1'}

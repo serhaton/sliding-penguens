@@ -21,6 +21,8 @@ import { useProgress } from '@/game/progress';
 import { useAvatar } from '@/game/useAvatar';
 import { useDaily } from '@/game/useDaily';
 import { useTranslation } from '@/i18n';
+import { ads } from '@/services/ads';
+import { adsConfig } from '@/services/ads.config';
 import { useSettings } from '@/store/settings';
 import { spacing, useTheme } from '@/theme';
 
@@ -49,6 +51,15 @@ export default function HomeScreen() {
     markFirstRunDone();
     if (progress.fresh) router.push({ pathname: '/level/[id]', params: { id: progress.currentId } });
   }, [firstRunDone, markFirstRunDone, progress.fresh, progress.currentId]);
+
+  // Günlük hediye kartı şu an ekranda mı?
+  const giftShowing = giftOpen && firstRunDone && !progress.fresh && !daily.login.claimed;
+
+  // Reklam izinleri ve ilk yükleme: birkaç bölüm oynamış oyuncu için (ilk açılışta
+  // sorulmaz). Hediye kartı açıkken beklenir: iki pencere üst üste açılmasın.
+  useEffect(() => {
+    if (!giftShowing && progress.currentNumber > adsConfig.startAfterLevel) void ads.warmUp();
+  }, [giftShowing, progress.currentNumber]);
 
   return (
     <Screen>
@@ -113,7 +124,7 @@ export default function HomeScreen() {
       </View>
 
       {/* Günlük hediye: ilk açılış karşılamasında çıkmaz, oyuncu oynamaya başladıktan sonra gelir. */}
-      {giftOpen && firstRunDone && !progress.fresh && !daily.login.claimed && (
+      {giftShowing && (
         <LoginReward
           status={daily.login}
           onClaim={() => wallet().claimLogin(daily.today, daily.login.day)}

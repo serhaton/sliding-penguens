@@ -22,7 +22,7 @@ import type { LevelDef } from '@/engine';
 import { offers, payFor, type OfferKind, type PayMethod } from '@/game/offers';
 import { useLevelSession } from '@/game/useLevelSession';
 import { useTranslation } from '@/i18n';
-import { ads } from '@/services/ads';
+import { ads, useRewardedReady } from '@/services/ads';
 import { audio } from '@/services/audio';
 import { useSettings } from '@/store/settings';
 import { radii, spacing, useTheme } from '@/theme';
@@ -75,6 +75,8 @@ export function LevelPlay({
   const { colors } = useTheme();
   const largeSymbols = useSettings((s) => s.largeSymbols);
   const session = useLevelSession(level);
+  // Ödüllü video hazır mı: değilse ona bağlı butonlar hiç görünmez.
+  const videoReady = useRewardedReady();
 
   // Bu bölüm yeni bir mekanik getiriyorsa ve tanıtımı henüz izlenmediyse göster.
   const mechanic = getMechanic(level.intro);
@@ -247,7 +249,7 @@ export function LevelPlay({
       {offer && (
         <OfferSheet
           offer={offers[offer]}
-          videoReady={ads.rewardedReady()}
+          videoReady={videoReady}
           onPay={payOffer}
           onClose={() => setOffer(null)}
         />
@@ -264,7 +266,7 @@ export function LevelPlay({
           hasNext={hasNext}
           onReplay={replayable ? restart : undefined}
           onNext={onNext}
-          onDouble={ads.rewardedReady() ? doubleReward : undefined}
+          onDouble={videoReady ? doubleReward : undefined}
           autoShare={autoShare}
         />
       )}

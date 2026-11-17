@@ -67,6 +67,8 @@ export const economy = {
     'coins.large': 4000,
     /** Başlangıç paketinin coin kısmı (reklamsız + kostüm ayrıca verilir). */
     'starter.pack': 1000,
+    /** Kutup Işığı paketinin coin kısmı (özel atkı ayrıca verilir). */
+    'bundle.aurora': 2500,
   },
 } as const;
 

@@ -19,6 +19,7 @@ import {
 } from 'react-native-reanimated';
 
 import { PenguinSprite, type Mood, type Pose } from '@/components/penguin';
+import type { Costume } from '@/components/penguin/types';
 import type { CharacterId } from '@/data/characters';
 import { DIR_VECTORS, type Direction, type PenguinColor } from '@/engine';
 import { penguinColors } from '@/theme/colors';
@@ -45,6 +46,8 @@ export interface BoardPenguinProps {
   view: PenguinView;
   cell: number;
   character?: CharacterId;
+  /** Kostüm (düelloda oyuncunun profil pengueni). */
+  costume?: Costume;
   color: PenguinColor;
   largeSymbol: boolean;
   /** İpucu: parlar ve yön oku yanıp söner. */
@@ -63,7 +66,7 @@ const OPPOSITE: Record<Direction, Direction> = { up: 'down', down: 'up', left: '
 /** Buzda kayma: çabuk hızlanır, sabit gider, engelde aniden durur. */
 const SLIDE_EASING = Easing.bezier(0.35, 0, 0.85, 0.9);
 
-export function BoardPenguin({ view, cell, character, color, largeSymbol, hinted, spin, turned = false }: BoardPenguinProps) {
+export function BoardPenguin({ view, cell, character, costume, color, largeSymbol, hinted, spin, turned = false }: BoardPenguinProps) {
   const direction = view.dir;
   const px = useSharedValue(view.x);
   const py = useSharedValue(view.y);
@@ -176,6 +179,7 @@ export function BoardPenguin({ view, cell, character, color, largeSymbol, hinted
           y={inset}
           size={cell - inset * 2}
           character={character}
+          costume={costume}
           color={color}
           // Ters çizilirken bakış yönü de ters verilir: ekranda yine doğru yöne bakar.
           direction={turned ? OPPOSITE[direction] : direction}

@@ -23,7 +23,10 @@ import { radii, shadows, spacing, useTheme } from '@/theme';
 import { CoinCounter } from './CoinCounter';
 
 export interface LevelCompleteProps {
-  levelNumber: number;
+  /** Paylaşım kartının başlığı: "Bölüm 7", "Günlük bulmaca". */
+  title: string;
+  /** Kartta yıldızların altında kısa not (ör. günlük seri). */
+  note?: string;
   stars: number;
   moveCount: number;
   /** Bu sonuçla kazanılan coin. 0 ise (bölüm tekrar oynandıysa) sayaç gösterilmez. */
@@ -33,7 +36,8 @@ export interface LevelCompleteProps {
   /** Sıradaki bölüm var mı? Yoksa buton ana ekrana döner. */
   hasNext: boolean;
   onNext: () => void;
-  onReplay: () => void;
+  /** Verilmezse "Tekrar oyna" butonu görünmez (günlük bulmaca bir kez oynanır). */
+  onReplay?: () => void;
   /**
    * "2 katı": ödüllü videoyu gösterir ve ödülü cüzdana yazar; coin verildiyse
    * `true` döner. Verilmezse (reklam hazır değilse) buton hiç görünmez.
@@ -47,7 +51,8 @@ const STAR_DELAY_MS = 280;
 const FIRST_STAR_MS = 300;
 
 export function LevelComplete({
-  levelNumber,
+  title,
+  note,
   stars,
   moveCount,
   coins,
@@ -109,7 +114,7 @@ export function LevelComplete({
     <Animated.View entering={FadeIn.duration(200)} style={[StyleSheet.absoluteFill, styles.scrim]}>
       <ShareCard
         cardRef={cardRef}
-        title={t('level.title', { n: levelNumber })}
+        title={title}
         stars={stars}
         caption={t('level.completeMoves', { n: moveCount })}
         character={character}
@@ -152,6 +157,13 @@ export function LevelComplete({
           {t('level.completeMoves', { n: moveCount })}
         </AppText>
 
+        {note && (
+          <View style={[styles.note, { backgroundColor: colors.surfaceSunken }]}>
+            <SymbolView name="flame.fill" size={18} weight="bold" tintColor={colors.accent} />
+            <AppText variant="label">{note}</AppText>
+          </View>
+        )}
+
         {coins > 0 && (
           <View style={styles.coins}>
             <CoinCounter
@@ -179,7 +191,9 @@ export function LevelComplete({
         )}
 
         <View style={styles.actions}>
-          <IconButton icon="arrow.counterclockwise" label={t('level.replay')} onPress={onReplay} size={56} />
+          {onReplay && (
+            <IconButton icon="arrow.counterclockwise" label={t('level.replay')} onPress={onReplay} size={56} />
+          )}
           <View style={styles.next}>
             <BigButton
               title={hasNext ? t('level.next') : t('level.home')}
@@ -209,6 +223,15 @@ const styles = StyleSheet.create({
     gap: spacing.md,
   },
   share: { position: 'absolute', top: spacing.md, right: spacing.md },
+  note: {
+    flexDirection: 'row',
+    alignSelf: 'center',
+    alignItems: 'center',
+    gap: spacing.xs,
+    paddingHorizontal: spacing.md,
+    paddingVertical: spacing.xs,
+    borderRadius: radii.pill,
+  },
   shareCircle: {
     width: 40,
     height: 40,

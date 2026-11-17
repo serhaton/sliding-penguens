@@ -10,7 +10,7 @@
  *   /duel/play?mode=cpu&difficulty=medium    bilgisayara karşı
  */
 import { router, useLocalSearchParams } from 'expo-router';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { StyleSheet, View, type LayoutChangeEvent } from 'react-native';
 
 import type { Difficulty } from '@/ai';
@@ -37,6 +37,8 @@ import { useDuelSession } from '@/game/useDuelSession';
 import { useTranslation } from '@/i18n';
 import { audio } from '@/services/audio';
 import { todayKey } from '@/services/clock';
+import { withoutScarf } from '@/game/avatar';
+import { useAvatar } from '@/game/useAvatar';
 import { useSettings } from '@/store/settings';
 import { radii, shadows, spacing, useTheme } from '@/theme';
 
@@ -102,6 +104,9 @@ function DuelMatch({
   const { t } = useTranslation();
   const { colors } = useTheme();
   const largeSymbols = useSettings((s) => s.largeSymbols);
+  // Düelloda atkı takım rengini taşır: özel atkı takılmaz, gerisi (şapka, saç, gözlük) kalır.
+  const profile = useAvatar();
+  const avatar = useMemo(() => withoutScarf(profile), [profile]);
   const session = useDuelSession(board, { cpu, starter, demo: demo ? 'hard' : null });
   const { state } = session;
 
@@ -168,6 +173,8 @@ function DuelMatch({
       // Yüz yüze oyunda üstteki oyuncu karşıda oturur.
       flipped={!cpu && team === 1}
       canReact={!(cpu && team === CPU_TEAM)}
+      // Alttaki oyuncu cihazın sahibidir: profil penguenini kostümleriyle taşır.
+      avatar={team === HUMAN_TEAM ? avatar : undefined}
     />
   );
 
@@ -215,6 +222,8 @@ function DuelMatch({
             celebrate
             // Yüz yüze oyunda sıra üstteki oyuncudayken çizimler ona döner.
             flipped={!cpu && state.turn === 1}
+            // Cihaz sahibinin takımı profil pengueniyle oynar (bilgisayara karşı da, yüz yüze de).
+            teamLooks={{ [HUMAN_TEAM]: avatar }}
             onTapPenguin={session.tap}
             onFinished={finish}
           />

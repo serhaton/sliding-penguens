@@ -7,7 +7,7 @@
  * Görsel katman buradan ibaret: ileride bir illüstratörün çizimleriyle (Rive
  * ya da sprite) değiştirmek için yalnızca bu klasörü değiştirmek yeter.
  */
-import { Circle, Group, Line, Oval, Path, RoundedRect, Skia, useClock, vec } from '@shopify/react-native-skia';
+import { Circle, Group, LinearGradient, Line, Oval, Path, RoundedRect, Skia, useClock, vec } from '@shopify/react-native-skia';
 import { useMemo } from 'react';
 import { useDerivedValue, type SharedValue } from 'react-native-reanimated';
 
@@ -16,6 +16,7 @@ import { characterForColor, characters, type SymbolKind } from '@/data/character
 import type { Direction } from '@/engine/types';
 import { penguinColors } from '@/theme/colors';
 
+import { HairLayer, HatLayer, SCARF_GRADIENTS } from './costumes';
 import { Face } from './Face';
 import { computeMotion, type Motion } from './motion';
 import { INK } from './palette';
@@ -132,10 +133,7 @@ function StandingBody({
     const tail = Skia.PathBuilder.Make()
       .moveTo(60, 67).lineTo(71, 65).quadTo(74, 76, 72, 86)
       .lineTo(62, 87).quadTo(63, 77, 60, 67).close().detach();
-    // Bere: kafanın üstünü örten kubbe.
-    const beanie = Skia.PathBuilder.Make()
-      .moveTo(21, 27).cubicTo(22, -3, 78, -3, 79, 27).close().detach();
-    return { band, tail, beanie };
+    return { band, tail };
   }, []);
 
   const bodyTransform = useDerivedValue(() => {
@@ -150,6 +148,8 @@ function StandingBody({
   const rightFoot = useDerivedValue(() => [{ translateY: -motion.value.footR }]);
 
   const look = LOOK[direction];
+  // Özel atkı (gökkuşağı vb.): düz renk yerine renk geçişi.
+  const fancy = costume?.scarf ? SCARF_GRADIENTS[costume.scarf] : null;
   const symbolR = largeSymbol ? 5.2 : 3.4;
 
   return (
@@ -185,14 +185,18 @@ function StandingBody({
         <Face mood={mood} pose={pose} motion={motion} lookX={look.x} lookY={look.y} costume={costume} />
 
         {/* Örgü atkı: uç + bant, üstünde örgü çizgileri ve renk körlüğü sembolü */}
-        <Path path={shapes.tail} color={scarf.dark} />
-        <Group clip={shapes.tail}>
+        <Path path={shapes.tail} color={scarf.dark}>
+          {fancy && <LinearGradient start={vec(66, 64)} end={vec(66, 88)} colors={fancy.colors} positions={fancy.positions} />}
+        </Path>
+        <Group clip={shapes.tail} opacity={fancy ? 0 : 1}>
           {[70, 75, 80].map((ly) => (
             <Line key={ly} p1={vec(58, ly + 2)} p2={vec(76, ly - 1)} color={scarf.main} strokeWidth={1.6} />
           ))}
         </Group>
-        <Path path={shapes.band} color={scarf.main} />
-        <Group clip={shapes.band} opacity={0.5}>
+        <Path path={shapes.band} color={scarf.main}>
+          {fancy && <LinearGradient start={vec(20, 62)} end={vec(80, 62)} colors={fancy.colors} positions={fancy.positions} />}
+        </Path>
+        <Group clip={shapes.band} opacity={fancy ? 0.18 : 0.5}>
           {[20, 27, 34, 41, 48, 55, 62, 69, 76].map((lx) => (
             <Line key={lx} p1={vec(lx, 78)} p2={vec(lx + 6, 52)} color={scarf.dark} strokeWidth={1.4} />
           ))}
@@ -204,13 +208,8 @@ function StandingBody({
           </>
         )}
 
-        {costume?.hat === 'beanie' && (
-          <>
-            <Circle cx={50} cy={3} r={6.5} color={scarf.light} />
-            <Path path={shapes.beanie} color={scarf.main} />
-            <RoundedRect x={19} y={20} width={62} height={9} r={4.5} color={scarf.dark} />
-          </>
-        )}
+        <HairLayer hair={costume?.hair} scarf={scarf} />
+        <HatLayer hat={costume?.hat} scarf={scarf} />
       </Group>
 
       {pose === 'sleep' && <Zzz clock={clock} />}
@@ -244,6 +243,7 @@ function SlideBody({ direction, mood, motion, clock, scarf, costume }: BodyProps
   const scarfTail = useDerivedValue(() => [{ rotate: -0.25 + Math.sin(clock.value / 90) * 0.22 }]);
 
   const cy = SLIDE_C.y;
+  const fancy = costume?.scarf ? SCARF_GRADIENTS[costume.scarf] : null;
   return (
     <Group transform={wobble}>
       {/* Gövde: sağa bakacak şekilde çizilir, sonra yöne döndürülür */}
@@ -263,10 +263,14 @@ function SlideBody({ direction, mood, motion, clock, scarf, costume }: BodyProps
         <Oval x={19} y={cy - 19} width={52} height={38} color={INK.feather} />
         {/* Atkı: boyunda bant, arkada dalgalanan uç */}
         <Group transform={scarfTail} origin={vec(42, cy - 15)}>
-          <RoundedRect x={18} y={cy - 20} width={26} height={8} r={4} color={scarf.dark} />
+          <RoundedRect x={18} y={cy - 20} width={26} height={8} r={4} color={scarf.dark}>
+            {fancy && <LinearGradient start={vec(18, cy)} end={vec(44, cy)} colors={fancy.colors} positions={fancy.positions} />}
+          </RoundedRect>
         </Group>
         {/* Bant kafanın hemen arkasında: yarısı kafanın altında kalır */}
-        <RoundedRect x={35} y={cy - 19} width={13} height={38} r={5} color={scarf.main} />
+        <RoundedRect x={35} y={cy - 19} width={13} height={38} r={5} color={scarf.main}>
+          {fancy && <LinearGradient start={vec(41, cy - 19)} end={vec(41, cy + 19)} colors={fancy.colors} positions={fancy.positions} />}
+        </RoundedRect>
         <Circle cx={SLIDE_C.x + SLIDE_HEAD} cy={cy} r={23} color={INK.feather} />
       </Group>
 
@@ -279,6 +283,9 @@ function SlideBody({ direction, mood, motion, clock, scarf, costume }: BodyProps
         ]}
       >
         <Face mood={mood} pose="slide" motion={motion} lookX={dx * 5} lookY={dy * 4} costume={costume} />
+        {/* Şapka da yüz gibi dik kalır: kayarken de kafanın üstünde durur. */}
+        <HairLayer hair={costume?.hair} scarf={scarf} />
+        <HatLayer hat={costume?.hat} scarf={scarf} />
       </Group>
     </Group>
   );

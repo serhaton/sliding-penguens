@@ -26,6 +26,7 @@ import Animated, {
 import { PenguinSprite } from '@/components/penguin';
 
 import type { CharacterId } from '@/data/characters';
+import type { Avatar } from '@/game/avatar';
 import { duelTeamColors } from '@/data/duel';
 import type { CellType, GameState, Igloo, LevelDef, PenguinColor, Vec } from '@/engine';
 import type { BoardSignal } from '@/game/useLevelSession';
@@ -62,6 +63,11 @@ export interface BoardProps {
    * Yalnızca çizimler döner; konumlar ve yön okları aynı kalır.
    */
   flipped?: boolean;
+  /**
+   * Takımın penguenlerinin görünümü (düello): oyuncunun profil pengueni,
+   * kostümleriyle. Atkı yine takım rengindedir. Verilmeyen takım sade kalır.
+   */
+  teamLooks?: Readonly<Record<number, Avatar>>;
   onTapPenguin: (penguinId: string) => void;
   /** Bölüm bitti ve son animasyon tamamlandı. */
   onFinished?: () => void;
@@ -115,6 +121,7 @@ export function Board({
   silent = false,
   celebrate = false,
   flipped = false,
+  teamLooks,
   onTapPenguin,
   onFinished,
 }: BoardProps) {
@@ -442,6 +449,7 @@ export function Board({
                   cell={cell}
                   color={iglooColor(g)}
                   largeSymbol={largeSymbols}
+                  look={g.team !== null ? teamLooks?.[g.team] : undefined}
                   dancing={false}
                 />
               </Flip>
@@ -460,6 +468,7 @@ export function Board({
                 cell={cell}
                 color={iglooColor(g)}
                 largeSymbol={largeSymbols}
+                look={g.team !== null ? teamLooks?.[g.team] : undefined}
                 dancing={state.teams.length === 1 || state.result?.winner === g.team}
                 sad={state.teams.length > 1 && state.result?.winner != null && state.result.winner !== g.team}
               />
@@ -476,7 +485,8 @@ export function Board({
                 key={p.id}
                 view={view}
                 cell={cell}
-                character={defs.get(p.id)?.character as CharacterId | undefined}
+                character={teamLooks?.[p.team]?.character ?? (defs.get(p.id)?.character as CharacterId | undefined)}
+                costume={teamLooks?.[p.team]?.costume}
                 color={p.color}
                 largeSymbol={largeSymbols}
                 hinted={hintPenguinId === p.id}
@@ -527,6 +537,7 @@ function IglooParty({
   cell,
   color,
   largeSymbol,
+  look,
   dancing = true,
   sad = false,
 }: {
@@ -535,6 +546,8 @@ function IglooParty({
   cell: number;
   color: PenguinColor;
   largeSymbol: boolean;
+  /** Takımın profil pengueni (düello). */
+  look?: Avatar;
   /** Dans etsin mi (bölüm sonu)? Kapalıyken yalnızca kapıda durur. */
   dancing?: boolean;
   /** Surat assın mı (düelloyu kaybeden takım)? */
@@ -554,6 +567,8 @@ function IglooParty({
         x={x + (cell - size) / 2}
         y={y + cell * 0.92 - size}
         size={size}
+        character={look?.character}
+        costume={look?.costume}
         color={color}
         pose={dancing ? 'dance' : 'idle'}
         mood={dancing ? 'excited' : sad ? 'sad' : 'happy'}

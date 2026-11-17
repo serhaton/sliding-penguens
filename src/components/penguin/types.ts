@@ -15,10 +15,28 @@ export type Mood = 'happy' | 'excited' | 'surprised' | 'oops' | 'sleepy' | 'prou
  */
 export type Pose = 'idle' | 'slide' | 'sleep' | 'wave' | 'dance';
 
-/** Kostüm katmanları. Mağaza geldikçe yeni seçenekler eklenir. */
+export type Hat =
+  | 'beanie'
+  | 'cap'
+  | 'party'
+  | 'flowers'
+  | 'headphones'
+  | 'tophat'
+  | 'viking'
+  | 'wizard'
+  | 'crown'
+  | 'explorer';
+export type Hair = 'tuft' | 'spiky' | 'mohawk' | 'curls' | 'pigtails' | 'pompadour';
+export type Glasses = 'round' | 'shades' | 'hearts' | 'monocle' | 'goggles';
+/** Özel atkılar: takım/karakter renginin yerine renk geçişli atkı. */
+export type ScarfStyle = 'rainbow' | 'candy' | 'gold' | 'aurora';
+
+/** Kostüm katmanları. Her yuvada en fazla bir parça. */
 export interface Costume {
-  hat?: 'beanie';
-  glasses?: 'round';
+  hat?: Hat;
+  hair?: Hair;
+  glasses?: Glasses;
+  scarf?: ScarfStyle;
 }
 
 export interface PenguinLook {

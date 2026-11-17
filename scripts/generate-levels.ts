@@ -6,6 +6,7 @@
  *   npm run levels:generate -- --part b --write    # Macera 1 B'yi (çarpınca dön) yaz
  *   npm run levels:generate -- --part c --write    # Macera 1 C'yi (dalgalı; ~10 dk sürer)
  *   npm run levels:generate -- --part 2a --write   # Macera 2 A (2a, 2b, 2c, 3a, 3b, 3c)
+ *   npm run levels:generate -- --part daily --write   # günlük bulmaca havuzu
  *   npm run levels:generate -- --part a --seed 7   # başka bir tohumla dene
  *   npm run levels:generate -- --part c --only 26,28 --write   # yalnızca bu bölümleri yenile
  *
@@ -17,6 +18,7 @@ import { join } from 'node:path';
 import { handmade2A, handmade3A, handmadeA, handmadeB } from '../src/data/levels/handmade';
 import {
   createRng,
+  DAILY_SLOTS,
   generateWaveLevel,
   selectLevels,
   WORLD1_A_SLOTS,
@@ -47,6 +49,8 @@ const PARTS: Record<string, Part> = {
   '3a': { file: 'world3-a', slots: WORLD3_A_SLOTS, handmade: handmade3A, candidates: 1500 },
   '3b': { file: 'world3-b', slots: WORLD3_B_SLOTS, handmade: [], candidates: 1500 },
   '3c': { file: 'world3-c', waves: WORLD3_C_LEVELS },
+  // Günlük bulmaca havuzu (src/data/daily/puzzles.json).
+  daily: { file: '../daily/puzzles', slots: DAILY_SLOTS, handmade: [], candidates: 1500 },
 };
 
 const args = process.argv.slice(2);

@@ -12,7 +12,8 @@ import { CoinCounter } from './CoinCounter';
 import { StarBar } from './StarBar';
 
 export interface LevelHudProps {
-  levelNumber: number;
+  /** Ortadaki başlık: "Bölüm 7", "Günlük bulmaca". */
+  title: string;
   moveCount: number;
   par: number;
   stars: number;
@@ -22,7 +23,7 @@ export interface LevelHudProps {
   onBack: () => void;
 }
 
-export function LevelHud({ levelNumber, moveCount, par, stars, wave = 0, waves = 1, onBack }: LevelHudProps) {
+export function LevelHud({ title, moveCount, par, stars, wave = 0, waves = 1, onBack }: LevelHudProps) {
   const { t } = useTranslation();
   const { colors } = useTheme();
   return (
@@ -33,7 +34,7 @@ export function LevelHud({ levelNumber, moveCount, par, stars, wave = 0, waves =
       </View>
       <View style={styles.title}>
         <AppText variant="heading" accessibilityRole="header">
-          {t('level.title', { n: levelNumber })}
+          {title}
         </AppText>
         {/* Dalga göstergesi: biten dalgalar dolu, sıradakiler boş nokta. */}
         {waves > 1 && (

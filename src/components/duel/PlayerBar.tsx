@@ -14,6 +14,7 @@ import Animated, { FadeOut, ZoomIn } from 'react-native-reanimated';
 import { Penguin } from '@/components/penguin';
 import { AppText, PressableScale } from '@/components/ui';
 import type { PenguinColor } from '@/engine';
+import type { Avatar } from '@/game/avatar';
 import { useTranslation } from '@/i18n';
 import { penguinColors, radii, shadows, spacing, useTheme } from '@/theme';
 
@@ -34,6 +35,8 @@ export interface PlayerBarProps {
   active: boolean;
   /** Adın altındaki kısa not: "Sıra sende", "Düşünüyor…", "Pas". */
   note?: string;
+  /** Oyuncunun profil pengueni (kostümleriyle). Verilmezse sade takım pengueni. */
+  avatar?: Avatar;
   /** 180° çevrilmiş (yüz yüze oyunda üstteki oyuncu). */
   flipped?: boolean;
   /** Tepki butonu gösterilsin mi? (Bilgisayarın tepki butonu olmaz.) */
@@ -48,6 +51,7 @@ export function PlayerBar({
   wins = 0,
   active,
   note,
+  avatar,
   flipped = false,
   canReact = false,
 }: PlayerBarProps) {
@@ -82,7 +86,14 @@ export function PlayerBar({
         ]}
       >
         <View style={styles.avatar}>
-          <Penguin color={color} size={44} mood={active ? 'excited' : 'happy'} interactive={false} />
+          <Penguin
+            character={avatar?.character}
+            costume={avatar?.costume}
+            color={color}
+            size={44}
+            mood={active ? 'excited' : 'happy'}
+            interactive={false}
+          />
         </View>
 
         <View style={styles.texts}>

@@ -15,6 +15,7 @@ import { ScrollView, StyleSheet, Switch, View } from 'react-native';
 
 import { IglooSprite, RockSprite, Tile } from '@/components/board';
 import { Penguin, PenguinSprite, type Mood, type Pose } from '@/components/penguin';
+import type { Glasses, Hat } from '@/components/penguin/types';
 import { AppText, IconButton, PressableScale, Screen } from '@/components/ui';
 import { characterList, type CharacterId } from '@/data/characters';
 import type { CellType, Direction, PenguinColor } from '@/engine/types';
@@ -129,6 +130,9 @@ export default function CharactersScene() {
     pose?: Pose;
     dir?: Direction;
     scroll?: string;
+    /** Kostüm denemesi: ?hat=crown&glasses=shades */
+    hat?: Hat;
+    glasses?: Glasses;
   }>();
 
   const [who, setWho] = useState<CharacterId>(params.who ?? 'piti');
@@ -137,7 +141,10 @@ export default function CharactersScene() {
   const [direction, setDirection] = useState<Direction>(params.dir ?? 'down');
   const [beanie, setBeanie] = useState(false);
   const [glasses, setGlasses] = useState(false);
-  const costume = { hat: beanie ? ('beanie' as const) : undefined, glasses: glasses ? ('round' as const) : undefined };
+  const costume = {
+    hat: beanie ? ('beanie' as const) : params.hat,
+    glasses: glasses ? ('round' as const) : params.glasses,
+  };
 
   return (
     <Screen>

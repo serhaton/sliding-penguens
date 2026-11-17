@@ -11,6 +11,8 @@ import { StyleSheet, View } from 'react-native';
 
 import type { Difficulty } from '@/ai';
 import { Penguin } from '@/components/penguin';
+import { withoutScarf } from '@/game/avatar';
+import { useAvatar } from '@/game/useAvatar';
 import { AppText, BigButton, IconButton, PressableScale, Screen, Segmented } from '@/components/ui';
 import { duelTeamColors } from '@/data/duel';
 import { SERIES_WINS } from '@/game/duel';
@@ -19,6 +21,7 @@ import { radii, shadows, spacing, useTheme } from '@/theme';
 
 export default function DuelLobbyScreen() {
   const { t } = useTranslation();
+  const avatar = withoutScarf(useAvatar());
   const { colors } = useTheme();
   const [difficulty, setDifficulty] = useState<Difficulty>('easy');
 
@@ -34,7 +37,7 @@ export default function DuelLobbyScreen() {
 
       {/* İki takımın penguenleri karşı karşıya: ekranın ne olduğunu yazısız anlatır. */}
       <View style={styles.hero}>
-        <Penguin color={duelTeamColors[0]} direction="right" mood="excited" size={120} label={t('duel.blue')} />
+        <Penguin character={avatar.character} costume={avatar.costume} color={duelTeamColors[0]} direction="right" mood="excited" size={120} label={t('duel.blue')} />
         <View style={styles.versus}>
           <AppText variant="title" muted>
             vs

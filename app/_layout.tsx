@@ -2,8 +2,8 @@
  * Kök yerleşim: bütün ekranları saran yığın (stack) gezgini.
  *
  * Açılışta hiçbir bekleme yok: yazı tipleri uygulamaya gömülü, ayarlar MMKV'den
- * senkron okunuyor. İleride burada ekranlardan bağımsız servisler de başlatılacak
- * (satın alma dinleyicisi, iCloud birleştirme, Game Center girişi).
+ * senkron okunuyor. Ekranlardan bağımsız servisler burada başlatılır (cüzdan ve
+ * iCloud birleştirme, satın alma dinleyicisi; ileride Game Center girişi).
  */
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
@@ -12,6 +12,8 @@ import { useEffect } from 'react';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 import { startWallet } from '@/economy/wallet';
+import { startStore } from '@/services/store';
+import { useSettings } from '@/store/settings';
 import { motion, useTheme } from '@/theme';
 
 export default function RootLayout() {
@@ -20,6 +22,10 @@ export default function RootLayout() {
   // Ekranlardan bağımsız servisler: uygulama açılır açılmaz başlar.
   useEffect(() => {
     startWallet();
+    // Mağaza: yarım kalan satın alımlar teslim edilir, sahiplik yenilenir.
+    void startStore();
+    // Başlangıç paketi teklifinin süresi ilk açılıştan sayılır.
+    useSettings.getState().stampFirstRun(Date.now());
   }, []);
 
   // Ekran geçişlerinde arkadan beyaz bir zemin görünmesin.

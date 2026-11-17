@@ -25,6 +25,8 @@ export interface SettingsState {
   seenIntros: string[];
   /** İlk açılış karşılaması yapıldı (uygulama doğrudan 1. bölümle açıldı). */
   firstRunDone: boolean;
+  /** İlk açılış zamanı (ms): başlangıç paketi teklifinin süresi buradan sayılır. 0 = henüz bilinmiyor. */
+  firstRunAt: number;
   /** Başlatılan düello sayısı: her maçta sıradaki tahta gelsin diye. */
   duelMatches: number;
 
@@ -35,6 +37,8 @@ export interface SettingsState {
   /** Bütün tanıtımları yeniden gösterilecek hâle getirir (geliştirici aracı). */
   resetIntros: () => void;
   markFirstRunDone: () => void;
+  /** İlk açılış zamanını bir kez kaydeder. */
+  stampFirstRun: (now: number) => void;
   countDuelMatch: () => void;
 }
 
@@ -49,6 +53,7 @@ export const useSettings = create<SettingsState>()(
       largeSymbols: false,
       seenIntros: [],
       firstRunDone: false,
+      firstRunAt: 0,
       duelMatches: 0,
 
       setLanguage: (language) => set({ language }),
@@ -58,13 +63,14 @@ export const useSettings = create<SettingsState>()(
         set((s) => (s.seenIntros.includes(mechanic) ? s : { seenIntros: [...s.seenIntros, mechanic] })),
       resetIntros: () => set({ seenIntros: [] }),
       markFirstRunDone: () => set({ firstRunDone: true }),
+      stampFirstRun: (now) => set((s) => (s.firstRunAt > 0 ? s : { firstRunAt: now })),
       countDuelMatch: () => set((s) => ({ duelMatches: s.duelMatches + 1 })),
     }),
     {
       name: 'settings.v1',
       storage: createJSONStorage(() => zustandKvStorage),
       // Yalnızca veriyi sakla; fonksiyonlar her açılışta yeniden kurulur.
-      partialize: ({ language, theme, music, sfx, haptics, largeSymbols, seenIntros, firstRunDone, duelMatches }) => ({
+      partialize: ({ language, theme, music, sfx, haptics, largeSymbols, seenIntros, firstRunDone, firstRunAt, duelMatches }) => ({
         language,
         theme,
         music,
@@ -73,6 +79,7 @@ export const useSettings = create<SettingsState>()(
         largeSymbols,
         seenIntros,
         firstRunDone,
+        firstRunAt,
         duelMatches,
       }),
     },

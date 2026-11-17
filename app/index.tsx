@@ -8,25 +8,34 @@
  * oynayarak öğrenir. Geri dönünce bu ekranı görür.
  */
 import { router } from 'expo-router';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import { CoinCounter } from '@/components/hud/CoinCounter';
+import { LoginReward } from '@/components/hud/LoginReward';
 import { Penguin } from '@/components/penguin';
 import { AppText, BigButton, IconButton, Screen } from '@/components/ui';
 import { antarctica } from '@/data/continents';
+import { wallet } from '@/economy/wallet';
 import { useProgress } from '@/game/progress';
-import { useTranslation, type TranslationKey } from '@/i18n';
+import { useAvatar } from '@/game/useAvatar';
+import { useDaily } from '@/game/useDaily';
+import { useTranslation } from '@/i18n';
 import { useSettings } from '@/store/settings';
-import { spacing } from '@/theme';
+import { spacing, useTheme } from '@/theme';
 
-/** Henüz yapılmamış ekranlar için ortak yer tutucuya git. */
-function openSoon(titleKey: TranslationKey) {
-  router.push({ pathname: '/soon', params: { titleKey } });
-}
+/**
+ * Günlük hediye kartı bu oturumda kapatıldı mı? Oturumda en fazla bir pop-up
+ * kuralı: ana ekrana her dönüşte yeniden açılmaz.
+ */
+let giftDismissed = false;
 
 export default function HomeScreen() {
   const { t } = useTranslation();
+  const { colors } = useTheme();
+  const daily = useDaily();
+  const avatar = useAvatar();
+  const [giftOpen, setGiftOpen] = useState(!giftDismissed);
   const progress = useProgress();
   const firstRunDone = useSettings((s) => s.firstRunDone);
   const markFirstRunDone = useSettings((s) => s.markFirstRunDone);
@@ -45,10 +54,13 @@ export default function HomeScreen() {
     <Screen>
       {/* Üst köşeler */}
       <View style={styles.cornerRow}>
+        {/* Günlük bulmaca: rozet seriyi gösterir; bugün çözülmediyse ikon vurgulu. */}
         <IconButton
-          icon="calendar"
-          label={t('home.daily')}
-          onPress={() => openSoon('home.daily')}
+          icon={daily.streak > 0 ? 'flame.fill' : 'calendar'}
+          label={`${t('home.daily')}${daily.streak > 0 ? `, ${t('daily.streak', { n: daily.streak })}` : ''}`}
+          badge={daily.streak > 0 ? daily.streak : undefined}
+          tint={daily.solved ? undefined : colors.accent}
+          onPress={() => router.push('/daily')}
         />
         <CoinCounter />
         <IconButton
@@ -60,7 +72,8 @@ export default function HomeScreen() {
 
       {/* Penguen + başlık */}
       <View style={styles.hero}>
-        <Penguin character="piti" size={190} label={t('app.name')} />
+        {/* Profilde seçilen penguen, kostümleriyle. */}
+        <Penguin character={avatar.character} costume={avatar.costume} size={190} label={t('app.name')} />
         <AppText variant="display" center accessibilityRole="header">
           {t('app.name').replace(' ', '\n')}
         </AppText>
@@ -89,15 +102,27 @@ export default function HomeScreen() {
         <IconButton
           icon="person.crop.circle.fill"
           label={t('home.profile')}
-          onPress={() => openSoon('home.profile')}
+          onPress={() => router.push('/profile')}
         />
         <IconButton icon="map.fill" label={t('home.map')} onPress={() => router.push('/map')} />
         <IconButton
           icon="bag.fill"
           label={t('home.shop')}
-          onPress={() => openSoon('home.shop')}
+          onPress={() => router.push('/shop')}
         />
       </View>
+
+      {/* Günlük hediye: ilk açılış karşılamasında çıkmaz, oyuncu oynamaya başladıktan sonra gelir. */}
+      {giftOpen && firstRunDone && !progress.fresh && !daily.login.claimed && (
+        <LoginReward
+          status={daily.login}
+          onClaim={() => wallet().claimLogin(daily.today, daily.login.day)}
+          onClose={() => {
+            giftDismissed = true;
+            setGiftOpen(false);
+          }}
+        />
+      )}
     </Screen>
   );
 }

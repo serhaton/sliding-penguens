@@ -11,6 +11,7 @@ import { useMemo } from 'react';
 import { useDerivedValue, type SharedValue } from 'react-native-reanimated';
 
 import type { Motion } from './motion';
+import { GlassesLayer } from './costumes';
 import { INK } from './palette';
 import type { Costume, Mood, Pose } from './types';
 
@@ -205,14 +206,7 @@ export function Face({ mood, pose, motion, lookX, lookY, costume }: FaceProps) {
         <Path path={paths.beak} color={INK.beak} />
         <Line p1={vec(47.2, 48.6)} p2={vec(52.8, 48.6)} color={INK.beakDark} strokeWidth={0.8} strokeCap="round" />
 
-        {costume?.glasses === 'round' && (
-          <>
-            {EYES.map((cx) => (
-              <Circle key={cx} cx={cx} cy={EYE_Y} r={10} color={INK.eye} style="stroke" strokeWidth={1.8} />
-            ))}
-            <Line p1={vec(48.5, EYE_Y - 1)} p2={vec(51.5, EYE_Y - 1)} color={INK.eye} strokeWidth={1.8} strokeCap="round" />
-          </>
-        )}
+        <GlassesLayer glasses={costume?.glasses} />
       </Group>
       {mood === 'oops' && pose !== 'sleep' && <Path path={paths.sweat} color={INK.tear} />}
     </Group>

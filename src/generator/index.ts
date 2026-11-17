@@ -6,5 +6,6 @@ export * from './select';
 export * from './world1';
 export * from './world2';
 export * from './world3';
+export * from './daily';
 export * from './waves';
 export * from './duel';

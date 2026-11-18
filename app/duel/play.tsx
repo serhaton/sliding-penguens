@@ -40,7 +40,7 @@ import { todayKey } from '@/services/clock';
 import { withoutScarf } from '@/game/avatar';
 import { useAvatar } from '@/game/useAvatar';
 import { useSettings } from '@/store/settings';
-import { radii, shadows, spacing, useTheme } from '@/theme';
+import { radii, s, shadows, spacing, useTheme } from '@/theme';
 
 const DIFFICULTIES: readonly Difficulty[] = ['easy', 'medium', 'hard'];
 
@@ -254,9 +254,9 @@ function DuelMatch({
 
 const styles = StyleSheet.create({
   header: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
-  headerSpacer: { width: 48 },
+  headerSpacer: { width: s(48) },
   moves: {
-    minHeight: 36,
+    minHeight: s(36),
     paddingHorizontal: spacing.md,
     borderRadius: radii.pill,
     justifyContent: 'center',

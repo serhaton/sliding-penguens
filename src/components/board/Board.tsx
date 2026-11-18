@@ -32,6 +32,7 @@ import type { CellType, GameState, Igloo, LevelDef, PenguinColor, Vec } from '@/
 import type { BoardSignal } from '@/game/useLevelSession';
 import { audio, type SoundName } from '@/services/audio';
 import { haptics } from '@/services/haptics';
+import { isTablet, s } from '@/theme';
 
 import { BoardPenguin, type PenguinView } from './BoardPenguin';
 import { IglooSprite } from './IglooSprite';
@@ -77,7 +78,7 @@ export interface BoardProps {
 const slideMs = (distance: number) => 120 + 85 * distance;
 const WAVE_MS = 520;
 const OOPS_MS = 750;
-const MAX_CELL = 88;
+const MAX_CELL = isTablet ? s(118) : 88;
 /** Bölüm sonu dansının süresi: bitiş kartı bundan sonra açılır. */
 const PARTY_MS = 1100;
 /** Sıra değişince çizimlerin karşı oyuncuya dönmesi: bekleme ve dönüş süresi (ms). */

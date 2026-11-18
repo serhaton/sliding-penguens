@@ -11,7 +11,7 @@ import { AppText, BigButton, ScrimBleed } from '@/components/ui';
 import { economy } from '@/economy/economy.config';
 import type { LoginStatus } from '@/game/daily';
 import { useTranslation } from '@/i18n';
-import { radii, shadows, spacing, useTheme } from '@/theme';
+import { radii, s, shadows, spacing, useTheme } from '@/theme';
 
 import { CoinIcon } from './CoinCounter';
 
@@ -75,7 +75,7 @@ export function LoginReward({ status, onClaim, onClose }: LoginRewardProps) {
                   {t('login.day', { n: day })}
                 </AppText>
                 <View style={styles.amount}>
-                  <CoinIcon size={16} />
+                  <CoinIcon size={s(16)} />
                   <AppText variant="label" color={today ? colors.onPrimary : colors.text}>
                     {amount}
                   </AppText>
@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
   },
   card: {
     width: '100%',
-    maxWidth: 360,
+    maxWidth: s(360),
     borderRadius: radii.lg,
     padding: spacing.lg,
     gap: spacing.md,

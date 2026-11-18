@@ -45,13 +45,23 @@ SHOTS = [
     ('10-daily', '/daily', 4),
 ]
 
+# İnceleme için ek ekranlar: yalnızca --only ile adı verilirse çekilir.
+EXTRA = [
+    ('20-settings', '/settings', 4),
+    ('21-duel-menu', '/duel', 4),
+    ('22-level1', '/level/1', 6),
+    ('23-duel-2p', '/duel/play?mode=local', 4),
+]
+
 
 # Bitiş kartında coin satırı yalnızca bölüm ilk kez geçilince görünür: her dil ayrı bölüm oynar.
 COMPLETE_LEVEL = {'en': 37, 'tr': 38}
 
 
 def complete_route(level):
-    # world2-a.json 33. bölümden başlar.
+    # world2-a.json 33–40. bölümleri, world2-b.json 41–50. bölümleri tutar.
+    if level >= 41:
+        return '/level/%d?auto=%s' % (level, solution('world2-b.json', level - 41))
     return '/level/%d?auto=%s' % (level, solution('world2-a.json', level - 33))
 
 
@@ -115,9 +125,11 @@ def main():
     for lang in langs:
         folder = os.path.join(out, lang)
         os.makedirs(folder, exist_ok=True)
-        remote.go('/dev/seed?lang=' + lang, 8)
-        for name, route, wait in SHOTS:
-            if only and name not in only.split(','):
+        # --seed 'theme=night&symbols=1' tanıtım verisine ek ayar geçirir; --no-seed hiç yüklemez.
+        if '--no-seed' not in sys.argv:
+            remote.go('/dev/seed?lang=' + lang + ('&' + option('--seed') if option('--seed') else ''), 8)
+        for name, route, wait in SHOTS + EXTRA:
+            if (only and name not in only.split(',')) or (not only and (name, route, wait) in EXTRA):
                 continue
             remote.go(route or complete_route(levels[lang]), wait)
             result = sim('io', udid, 'screenshot', os.path.join(folder, name + '.png'))

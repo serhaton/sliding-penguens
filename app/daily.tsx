@@ -19,7 +19,7 @@ import { useProgress } from '@/game/progress';
 import { useAvatar } from '@/game/useAvatar';
 import { useToday } from '@/game/useDaily';
 import { useTranslation } from '@/i18n';
-import { radii, spacing, useTheme } from '@/theme';
+import { radii, s, spacing, useTheme } from '@/theme';
 
 export default function DailyScreen() {
   const { t } = useTranslation();
@@ -42,7 +42,7 @@ export default function DailyScreen() {
       <Screen>
         <IconButton icon="chevron.left" label={t('common.back')} onPress={() => router.back()} />
         <View style={styles.center}>
-          <Penguin character={avatar.character} costume={avatar.costume} mood="sad" size={170} />
+          <Penguin character={avatar.character} costume={avatar.costume} mood="sad" size={s(170)} />
           <AppText variant="title" center>
             {t('daily.played')}
           </AppText>
@@ -50,7 +50,7 @@ export default function DailyScreen() {
             {t('daily.tomorrow')}
           </AppText>
           <View style={[styles.streak, { backgroundColor: colors.surface }]}>
-            <SymbolView name="flame.fill" size={18} weight="bold" tintColor={colors.accent} />
+            <SymbolView name="flame.fill" size={s(18)} weight="bold" tintColor={colors.accent} />
             <AppText variant="label">{t('daily.streak', { n: streak })}</AppText>
           </View>
         </View>

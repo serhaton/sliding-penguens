@@ -38,7 +38,7 @@ import type { PenguinColor } from '@/engine';
 import type { Progress } from '@/game/progress';
 import { useTranslation, type TranslationKey } from '@/i18n';
 import { haptics } from '@/services/haptics';
-import { fonts, penguinColors, radii, shadows, spacing, useTheme } from '@/theme';
+import { fonts, penguinColors, radii, s, shadows, spacing, ui, useTheme } from '@/theme';
 
 import { coastline, mapLayout } from './layout';
 import { KeepReadable, MapViewport, type MapCameraTransform } from './MapViewport';
@@ -57,7 +57,7 @@ const DOT = 10;
 /** Bölümü henüz hazır olmayan düğümün boyu. */
 const GHOST = 18;
 /** Sıradaki düğümde bekleyen penguenin boyu. */
-const PENGUIN = 56;
+const PENGUIN = s(56);
 
 interface MapNode {
   id: string;
@@ -352,7 +352,7 @@ export function WorldMap({ progress, character = 'piti', onOpenLevel, stayFar = 
         const center = LAYOUT.episodes[w]!.center;
         return (
           <KeepReadable
-            minVisible={0.6}
+            minVisible={0.6 * ui}
             key={`w${episode.id}`}
             accessible
             accessibilityLabel={`${t('map.episode', { n: episode.id })}, ${t(episode.titleKey)}, ${t('soon.title')}`}

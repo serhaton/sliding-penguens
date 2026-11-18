@@ -29,7 +29,7 @@ import { useDaily } from '@/game/useDaily';
 import { useTranslation } from '@/i18n';
 import { gameCenter, useGameCenter } from '@/services/gameCenter';
 import { haptics } from '@/services/haptics';
-import { penguinColors, radii, shadows, spacing, useTheme } from '@/theme';
+import { isTablet, penguinColors, radii, s, shadows, spacing, useTheme } from '@/theme';
 
 export default function ProfileScreen() {
   const { t, language } = useTranslation();
@@ -73,7 +73,9 @@ export default function ProfileScreen() {
       return;
     }
     setTrying(null);
-    equip({ [item.slot]: equipped[item.slot] === item.id ? undefined : item.id });
+    equip({
+      [item.slot]: equipped[item.slot] === item.id ? undefined : item.id,
+    });
   };
 
   const clearSlot = (slot: CosmeticSlot) => {
@@ -105,6 +107,68 @@ export default function ProfileScreen() {
   /** Denenen kostüm bir mağaza paketine özelse o paket. */
   const bundle = trying?.exclusive ? getProduct(trying.exclusive) : undefined;
 
+  // Aşağıdaki üç parça telefonda listenin içinde, iPad'de sol bölmede durur.
+  const statsNode = (
+    <View
+      style={[
+        styles.stats,
+        isTablet && styles.statsTall,
+        shadows.soft(colors.shadow),
+        { backgroundColor: colors.surface },
+      ]}
+    >
+      <Stat icon="star.fill" tint={colors.coin} value={`${progress.totalStars}`} label={t('profile.stars')} />
+      <Stat icon="flame.fill" tint={colors.accent} value={`${daily.streak}`} label={t('profile.streak')} />
+      <Stat
+        icon="trophy.fill"
+        tint={colors.primary}
+        value={`${state.duelStats.wins} · ${state.duelStats.draws} · ${state.duelStats.losses}`}
+        label={`${t('profile.wins')} · ${t('profile.draws')} · ${t('profile.losses')}`}
+      />
+    </View>
+  );
+
+  const linksNode = gc.available ? (
+    <View style={styles.links}>
+      <PressableScale
+        accessibilityLabel={t('gamecenter.leaderboards')}
+        onPress={() => void gameCenter.show('leaderboards')}
+        style={[styles.link, { backgroundColor: colors.surface }]}
+      >
+        <SymbolView name="list.number" size={s(18)} weight="bold" tintColor={colors.primary} />
+        <AppText variant="label">{t('gamecenter.leaderboards')}</AppText>
+      </PressableScale>
+      <PressableScale
+        accessibilityLabel={t('gamecenter.achievements')}
+        onPress={() => void gameCenter.show('achievements')}
+        style={[styles.link, { backgroundColor: colors.surface }]}
+      >
+        <SymbolView name="rosette" size={s(18)} weight="bold" tintColor={colors.primary} />
+        <AppText variant="label">{t('gamecenter.achievements')}</AppText>
+      </PressableScale>
+    </View>
+  ) : null;
+
+  const buyNode = trying ? (
+    <View style={styles.buy}>
+      <BigButton
+        title={
+          bundle
+            ? t('profile.onlyIn', { name: t(bundle.nameKey) })
+            : affordable
+              ? `${t('profile.buy')}  ${trying.price}`
+              : t('profile.noCoins')
+        }
+        subtitle={t(trying.nameKey)}
+        icon={bundle ? 'gift.fill' : affordable ? 'bag.fill' : 'lock.fill'}
+        tone="accent"
+        size="medium"
+        disabled={!bundle && (!affordable || busy)}
+        onPress={buy}
+      />
+    </View>
+  ) : null;
+
   return (
     <Screen>
       <View style={styles.header}>
@@ -119,158 +183,130 @@ export default function ProfileScreen() {
         </View>
       </View>
 
-      {/* Avatar: dokununca zıplar; denenen kostüm hemen üstünde görünür. */}
-      <View style={styles.hero}>
-        <Penguin
-          character={avatar.character}
-          costume={preview}
-          size={150}
-          mood={trying ? 'excited' : 'happy'}
-          label={character.name[language]}
-        />
-        <AppText variant="title" center>
-          {character.name[language]}
-        </AppText>
-      </View>
+      {/*
+        Telefonda tek sütun: penguen üstte, altında kayan liste.
+        iPad'de iki bölme: solda penguen, istatistikler ve satın alma düğmesi sabit
+        durur; sağda gardırop kayar. Böylece denenen kostüm hep göz önünde kalır.
+      */}
+      <View style={isTablet ? styles.split : styles.stack}>
+        <View style={isTablet ? styles.pane : undefined}>
+          {/* Avatar: dokununca zıplar; denenen kostüm hemen üstünde görünür. */}
+          <View style={styles.hero}>
+            <Penguin
+              character={avatar.character}
+              costume={preview}
+              size={isTablet ? s(220) : 150}
+              mood={trying ? 'excited' : 'happy'}
+              label={character.name[language]}
+            />
+            <AppText variant="title" center>
+              {character.name[language]}
+            </AppText>
+          </View>
 
-      <ScrollView contentContainerStyle={styles.list} showsVerticalScrollIndicator={false}>
-        {/* Karakter: altı penguen, hepsi ücretsiz. */}
-        <Section title={t('profile.character')}>
-          {characterList.map((c) => (
-            <Chip
-              key={c.id}
-              label={c.name[language]}
-              selected={c.id === avatar.character}
-              tone={penguinColors[c.color].main}
-              onPress={() => chooseCharacter(c.id)}
-            >
-              <Penguin character={c.id} size={52} interactive={false} />
-            </Chip>
+          {isTablet && (
+            <View style={styles.paneExtras}>
+              {statsNode}
+              {linksNode}
+              {buyNode}
+            </View>
+          )}
+        </View>
+
+        <ScrollView style={styles.scroll} contentContainerStyle={styles.list} showsVerticalScrollIndicator={false}>
+          {/* Karakter: altı penguen, hepsi ücretsiz. */}
+          <Section title={t('profile.character')}>
+            {characterList.map((c) => (
+              <Chip
+                key={c.id}
+                label={c.name[language]}
+                selected={c.id === avatar.character}
+                tone={penguinColors[c.color].main}
+                onPress={() => chooseCharacter(c.id)}
+              >
+                <Penguin character={c.id} size={s(52)} interactive={false} />
+              </Chip>
+            ))}
+          </Section>
+
+          {cosmeticSlots.map(({ slot, titleKey }) => (
+            <Section key={slot} title={t(titleKey)}>
+              <Chip
+                label={t('profile.none')}
+                selected={!getCosmetic(equipped[slot]) && trying?.slot !== slot}
+                tone={colors.primary}
+                onPress={() => clearSlot(slot)}
+              >
+                <Penguin character={avatar.character} size={s(52)} interactive={false} />
+              </Chip>
+              {cosmetics
+                .filter((item) => item.slot === slot)
+                .map((item) => {
+                  const mine = owned.has(item.id);
+                  const wearing = mine && equipped[slot] === item.id;
+                  return (
+                    <Chip
+                      key={item.id}
+                      label={t(item.nameKey)}
+                      selected={wearing || trying?.id === item.id}
+                      tone={trying?.id === item.id ? colors.accent : colors.primary}
+                      price={mine || item.exclusive ? undefined : item.price}
+                      owned={mine}
+                      locked={!mine && !!item.exclusive}
+                      onPress={() => chooseItem(item)}
+                    >
+                      <Penguin
+                        character={avatar.character}
+                        costume={{ [slot]: item.look }}
+                        size={s(52)}
+                        interactive={false}
+                      />
+                    </Chip>
+                  );
+                })}
+            </Section>
           ))}
-        </Section>
 
-        {cosmeticSlots.map(({ slot, titleKey }) => (
-          <Section key={slot} title={t(titleKey)}>
-            <Chip
-              label={t('profile.none')}
-              selected={!getCosmetic(equipped[slot]) && trying?.slot !== slot}
-              tone={colors.primary}
-              onPress={() => clearSlot(slot)}
-            >
-              <Penguin character={avatar.character} size={52} interactive={false} />
-            </Chip>
-            {cosmetics
-              .filter((item) => item.slot === slot)
-              .map((item) => {
-                const mine = owned.has(item.id);
-                const wearing = mine && equipped[slot] === item.id;
+          {!isTablet && statsNode}
+
+          {/* Başarımlar: kazanılanlar renkli, bekleyenler soluk; yanında coin ödülü. */}
+          <View style={styles.section}>
+            <AppText variant="label" muted>
+              {t('achievement.title')} ·{' '}
+              {t('achievement.count', {
+                n: state.achievements.length,
+                max: achievementIds.length,
+              })}
+            </AppText>
+            <View style={[styles.achievements, shadows.soft(colors.shadow), { backgroundColor: colors.surface }]}>
+              {achievementIds.map((id) => {
+                const done = state.achievements.includes(id);
                 return (
-                  <Chip
-                    key={item.id}
-                    label={t(item.nameKey)}
-                    selected={wearing || trying?.id === item.id}
-                    tone={trying?.id === item.id ? colors.accent : colors.primary}
-                    price={mine || item.exclusive ? undefined : item.price}
-                    owned={mine}
-                    locked={!mine && !!item.exclusive}
-                    onPress={() => chooseItem(item)}
-                  >
-                    <Penguin
-                      character={avatar.character}
-                      costume={{ [slot]: item.look }}
-                      size={52}
-                      interactive={false}
+                  <View key={id} style={[styles.achievement, !done && styles.pending]} accessible>
+                    <SymbolView
+                      name={done ? 'trophy.fill' : 'trophy'}
+                      size={s(18)}
+                      weight="bold"
+                      tintColor={done ? colors.coin : colors.textMuted}
                     />
-                  </Chip>
+                    <AppText style={styles.achievementName} numberOfLines={1}>
+                      {t(achievementTitleKey(id))}
+                    </AppText>
+                    <CoinIcon size={s(14)} />
+                    <AppText variant="caption" muted>
+                      {economy.achievements[id]}
+                    </AppText>
+                  </View>
                 );
               })}
-          </Section>
-        ))}
-
-        {/* İstatistikler */}
-        <View style={[styles.stats, shadows.soft(colors.shadow), { backgroundColor: colors.surface }]}>
-          <Stat icon="star.fill" tint={colors.coin} value={`${progress.totalStars}`} label={t('profile.stars')} />
-          <Stat icon="flame.fill" tint={colors.accent} value={`${daily.streak}`} label={t('profile.streak')} />
-          <Stat
-            icon="trophy.fill"
-            tint={colors.primary}
-            value={`${state.duelStats.wins} · ${state.duelStats.draws} · ${state.duelStats.losses}`}
-            label={`${t('profile.wins')} · ${t('profile.draws')} · ${t('profile.losses')}`}
-          />
-        </View>
-
-        {/* Başarımlar: kazanılanlar renkli, bekleyenler soluk; yanında coin ödülü. */}
-        <View style={styles.section}>
-          <AppText variant="label" muted>
-            {t('achievement.title')} · {t('achievement.count', { n: state.achievements.length, max: achievementIds.length })}
-          </AppText>
-          <View style={[styles.achievements, shadows.soft(colors.shadow), { backgroundColor: colors.surface }]}>
-            {achievementIds.map((id) => {
-              const done = state.achievements.includes(id);
-              return (
-                <View key={id} style={[styles.achievement, !done && styles.pending]} accessible>
-                  <SymbolView
-                    name={done ? 'trophy.fill' : 'trophy'}
-                    size={18}
-                    weight="bold"
-                    tintColor={done ? colors.coin : colors.textMuted}
-                  />
-                  <AppText style={styles.achievementName} numberOfLines={1}>
-                    {t(achievementTitleKey(id))}
-                  </AppText>
-                  <CoinIcon size={14} />
-                  <AppText variant="caption" muted>
-                    {economy.achievements[id]}
-                  </AppText>
-                </View>
-              );
-            })}
+            </View>
           </View>
-        </View>
 
-        {/* Game Center: liderlik tabloları ve başarım ekranı. */}
-        {gc.available && (
-          <View style={styles.links}>
-            <PressableScale
-              accessibilityLabel={t('gamecenter.leaderboards')}
-              onPress={() => void gameCenter.show('leaderboards')}
-              style={[styles.link, { backgroundColor: colors.surface }]}
-            >
-              <SymbolView name="list.number" size={18} weight="bold" tintColor={colors.primary} />
-              <AppText variant="label">{t('gamecenter.leaderboards')}</AppText>
-            </PressableScale>
-            <PressableScale
-              accessibilityLabel={t('gamecenter.achievements')}
-              onPress={() => void gameCenter.show('achievements')}
-              style={[styles.link, { backgroundColor: colors.surface }]}
-            >
-              <SymbolView name="rosette" size={18} weight="bold" tintColor={colors.primary} />
-              <AppText variant="label">{t('gamecenter.achievements')}</AppText>
-            </PressableScale>
-          </View>
-        )}
-      </ScrollView>
+          {!isTablet && linksNode}
+        </ScrollView>
+      </View>
 
-      {/* Deneme çubuğu: denenen ürünü satın al. */}
-      {trying && (
-        <View style={styles.buy}>
-          <BigButton
-            title={
-              bundle
-                ? t('profile.onlyIn', { name: t(bundle.nameKey) })
-                : affordable
-                  ? `${t('profile.buy')}  ${trying.price}`
-                  : t('profile.noCoins')
-            }
-            subtitle={t(trying.nameKey)}
-            icon={bundle ? 'gift.fill' : affordable ? 'bag.fill' : 'lock.fill'}
-            tone="accent"
-            size="medium"
-            disabled={!bundle && (!affordable || busy)}
-            onPress={buy}
-          />
-        </View>
-      )}
+      {!isTablet && buyNode}
     </Screen>
   );
 }
@@ -320,7 +356,10 @@ function Chip({
       style={[
         styles.chip,
         shadows.soft(colors.shadow),
-        { backgroundColor: colors.surface, borderColor: selected ? tone : colors.surface },
+        {
+          backgroundColor: colors.surface,
+          borderColor: selected ? tone : colors.surface,
+        },
       ]}
     >
       <View pointerEvents="none">{children}</View>
@@ -329,24 +368,34 @@ function Chip({
       </AppText>
       {price !== undefined ? (
         <View style={styles.price}>
-          <CoinIcon size={14} />
+          <CoinIcon size={s(14)} />
           <AppText variant="caption" muted>
             {price}
           </AppText>
         </View>
       ) : owned ? (
-        <SymbolView name="checkmark.circle.fill" size={16} tintColor={colors.primary} />
+        <SymbolView name="checkmark.circle.fill" size={s(16)} tintColor={colors.primary} />
       ) : locked ? (
-        <SymbolView name="gift.fill" size={16} tintColor={colors.accent} />
+        <SymbolView name="gift.fill" size={s(16)} tintColor={colors.accent} />
       ) : null}
     </PressableScale>
   );
 }
 
-function Stat({ icon, tint, value, label }: { icon: 'star.fill' | 'flame.fill' | 'trophy.fill'; tint: string; value: string; label: string }) {
+function Stat({
+  icon,
+  tint,
+  value,
+  label,
+}: {
+  icon: 'star.fill' | 'flame.fill' | 'trophy.fill';
+  tint: string;
+  value: string;
+  label: string;
+}) {
   return (
     <View style={styles.stat} accessible accessibilityLabel={`${label}: ${value}`}>
-      <SymbolView name={icon} size={22} weight="bold" tintColor={tint} />
+      <SymbolView name={icon} size={s(22)} weight="bold" tintColor={tint} />
       <AppText variant="heading">{value}</AppText>
       <AppText variant="caption" muted center>
         {label}
@@ -359,14 +408,35 @@ const styles = StyleSheet.create({
   header: { flexDirection: 'row', alignItems: 'center' },
   side: { flex: 1, alignItems: 'flex-start' },
   right: { alignItems: 'flex-end' },
-  hero: { alignItems: 'center', marginTop: spacing.lg, marginBottom: spacing.sm },
-  list: { gap: spacing.md, paddingHorizontal: spacing.xs, paddingBottom: spacing.lg },
+  hero: {
+    alignItems: 'center',
+    marginTop: spacing.lg,
+    marginBottom: spacing.sm,
+  },
+  stack: { flex: 1 },
+  split: {
+    flex: 1,
+    flexDirection: 'row',
+    gap: spacing.xl,
+    marginTop: spacing.md,
+  },
+  // Üst boşluk: penguenin çizim alanı zıplama payı kadar yukarı taşar; geri
+  // düğmesinin üstüne binip dokunuşu kapmasın.
+  pane: { width: '38%', justifyContent: 'flex-start', paddingTop: s(64) },
+  paneExtras: { gap: spacing.md, marginTop: spacing.lg },
+  scroll: { flex: 1 },
+  statsTall: { flexDirection: 'column', gap: spacing.md },
+  list: {
+    gap: spacing.md,
+    paddingHorizontal: spacing.xs,
+    paddingBottom: spacing.lg,
+  },
   section: { gap: spacing.sm },
   chips: { flexDirection: 'row', flexWrap: 'wrap', gap: spacing.sm },
   chip: {
-    // Satırda üç kart: kalan boşluğu eşit paylaşırlar.
-    width: '31%',
-    minHeight: 104,
+    // Telefonda satırda üç, iPad'de dört kart: kalan boşluğu eşit paylaşırlar.
+    width: isTablet ? '22.8%' : '31%',
+    minHeight: s(104),
     paddingTop: spacing.sm,
     paddingBottom: spacing.xs,
     borderRadius: radii.md,
@@ -381,9 +451,18 @@ const styles = StyleSheet.create({
     paddingVertical: spacing.md,
     paddingHorizontal: spacing.sm,
   },
-  stat: { flex: 1, alignItems: 'center', gap: 2 },
-  achievements: { borderRadius: radii.md, paddingVertical: spacing.xs, paddingHorizontal: spacing.md },
-  achievement: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm, minHeight: 36 },
+  stat: { flex: isTablet ? undefined : 1, alignItems: 'center', gap: 2 },
+  achievements: {
+    borderRadius: radii.md,
+    paddingVertical: spacing.xs,
+    paddingHorizontal: spacing.md,
+  },
+  achievement: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.sm,
+    minHeight: s(36),
+  },
   achievementName: { flex: 1 },
   pending: { opacity: 0.5 },
   links: { gap: spacing.sm },
@@ -392,8 +471,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     gap: spacing.sm,
-    minHeight: 48,
+    minHeight: s(48),
     borderRadius: radii.pill,
   },
-  buy: { paddingHorizontal: spacing.md, paddingTop: spacing.sm },
+  buy: { paddingHorizontal: isTablet ? 0 : spacing.md, paddingTop: spacing.sm },
 });

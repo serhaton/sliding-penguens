@@ -21,7 +21,7 @@ import type { PenguinColor } from '@/engine';
 import { useTranslation } from '@/i18n';
 import { audio } from '@/services/audio';
 import { shareCard, type ViewHandle } from '@/services/share';
-import { penguinColors, radii, shadows, spacing, useTheme } from '@/theme';
+import { penguinColors, radii, s, shadows, spacing, useTheme } from '@/theme';
 
 export interface DuelCompleteProps {
   /** Başlık: "Kazandın!", "Mavi kazandı!", "Berabere", "Düelloyu kazandın!". */
@@ -145,7 +145,7 @@ function ResultCard({
         <View style={styles.share}>
           <PressableScale accessibilityLabel={t('level.share')} hitSlop={12} disabled={sharing} onPress={onShare}>
             <View style={[styles.shareCircle, { backgroundColor: colors.surfaceSunken }]}>
-              <SymbolView name="square.and.arrow.up" size={18} weight="bold" tintColor={colors.text} />
+              <SymbolView name="square.and.arrow.up" size={s(18)} weight="bold" tintColor={colors.text} />
             </View>
           </PressableScale>
         </View>
@@ -183,7 +183,7 @@ function ResultCard({
         <BigButton title={t('level.home')} icon="house.fill" size="medium" onPress={onHome} />
       ) : (
         <View style={styles.actions}>
-          <IconButton icon="house.fill" label={t('level.home')} onPress={onHome} size={56} />
+          <IconButton icon="house.fill" label={t('level.home')} onPress={onHome} size={s(56)} />
           <View style={styles.rematch}>
             <BigButton title={t('duel.next')} icon="play.fill" tone="accent" size="medium" onPress={onNext} />
           </View>
@@ -202,15 +202,15 @@ const styles = StyleSheet.create({
   },
   card: {
     width: '100%',
-    maxWidth: 360,
+    maxWidth: s(360),
     borderRadius: radii.lg,
     padding: spacing.lg,
     gap: spacing.md,
   },
   share: { position: 'absolute', top: spacing.md, right: spacing.md },
   shareCircle: {
-    width: 40,
-    height: 40,
+    width: s(40),
+    height: s(40),
     borderRadius: radii.pill,
     alignItems: 'center',
     justifyContent: 'center',
@@ -225,20 +225,20 @@ const styles = StyleSheet.create({
   scrimFaceToFace: { justifyContent: 'space-evenly' },
   flipped: { width: '100%', alignItems: 'center', transform: [{ rotate: '180deg' }] },
   scoreBadgeCompact: {
-    width: 60,
-    height: 60,
+    width: s(60),
+    height: s(60),
     borderRadius: radii.md,
     alignItems: 'center',
     justifyContent: 'center',
   },
   scoreBadge: {
-    width: 84,
-    height: 84,
+    width: s(84),
+    height: s(84),
     borderRadius: radii.md,
     alignItems: 'center',
     justifyContent: 'center',
   },
-  coins: { alignItems: 'center', minHeight: 44, justifyContent: 'center' },
+  coins: { alignItems: 'center', minHeight: s(44), justifyContent: 'center' },
   actions: {
     flexDirection: 'row',
     alignItems: 'center',

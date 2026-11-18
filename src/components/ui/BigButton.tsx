@@ -7,7 +7,7 @@
 import { SymbolView, type SymbolViewProps } from 'expo-symbols';
 import { StyleSheet, View } from 'react-native';
 
-import { radii, shadows, spacing, useTheme } from '@/theme';
+import { radii, s, shadows, spacing, useTheme } from '@/theme';
 
 import { AppText } from './AppText';
 import { PressableScale, type PressableScaleProps } from './PressableScale';
@@ -24,7 +24,7 @@ export interface BigButtonProps extends Omit<PressableScaleProps, 'children' | '
 }
 
 /** Alt şeridin yüksekliği. */
-const LIP = 6;
+const LIP = s(6);
 
 export function BigButton({
   title,
@@ -50,11 +50,11 @@ export function BigButton({
       <View
         style={[
           styles.face,
-          { backgroundColor: face, minHeight: large ? 80 : 60 },
+          { backgroundColor: face, minHeight: large ? s(80) : s(60) },
         ]}
       >
         {icon && (
-          <SymbolView name={icon} size={large ? 26 : 22} weight="heavy" tintColor={text} />
+          <SymbolView name={icon} size={large ? s(26) : s(22)} weight="heavy" tintColor={text} />
         )}
         <View style={styles.texts}>
           <AppText variant={large ? 'title' : 'button'} color={text}>

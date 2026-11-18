@@ -5,7 +5,7 @@
 import { SymbolView, type SymbolViewProps } from 'expo-symbols';
 import { StyleSheet, View } from 'react-native';
 
-import { fonts, hitTarget, radii, shadows, useTheme } from '@/theme';
+import { fonts, hitTarget, radii, s, shadows, useTheme } from '@/theme';
 
 import { AppText } from './AppText';
 import { PressableScale, type PressableScaleProps } from './PressableScale';
@@ -77,13 +77,13 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: -4,
     right: -6,
-    minWidth: 22,
-    height: 22,
+    minWidth: s(22),
+    height: s(22),
     paddingHorizontal: 5,
     borderRadius: radii.pill,
     borderWidth: 2,
     alignItems: 'center',
     justifyContent: 'center',
   },
-  badgeText: { fontFamily: fonts.black, fontSize: 12, lineHeight: 15 },
+  badgeText: { fontFamily: fonts.black, fontSize: s(12), lineHeight: s(15) },
 });

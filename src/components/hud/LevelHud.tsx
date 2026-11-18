@@ -6,7 +6,7 @@ import { StyleSheet, View } from 'react-native';
 
 import { AppText, IconButton } from '@/components/ui';
 import { useTranslation } from '@/i18n';
-import { radii, shadows, spacing, useTheme } from '@/theme';
+import { radii, s, shadows, spacing, useTheme } from '@/theme';
 
 import { CoinCounter } from './CoinCounter';
 import { StarBar } from './StarBar';
@@ -45,7 +45,7 @@ export function LevelHud({ title, moveCount, par, stars, wave = 0, waves = 1, on
                 style={[
                   styles.dot,
                   { backgroundColor: i < wave ? colors.primary : colors.surfaceSunken },
-                  i === wave && { backgroundColor: colors.accent, width: 18 },
+                  i === wave && { backgroundColor: colors.accent, width: s(18) },
                 ]}
               />
             ))}
@@ -57,7 +57,7 @@ export function LevelHud({ title, moveCount, par, stars, wave = 0, waves = 1, on
           style={[styles.pill, shadows.soft(colors.shadow), { backgroundColor: colors.surface }]}
           accessibilityLabel={`${t('level.moves')}: ${moveCount} / ${par}`}
         >
-          <StarBar stars={stars} size={14} />
+          <StarBar stars={stars} size={s(14)} />
           <AppText variant="label">
             {moveCount}
             <AppText variant="label" muted>
@@ -79,12 +79,12 @@ const styles = StyleSheet.create({
   },
   side: { flex: 1, alignItems: 'flex-start' },
   right: { alignItems: 'flex-end', gap: spacing.sm },
-  title: { alignItems: 'center', gap: spacing.xs, minHeight: 48, justifyContent: 'center' },
+  title: { alignItems: 'center', gap: spacing.xs, minHeight: s(48), justifyContent: 'center' },
   dots: { flexDirection: 'row', gap: spacing.xs, alignItems: 'center' },
   dot: { width: 8, height: 8, borderRadius: radii.pill },
   pill: {
-    minWidth: 64,
-    minHeight: 48,
+    minWidth: s(64),
+    minHeight: s(48),
     paddingHorizontal: spacing.sm + spacing.xs,
     borderRadius: radii.md,
     alignItems: 'center',

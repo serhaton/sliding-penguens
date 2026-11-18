@@ -13,7 +13,7 @@ import { useTranslation } from '@/i18n';
 import { gameCenter, useGameCenter } from '@/services/gameCenter';
 import { haptics } from '@/services/haptics';
 import { useSettings } from '@/store/settings';
-import { radii, shadows, spacing, useTheme } from '@/theme';
+import { radii, s, shadows, spacing, useTheme } from '@/theme';
 
 /** Beyaz, yuvarlak köşeli ayar kartı. */
 function Card({ children }: { children: ReactNode }) {
@@ -76,7 +76,7 @@ export default function SettingsScreen() {
   }, [reset, resetIntros]);
 
   return (
-    <Screen>
+    <Screen narrow>
       <View style={styles.header}>
         <IconButton icon="chevron.left" label={t('common.back')} onPress={() => router.back()} />
         <AppText variant="heading" accessibilityRole="header">
@@ -184,7 +184,7 @@ export default function SettingsScreen() {
             </View>
             <SymbolView
               name={gc.signedIn ? 'checkmark.circle.fill' : 'gamecontroller.fill'}
-              size={22}
+              size={s(22)}
               weight="bold"
               tintColor={gc.signedIn ? colors.primary : colors.textMuted}
             />
@@ -203,7 +203,7 @@ export default function SettingsScreen() {
               style={styles.linkRow}
             >
               <AppText>{t('dev.characters')}</AppText>
-              <SymbolView name="chevron.right" size={16} weight="bold" tintColor={colors.textMuted} />
+              <SymbolView name="chevron.right" size={s(16)} weight="bold" tintColor={colors.textMuted} />
             </PressableScale>
             <PressableScale
               pressScale={0.98}
@@ -211,7 +211,7 @@ export default function SettingsScreen() {
               style={styles.linkRow}
             >
               <AppText>{t('dev.levels')}</AppText>
-              <SymbolView name="chevron.right" size={16} weight="bold" tintColor={colors.textMuted} />
+              <SymbolView name="chevron.right" size={s(16)} weight="bold" tintColor={colors.textMuted} />
             </PressableScale>
             <PressableScale
               pressScale={0.98}
@@ -219,7 +219,7 @@ export default function SettingsScreen() {
               style={styles.linkRow}
             >
               <AppText>{t('dev.wallet')}</AppText>
-              <SymbolView name="chevron.right" size={16} weight="bold" tintColor={colors.textMuted} />
+              <SymbolView name="chevron.right" size={s(16)} weight="bold" tintColor={colors.textMuted} />
             </PressableScale>
             <PressableScale
               pressScale={0.98}
@@ -246,7 +246,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginBottom: spacing.md,
   },
-  headerSpacer: { width: 48 },
+  headerSpacer: { width: s(48) },
   list: {
     gap: spacing.md,
     paddingBottom: spacing.xl,
@@ -261,13 +261,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     gap: spacing.md,
-    minHeight: 44,
+    minHeight: s(44),
   },
   toggleTexts: { flex: 1 },
   linkRow: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    minHeight: 44,
+    minHeight: s(44),
   },
 });

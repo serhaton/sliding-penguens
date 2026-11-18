@@ -17,7 +17,7 @@ import { AppText, BigButton, IconButton, PressableScale, Screen, Segmented } fro
 import { duelTeamColors } from '@/data/duel';
 import { SERIES_WINS } from '@/game/duel';
 import { useTranslation } from '@/i18n';
-import { radii, shadows, spacing, useTheme } from '@/theme';
+import { isTablet, radii, s, shadows, spacing, useTheme } from '@/theme';
 
 export default function DuelLobbyScreen() {
   const { t } = useTranslation();
@@ -37,7 +37,7 @@ export default function DuelLobbyScreen() {
 
       {/* İki takımın penguenleri karşı karşıya: ekranın ne olduğunu yazısız anlatır. */}
       <View style={styles.hero}>
-        <Penguin character={avatar.character} costume={avatar.costume} color={duelTeamColors[0]} direction="right" mood="excited" size={120} label={t('duel.blue')} />
+        <Penguin character={avatar.character} costume={avatar.costume} color={duelTeamColors[0]} direction="right" mood="excited" size={isTablet ? s(190) : 120} label={t('duel.blue')} />
         <View style={styles.versus}>
           <AppText variant="title" muted>
             vs
@@ -46,7 +46,7 @@ export default function DuelLobbyScreen() {
             {t('duel.firstTo', { n: SERIES_WINS })}
           </AppText>
         </View>
-        <Penguin color={duelTeamColors[1]} direction="left" mood="excited" size={120} label={t('duel.orange')} />
+        <Penguin color={duelTeamColors[1]} direction="left" mood="excited" size={isTablet ? s(190) : 120} label={t('duel.orange')} />
       </View>
 
       <View style={styles.cards}>
@@ -57,7 +57,7 @@ export default function DuelLobbyScreen() {
           onPress={() => router.push({ pathname: '/duel/play', params: { mode: 'local' } })}
         >
           <Card icon="person.2.fill" tint={colors.accent} title={t('duel.local')} hint={t('duel.localHint')}>
-            <SymbolView name="chevron.right" size={20} weight="bold" tintColor={colors.textMuted} />
+            <SymbolView name="chevron.right" size={s(20)} weight="bold" tintColor={colors.textMuted} />
           </Card>
         </PressableScale>
 
@@ -113,7 +113,7 @@ function Card({
     <View style={[styles.card, shadows.soft(colors.shadow), { backgroundColor: colors.surface }]}>
       <View style={styles.cardRow}>
         <View style={[styles.cardIcon, { backgroundColor: tint }]}>
-          <SymbolView name={icon} size={26} weight="bold" tintColor={colors.onPrimary} />
+          <SymbolView name={icon} size={s(26)} weight="bold" tintColor={colors.onPrimary} />
         </View>
         <View style={styles.cardTexts}>
           <AppText variant="heading">{title}</AppText>
@@ -132,7 +132,7 @@ function Card({
 
 const styles = StyleSheet.create({
   header: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
-  headerSpacer: { width: 48 },
+  headerSpacer: { width: s(48) },
   hero: {
     flex: 1,
     flexDirection: 'row',
@@ -141,13 +141,14 @@ const styles = StyleSheet.create({
     gap: spacing.md,
     paddingBottom: spacing.lg,
   },
-  versus: { alignItems: 'center', maxWidth: 96 },
-  cards: { gap: spacing.md, marginBottom: spacing.lg },
+  versus: { alignItems: 'center', maxWidth: s(96) },
+  // iPad'de kartlar ekran boyunca uzamaz: ortada, okunur genişlikte.
+  cards: { gap: spacing.md, marginBottom: spacing.lg, ...(isTablet && { width: '78%', alignSelf: 'center', marginBottom: spacing.xxl }) },
   card: { borderRadius: radii.lg, padding: spacing.md, gap: spacing.md },
   cardRow: { flexDirection: 'row', alignItems: 'center', gap: spacing.md },
   cardIcon: {
-    width: 56,
-    height: 56,
+    width: s(56),
+    height: s(56),
     borderRadius: radii.md,
     alignItems: 'center',
     justifyContent: 'center',

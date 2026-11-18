@@ -15,7 +15,7 @@ import { AppText, PressableScale, ScrimBleed } from '@/components/ui';
 import { useWallet } from '@/economy/wallet';
 import { canAfford, type Offer, type PayMethod } from '@/game/offers';
 import { useTranslation } from '@/i18n';
-import { radii, shadows, spacing, useTheme } from '@/theme';
+import { radii, s, shadows, spacing, useTheme } from '@/theme';
 
 import { CoinIcon } from './CoinCounter';
 
@@ -67,7 +67,7 @@ export function OfferSheet({ offer, videoReady, onPay, onClose }: OfferSheetProp
         <View style={styles.heading}>
           <SymbolView
             name={hint ? 'lightbulb.fill' : 'arrow.uturn.backward'}
-            size={26}
+            size={s(26)}
             weight="bold"
             tintColor={colors.accent}
           />
@@ -87,7 +87,7 @@ export function OfferSheet({ offer, videoReady, onPay, onClose }: OfferSheetProp
             onPress={() => pay('coins')}
             style={[styles.option, { backgroundColor: colors.primary }, (!affordable || busy) && styles.off]}
           >
-            <CoinIcon size={24} />
+            <CoinIcon size={s(24)} />
             <AppText variant="button" color={colors.onPrimary}>
               {offer.price}
             </AppText>
@@ -101,7 +101,7 @@ export function OfferSheet({ offer, videoReady, onPay, onClose }: OfferSheetProp
               onPress={() => pay('video')}
               style={[styles.option, { backgroundColor: colors.accent }, busy && styles.off]}
             >
-              <SymbolView name="play.rectangle.fill" size={24} weight="bold" tintColor={colors.onAccent} />
+              <SymbolView name="play.rectangle.fill" size={s(24)} weight="bold" tintColor={colors.onAccent} />
               <AppText variant="label" color={colors.onAccent}>
                 {t('offer.video')}
               </AppText>
@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
   options: { flexDirection: 'row', gap: spacing.md },
   option: {
     flex: 1,
-    minHeight: 60,
+    minHeight: s(60),
     borderRadius: radii.md,
     flexDirection: 'row',
     alignItems: 'center',

@@ -25,7 +25,7 @@ import { useTranslation } from '@/i18n';
 import { ads, useRewardedReady } from '@/services/ads';
 import { audio } from '@/services/audio';
 import { useSettings } from '@/store/settings';
-import { radii, spacing, useTheme } from '@/theme';
+import { radii, s, spacing, useTheme } from '@/theme';
 
 /**
  * `autoplay` (yalnızca geliştirme): virgülle ayrılmış penguen kimlikleri sırayla
@@ -229,7 +229,7 @@ export function LevelPlay({
           label={t('level.undo')}
           // Hak bitince rozet "+" olur: dokununca yeni hak teklif edilir.
           badge={session.undosLeft > 0 ? session.undosLeft : '+'}
-          size={64}
+          size={s(64)}
           disabled={!session.canUndo}
           tint={session.stuck ? colors.accent : undefined}
           onPress={onUndo}
@@ -237,14 +237,14 @@ export function LevelPlay({
         <IconButton
           icon="lightbulb.fill"
           label={t('level.hint')}
-          size={64}
+          size={s(64)}
           disabled={session.finished || session.betweenWaves}
           onPress={onHint}
         />
         <IconButton
           icon="arrow.counterclockwise"
           label={t('level.restart')}
-          size={64}
+          size={s(64)}
           tint={session.stuck ? colors.accent : undefined}
           onPress={restart}
         />
@@ -289,7 +289,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginVertical: spacing.sm,
   },
-  notice: { minHeight: 44, alignItems: 'center', justifyContent: 'center' },
+  notice: { minHeight: s(44), alignItems: 'center', justifyContent: 'center' },
   noticePill: {
     paddingHorizontal: spacing.md,
     paddingVertical: spacing.sm,

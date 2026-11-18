@@ -4,6 +4,8 @@
  */
 import type { TextStyle, ViewStyle } from 'react-native';
 
+import { isTablet, s } from './device';
+
 /**
  * Tek yazı tipi ailesi: Nunito. Dosyalar derleme sırasında uygulamaya gömülür
  * (app.json → expo-font eklentisi), bu yüzden açılışta yükleme beklemesi olmaz.
@@ -18,40 +20,49 @@ export const fonts = {
 
 /** Net bir boyut ölçeği. "Az yazı, büyük yazı": gövde metni bile 17 pt. */
 export const typography = {
-  display: { fontFamily: fonts.black, fontSize: 44, lineHeight: 48, letterSpacing: -0.5 },
-  title: { fontFamily: fonts.black, fontSize: 30, lineHeight: 36, letterSpacing: -0.3 },
-  heading: { fontFamily: fonts.extraBold, fontSize: 22, lineHeight: 28 },
-  button: { fontFamily: fonts.black, fontSize: 24, lineHeight: 30 },
-  body: { fontFamily: fonts.bold, fontSize: 17, lineHeight: 24 },
-  label: { fontFamily: fonts.extraBold, fontSize: 15, lineHeight: 20 },
-  caption: { fontFamily: fonts.semiBold, fontSize: 13, lineHeight: 18 },
-} as const satisfies Record<string, TextStyle>;
+  display: { fontFamily: fonts.black, fontSize: s(44), lineHeight: s(48), letterSpacing: -0.5 },
+  title: { fontFamily: fonts.black, fontSize: s(30), lineHeight: s(36), letterSpacing: -0.3 },
+  heading: { fontFamily: fonts.extraBold, fontSize: s(22), lineHeight: s(28) },
+  button: { fontFamily: fonts.black, fontSize: s(24), lineHeight: s(30) },
+  body: { fontFamily: fonts.bold, fontSize: s(17), lineHeight: s(24) },
+  label: { fontFamily: fonts.extraBold, fontSize: s(15), lineHeight: s(20) },
+  caption: { fontFamily: fonts.semiBold, fontSize: s(13), lineHeight: s(18) },
+} satisfies Record<string, TextStyle>;
 
 export type TypographyVariant = keyof typeof typography;
 
 /** 8 pt ızgara. Ara değer gerekiyorsa `xs` (4) kullan; başka sayı uydurma. */
 export const spacing = {
-  xs: 4,
-  sm: 8,
-  md: 16,
-  lg: 24,
-  xl: 32,
-  xxl: 48,
-  xxxl: 64,
-} as const;
+  xs: s(4),
+  sm: s(8),
+  md: s(16),
+  lg: s(24),
+  xl: s(32),
+  xxl: s(48),
+  xxxl: s(64),
+};
 
 export const radii = {
-  sm: 12,
-  md: 20,
-  lg: 28,
+  sm: s(12),
+  md: s(20),
+  lg: s(28),
   pill: 999,
-} as const;
+};
 
 /** Dokunma hedefi alt sınırı (Apple HIG: 44 pt). İkon butonlar 48 kullanır. */
-export const hitTarget = 48;
+export const hitTarget = s(48);
 
-/** İçerik bu genişliği aşmaz; iPad'de ortalanmış kalır. */
+/**
+ * Telefonda içerik bu genişliği aşmaz. iPad'de ekranlar bütün genişliği
+ * kullanır (bkz. Screen); bu sınır yalnızca telefon içindir.
+ */
 export const maxContentWidth = 520;
+
+/** Dar kalması gereken içerik (ayar listesi, form): iPad'de ortalanmış sütun. */
+export const readableWidth = s(560);
+
+/** Ekran kenar boşluğu: iPad'de daha ferah. */
+export const screenPadding = isTablet ? s(40) : 24;
 
 /** Çok hafif gölgeler. Renk temadan gelir, bu yüzden fonksiyon. */
 export const shadows = {

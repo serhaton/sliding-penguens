@@ -26,7 +26,7 @@ import Animated, {
 } from 'react-native-reanimated';
 
 import { IconButton } from '@/components/ui';
-import { radii, spacing, useTheme } from '@/theme';
+import { radii, spacing, ui, useTheme } from '@/theme';
 
 import { clampAxis, fitScale, focusCamera, overviewCamera, type MapPoint } from './layout';
 
@@ -38,7 +38,9 @@ const ZOOM_EASING = Easing.inOut(Easing.cubic);
  * Kalınan yere odaklanınca varılan ölçek. Tam yakın (1) değil: çevredeki birkaç
  * satır da görünsün. Oyuncu isterse iki parmakla daha da yakınlaşır.
  */
-const FOCUS_SCALE = 0.62;
+const FOCUS_SCALE = 0.62 * ui;
+/** En yakın ölçek: iPad'de düğümler telefondaki kadar iri görünsün diye cihaz katsayısı kadar. */
+const MAX_SCALE = ui;
 
 /** Haritanın o anki ölçeği; içerideki bileşenler buna göre kendini ayarlar. */
 const ZoomContext = createContext<SharedValue<number> | null>(null);
@@ -163,7 +165,7 @@ export function MapViewport({ contentSize, inset = 0, focus, focusLabel, overvie
       'worklet';
       const v = view.get();
       const before = scale.get();
-      const after = Math.min(1, Math.max(v.minScale, before * e.scaleChange));
+      const after = Math.min(MAX_SCALE, Math.max(v.minScale, before * e.scaleChange));
       // Parmakların ortasındaki nokta yerinde kalır.
       const contentX = (e.focalX - x.get()) / before;
       const contentY = (e.focalY - y.get()) / before;

@@ -16,7 +16,7 @@ import { AppText, PressableScale } from '@/components/ui';
 import type { PenguinColor } from '@/engine';
 import type { Avatar } from '@/game/avatar';
 import { useTranslation } from '@/i18n';
-import { penguinColors, radii, shadows, spacing, useTheme } from '@/theme';
+import { penguinColors, radii, s, shadows, spacing, useTheme } from '@/theme';
 
 /** Tepki çıkartmaları: küçük, zararsız, yazısız. */
 const REACTIONS = ['😀', '😮', '😅', '👏'] as const;
@@ -90,7 +90,7 @@ export function PlayerBar({
             character={avatar?.character}
             costume={avatar?.costume}
             color={color}
-            size={44}
+            size={s(44)}
             mood={active ? 'excited' : 'happy'}
             interactive={false}
           />
@@ -102,7 +102,7 @@ export function PlayerBar({
               {name}
             </AppText>
             {Array.from({ length: wins }, (_, i) => (
-              <SymbolView key={i} name="trophy.fill" size={14} tintColor={colors.coin} />
+              <SymbolView key={i} name="trophy.fill" size={s(14)} tintColor={colors.coin} />
             ))}
           </View>
           <AppText variant="caption" color={active ? tone.dark : colors.textMuted} numberOfLines={1}>
@@ -167,21 +167,21 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: spacing.sm + spacing.xs,
-    minHeight: 64,
+    minHeight: s(64),
     paddingHorizontal: spacing.sm + spacing.xs,
     paddingVertical: spacing.sm,
     borderRadius: radii.md,
     borderWidth: 3,
   },
   waiting: { opacity: 0.6 },
-  avatar: { width: 44, height: 44 },
+  avatar: { width: s(44), height: s(44) },
   texts: { flex: 1 },
   nameRow: { flexDirection: 'row', alignItems: 'center', gap: spacing.xs },
   pips: { flexDirection: 'row', gap: spacing.xs + 2 },
-  pip: { width: 18, height: 18, borderRadius: 9, borderWidth: 3 },
+  pip: { width: s(18), height: s(18), borderRadius: 9, borderWidth: 3 },
   reactButton: {
-    width: 40,
-    height: 40,
+    width: s(40),
+    height: s(40),
     borderRadius: radii.pill,
     alignItems: 'center',
     justifyContent: 'center',
@@ -189,7 +189,7 @@ const styles = StyleSheet.create({
   picker: {
     position: 'absolute',
     right: 0,
-    bottom: 72,
+    bottom: s(72),
     flexDirection: 'row',
     gap: spacing.md,
     paddingHorizontal: spacing.md,
@@ -199,9 +199,9 @@ const styles = StyleSheet.create({
   bubble: {
     position: 'absolute',
     right: spacing.md,
-    bottom: 72,
-    width: 76,
-    height: 76,
+    bottom: s(72),
+    width: s(76),
+    height: s(76),
     borderRadius: radii.pill,
     alignItems: 'center',
     justifyContent: 'center',

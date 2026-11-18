@@ -15,7 +15,7 @@ import { achievementTitleKey } from '@/game/achievements';
 import { useTranslation } from '@/i18n';
 import { dismissAchievementToast, useAchievementToast } from '@/services/achievementSync';
 import { audio } from '@/services/audio';
-import { radii, shadows, spacing, useTheme } from '@/theme';
+import { radii, s, shadows, spacing, useTheme } from '@/theme';
 
 import { CoinIcon } from './CoinCounter';
 
@@ -45,7 +45,7 @@ export function AchievementToast() {
         accessibilityLiveRegion="polite"
         style={[styles.card, shadows.lifted(colors.shadow), { backgroundColor: colors.surface }]}
       >
-        <SymbolView name="trophy.fill" size={26} weight="bold" tintColor={colors.coin} />
+        <SymbolView name="trophy.fill" size={s(26)} weight="bold" tintColor={colors.coin} />
         <View style={styles.texts}>
           <AppText variant="caption" muted>
             {t('achievement.unlocked')}
@@ -55,7 +55,7 @@ export function AchievementToast() {
           </AppText>
         </View>
         <View style={styles.reward}>
-          <CoinIcon size={18} />
+          <CoinIcon size={s(18)} />
           <AppText variant="label">+{economy.achievements[id]}</AppText>
         </View>
       </Animated.View>
@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: spacing.md,
-    maxWidth: 380,
+    maxWidth: s(380),
     width: '100%',
     paddingHorizontal: spacing.md,
     paddingVertical: spacing.sm,

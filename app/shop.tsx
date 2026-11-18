@@ -27,7 +27,7 @@ import { devFlags } from '@/services/devFlags';
 import { haptics } from '@/services/haptics';
 import { buy, restore, useStore } from '@/services/store';
 import { useSettings } from '@/store/settings';
-import { radii, shadows, spacing, useTheme } from '@/theme';
+import { isTablet, radii, s, shadows, spacing, useTheme } from '@/theme';
 
 const HOUR_MS = 60 * 60 * 1000;
 /** Bilgi notunun ekranda kalma süresi (ms). */
@@ -93,7 +93,7 @@ export default function ShopScreen() {
   const wearing = (id: ProductId): Costume =>
     Object.fromEntries(exclusivesOf(id).map((item) => [item.slot, item.look])) as Costume;
 
-  const card = (product: Product, art: ReactNode, wide = false) => (
+  const card = (product: Product, art: ReactNode, wide = false, half = false) => (
     <ProductCard
       key={product.id}
       product={product}
@@ -102,6 +102,7 @@ export default function ShopScreen() {
       busy={busy === product.id}
       disabled={busy !== null}
       wide={wide}
+      half={half}
       art={art}
       onBuy={() => purchase(product.id)}
     />
@@ -140,7 +141,7 @@ export default function ShopScreen() {
           starter &&
           card(
             starter,
-            <Penguin character={avatar.character} costume={wearing(starter.id)} mood="excited" size={84} interactive={false} />,
+            <Penguin character={avatar.character} costume={wearing(starter.id)} mood="excited" size={s(84)} interactive={false} />,
             true,
           )}
         {showStarter && (
@@ -156,10 +157,11 @@ export default function ShopScreen() {
         <Section title={t('shop.specials')}>
           {card(
             aurora,
-            <Penguin character={avatar.character} costume={wearing(aurora.id)} mood="proud" size={84} interactive={false} />,
+            <Penguin character={avatar.character} costume={wearing(aurora.id)} mood="proud" size={s(84)} interactive={false} />,
             true,
+            isTablet,
           )}
-          {card(noAds, <SymbolView name="sparkles" size={44} weight="bold" tintColor={colors.primary} />, true)}
+          {card(noAds, <SymbolView name="sparkles" size={s(44)} weight="bold" tintColor={colors.primary} />, true, isTablet)}
         </Section>
 
         {/* Günün vitrini: coinle alınan kostümler; dokununca gardıropta denenir. */}
@@ -176,7 +178,7 @@ export default function ShopScreen() {
                   <Penguin
                     character={avatar.character}
                     costume={{ [item.slot]: item.look }}
-                    size={58}
+                    size={s(58)}
                     interactive={false}
                   />
                 </View>
@@ -184,7 +186,7 @@ export default function ShopScreen() {
                   {t(item.nameKey)}
                 </AppText>
                 <View style={styles.price}>
-                  <CoinIcon size={14} />
+                  <CoinIcon size={s(14)} />
                   <AppText variant="caption" muted>
                     {item.price}
                   </AppText>
@@ -196,24 +198,27 @@ export default function ShopScreen() {
         <AppText variant="caption" muted center>
           {t('shop.showcaseHint')}
         </AppText>
-        <PressableScale
-          accessibilityLabel={t('profile.wardrobe')}
-          onPress={() => router.push('/profile')}
-          style={[styles.link, { backgroundColor: colors.surface }]}
-        >
-          <SymbolView name="tshirt.fill" size={20} weight="bold" tintColor={colors.primary} />
-          <AppText variant="label">{t('profile.wardrobe')}</AppText>
-        </PressableScale>
+        {/* Gardırop ve geri yükleme: telefonda alt alta, iPad'de yan yana. */}
+        <View style={styles.links}>
+          <PressableScale
+            accessibilityLabel={t('profile.wardrobe')}
+            onPress={() => router.push('/profile')}
+            style={[styles.link, { backgroundColor: colors.surface }]}
+          >
+            <SymbolView name="tshirt.fill" size={s(20)} weight="bold" tintColor={colors.primary} />
+            <AppText variant="label">{t('profile.wardrobe')}</AppText>
+          </PressableScale>
 
-        <PressableScale
-          accessibilityLabel={t('shop.restore')}
-          disabled={busy !== null}
-          onPress={restoreAll}
-          style={[styles.link, { backgroundColor: colors.surface }, busy === 'restore' && styles.off]}
-        >
-          <SymbolView name="arrow.clockwise" size={18} weight="bold" tintColor={colors.text} />
-          <AppText variant="label">{t('shop.restore')}</AppText>
-        </PressableScale>
+          <PressableScale
+            accessibilityLabel={t('shop.restore')}
+            disabled={busy !== null}
+            onPress={restoreAll}
+            style={[styles.link, { backgroundColor: colors.surface }, busy === 'restore' && styles.off]}
+          >
+            <SymbolView name="arrow.clockwise" size={s(18)} weight="bold" tintColor={colors.text} />
+            <AppText variant="label">{t('shop.restore')}</AppText>
+          </PressableScale>
+        </View>
 
         <AppText variant="caption" muted center>
           {t('shop.fair')}
@@ -255,7 +260,7 @@ function CoinPile({ count }: { count: number }) {
     <View style={styles.pile}>
       {Array.from({ length: count }, (_, i) => (
         <View key={i} style={{ marginLeft: i === 0 ? 0 : -12, marginTop: i % 2 === 0 ? 0 : -10 }}>
-          <CoinIcon size={34} />
+          <CoinIcon size={s(34)} />
         </View>
       ))}
     </View>
@@ -273,6 +278,7 @@ function ProductCard({
   busy,
   disabled,
   wide,
+  half = false,
   art,
   onBuy,
 }: {
@@ -283,6 +289,8 @@ function ProductCard({
   busy: boolean;
   disabled: boolean;
   wide: boolean;
+  /** iPad'de geniş kartlar yan yana ikili durur. */
+  half?: boolean;
   art: ReactNode;
   onBuy: () => void;
 }) {
@@ -296,7 +304,7 @@ function ProductCard({
     <View style={[styles.buy, { backgroundColor: owned ? colors.surfaceSunken : colors.primary }, busy && styles.off]}>
       {owned ? (
         <>
-          <SymbolView name="checkmark.circle.fill" size={16} tintColor={colors.primary} />
+          <SymbolView name="checkmark.circle.fill" size={s(16)} tintColor={colors.primary} />
           <AppText variant="label">{t('shop.owned')}</AppText>
         </>
       ) : (
@@ -316,6 +324,7 @@ function ProductCard({
       style={[
         styles.card,
         wide ? styles.wide : styles.narrow,
+        half && styles.half,
         shadows.soft(colors.shadow),
         { backgroundColor: colors.surface },
         !owned && !price && styles.off,
@@ -354,16 +363,17 @@ const styles = StyleSheet.create({
   section: { gap: spacing.sm },
   cards: { flexDirection: 'row', flexWrap: 'wrap', gap: spacing.sm },
   card: { borderRadius: radii.md, padding: spacing.sm, gap: spacing.xs },
-  narrow: { width: '31%', alignItems: 'center', paddingTop: spacing.lg },
+  narrow: { width: isTablet ? '32.4%' : '31%', alignItems: 'center', paddingTop: spacing.lg },
+  half: { width: '49.2%' },
   wide: { width: '100%', flexDirection: 'row', alignItems: 'center', gap: spacing.md, padding: spacing.md },
-  art: { height: 56, alignItems: 'center', justifyContent: 'center' },
-  artWide: { width: 88, alignItems: 'center', justifyContent: 'center' },
-  texts: { alignItems: 'center', gap: 2, minHeight: 58 },
+  art: { height: s(56), alignItems: 'center', justifyContent: 'center' },
+  artWide: { width: s(88), alignItems: 'center', justifyContent: 'center' },
+  texts: { alignItems: 'center', gap: 2, minHeight: s(58) },
   textsWide: { flex: 1, gap: 4 },
   pile: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center' },
   buy: {
     alignSelf: 'stretch',
-    minHeight: 36,
+    minHeight: s(36),
     borderRadius: radii.pill,
     paddingHorizontal: spacing.md,
     flexDirection: 'row',
@@ -371,7 +381,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     gap: spacing.xs,
   },
-  buyWide: { alignSelf: 'flex-start', marginTop: spacing.xs, minWidth: 110 },
+  buyWide: { alignSelf: 'flex-start', marginTop: spacing.xs, minWidth: s(110) },
   badge: {
     position: 'absolute',
     top: -8,
@@ -382,9 +392,9 @@ const styles = StyleSheet.create({
     borderRadius: radii.pill,
     zIndex: 1,
   },
-  badgeText: { fontSize: 11, lineHeight: 14 },
+  badgeText: { fontSize: s(11), lineHeight: s(14) },
   showcase: {
-    width: '31%',
+    width: isTablet ? '32.4%' : '31%',
     borderRadius: radii.md,
     paddingTop: spacing.sm,
     paddingBottom: spacing.xs,
@@ -392,15 +402,17 @@ const styles = StyleSheet.create({
     gap: 2,
   },
   price: { flexDirection: 'row', alignItems: 'center', gap: 3 },
+  links: isTablet ? { flexDirection: 'row', gap: spacing.md } : { gap: spacing.md },
   link: {
+    flex: isTablet ? 1 : undefined,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     gap: spacing.sm,
-    minHeight: 48,
+    minHeight: s(48),
     borderRadius: radii.pill,
   },
   off: { opacity: 0.45 },
-  noticeWrap: { position: 'absolute', left: 0, right: 0, bottom: 48, alignItems: 'center' },
-  notice: { paddingHorizontal: spacing.lg, paddingVertical: spacing.md, borderRadius: radii.pill, maxWidth: 340 },
+  noticeWrap: { position: 'absolute', left: 0, right: 0, bottom: s(48), alignItems: 'center' },
+  notice: { paddingHorizontal: spacing.lg, paddingVertical: spacing.md, borderRadius: radii.pill, maxWidth: s(340) },
 });

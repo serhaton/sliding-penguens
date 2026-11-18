@@ -9,7 +9,7 @@ import { StyleSheet, View } from 'react-native';
 
 import { AppText, IconButton, Screen } from '@/components/ui';
 import { useTranslation, type TranslationKey } from '@/i18n';
-import { spacing, useTheme } from '@/theme';
+import { s, spacing, useTheme } from '@/theme';
 
 export default function SoonScreen() {
   const { t } = useTranslation();
@@ -24,7 +24,7 @@ export default function SoonScreen() {
         <View style={styles.headerSpacer} />
       </View>
       <View style={styles.body}>
-        <SymbolView name="snowflake" size={56} weight="bold" tintColor={colors.primary} />
+        <SymbolView name="snowflake" size={s(56)} weight="bold" tintColor={colors.primary} />
         <AppText variant="title" center>
           {t('soon.title')}
         </AppText>
@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
   },
-  headerSpacer: { width: 48 },
+  headerSpacer: { width: s(48) },
   body: {
     flex: 1,
     alignItems: 'center',

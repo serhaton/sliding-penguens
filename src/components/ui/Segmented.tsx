@@ -2,7 +2,7 @@
 import { StyleSheet, View } from 'react-native';
 
 import { haptics } from '@/services/haptics';
-import { radii, spacing, useTheme } from '@/theme';
+import { radii, s, spacing, useTheme } from '@/theme';
 
 import { AppText } from './AppText';
 import { PressableScale } from './PressableScale';
@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
   },
   option: {
     flex: 1,
-    minHeight: 40,
+    minHeight: s(40),
     borderRadius: radii.pill,
     alignItems: 'center',
     justifyContent: 'center',

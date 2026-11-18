@@ -18,7 +18,7 @@ import { useTranslation } from '@/i18n';
 import { audio } from '@/services/audio';
 import { haptics } from '@/services/haptics';
 import { shareCard, type ViewHandle } from '@/services/share';
-import { radii, shadows, spacing, useTheme } from '@/theme';
+import { radii, s, shadows, spacing, useTheme } from '@/theme';
 
 import { CoinCounter } from './CoinCounter';
 
@@ -130,7 +130,7 @@ export function LevelComplete({
         <View style={styles.share}>
           <PressableScale accessibilityLabel={t('level.share')} hitSlop={12} disabled={sharing} onPress={share}>
             <View style={[styles.shareCircle, { backgroundColor: colors.surfaceSunken }]}>
-              <SymbolView name="square.and.arrow.up" size={18} weight="bold" tintColor={colors.text} />
+              <SymbolView name="square.and.arrow.up" size={s(18)} weight="bold" tintColor={colors.text} />
             </View>
           </PressableScale>
         </View>
@@ -138,7 +138,7 @@ export function LevelComplete({
         <View style={styles.stars}>
           {[1, 2, 3].map((n) => (
             <View key={n} style={n === 2 && styles.middleStar}>
-              <SymbolView name="star.fill" size={56} tintColor={colors.surfaceSunken} />
+              <SymbolView name="star.fill" size={s(56)} tintColor={colors.surfaceSunken} />
               {n <= stars && (
                 <Animated.View
                   entering={ZoomIn.delay(FIRST_STAR_MS + (n - 1) * STAR_DELAY_MS)
@@ -147,7 +147,7 @@ export function LevelComplete({
                     .stiffness(180)}
                   style={StyleSheet.absoluteFill}
                 >
-                  <SymbolView name="star.fill" size={56} tintColor={colors.coin} />
+                  <SymbolView name="star.fill" size={s(56)} tintColor={colors.coin} />
                 </Animated.View>
               )}
             </View>
@@ -160,7 +160,7 @@ export function LevelComplete({
 
         {note && (
           <View style={[styles.note, { backgroundColor: colors.surfaceSunken }]}>
-            <SymbolView name="flame.fill" size={18} weight="bold" tintColor={colors.accent} />
+            <SymbolView name="flame.fill" size={s(18)} weight="bold" tintColor={colors.accent} />
             <AppText variant="label">{note}</AppText>
           </View>
         )}
@@ -182,7 +182,7 @@ export function LevelComplete({
                 onPress={watchAndDouble}
                 style={[styles.double, { backgroundColor: colors.accent }, double === 'busy' && styles.busy]}
               >
-                <SymbolView name="play.rectangle.fill" size={20} weight="bold" tintColor={colors.onAccent} />
+                <SymbolView name="play.rectangle.fill" size={s(20)} weight="bold" tintColor={colors.onAccent} />
                 <AppText variant="label" color={colors.onAccent}>
                   {t('level.double')}
                 </AppText>
@@ -193,7 +193,7 @@ export function LevelComplete({
 
         <View style={styles.actions}>
           {onReplay && (
-            <IconButton icon="arrow.counterclockwise" label={t('level.replay')} onPress={onReplay} size={56} />
+            <IconButton icon="arrow.counterclockwise" label={t('level.replay')} onPress={onReplay} size={s(56)} />
           )}
           <View style={styles.next}>
             <BigButton
@@ -218,7 +218,7 @@ const styles = StyleSheet.create({
   },
   card: {
     width: '100%',
-    maxWidth: 360,
+    maxWidth: s(360),
     borderRadius: radii.lg,
     padding: spacing.lg,
     gap: spacing.md,
@@ -234,8 +234,8 @@ const styles = StyleSheet.create({
     borderRadius: radii.pill,
   },
   shareCircle: {
-    width: 40,
-    height: 40,
+    width: s(40),
+    height: s(40),
     borderRadius: radii.pill,
     alignItems: 'center',
     justifyContent: 'center',
@@ -253,13 +253,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     gap: spacing.md,
-    minHeight: 48,
+    minHeight: s(48),
   },
   double: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: spacing.sm,
-    minHeight: 44,
+    minHeight: s(44),
     paddingHorizontal: spacing.md,
     borderRadius: radii.pill,
   },

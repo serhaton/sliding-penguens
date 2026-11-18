@@ -31,12 +31,14 @@ const COSMETICS: [string, number][] = [
   ['scarf.rainbow', 3000],
 ];
 
-async function seed(lang: string | undefined) {
+async function seed(lang: string | undefined, theme: string | undefined, symbols: string | undefined) {
   devFlags.setQuiet(true);
   const settings = useSettings.getState();
   settings.markFirstRunDone();
   for (const id of Object.keys(mechanics)) settings.markIntroSeen(id);
-  settings.setTheme('day');
+  settings.setTheme(theme === 'night' ? 'night' : 'day');
+  // Büyük semboller: ?symbols=1 açar, yoksa kapalı.
+  if (useSettings.getState().largeSymbols !== (symbols === '1')) settings.toggle('largeSymbols');
   settings.setLanguage(lang === 'tr' || lang === 'en' ? lang : 'system');
 
   const w = wallet();
@@ -52,16 +54,16 @@ async function seed(lang: string | undefined) {
 }
 
 export default function SeedScreen() {
-  const { lang } = useLocalSearchParams<{ lang?: string }>();
+  const { lang, theme, symbols } = useLocalSearchParams<{ lang?: string; theme?: string; symbols?: string }>();
   const [done, setDone] = useState(false);
 
   useEffect(() => {
     if (!__DEV__) return;
-    void seed(lang).then(() => {
+    void seed(lang, theme, symbols).then(() => {
       setDone(true);
       router.dismissTo('/');
     });
-  }, [lang]);
+  }, [lang, theme, symbols]);
 
   return (
     <Screen>

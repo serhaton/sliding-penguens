@@ -8,13 +8,14 @@
  * oynayarak öğrenir. Geri dönünce bu ekranı görür.
  */
 import { router } from 'expo-router';
+import { SymbolView, type SFSymbol } from 'expo-symbols';
 import { useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import { CoinCounter } from '@/components/hud/CoinCounter';
 import { LoginReward } from '@/components/hud/LoginReward';
 import { Penguin } from '@/components/penguin';
-import { AppText, BigButton, IconButton, Screen } from '@/components/ui';
+import { AppText, BigButton, IconButton, PressableScale, Screen } from '@/components/ui';
 import { antarctica } from '@/data/continents';
 import { wallet } from '@/economy/wallet';
 import { useProgress } from '@/game/progress';
@@ -26,7 +27,7 @@ import { adsConfig } from '@/services/ads.config';
 import { devFlags } from '@/services/devFlags';
 import { gameCenter } from '@/services/gameCenter';
 import { useSettings } from '@/store/settings';
-import { spacing, useTheme } from '@/theme';
+import { isTablet, radii, s, shadows, spacing, useTheme } from '@/theme';
 
 /**
  * Günlük hediye kartı bu oturumda kapatıldı mı? Oturumda en fazla bir pop-up
@@ -92,7 +93,7 @@ export default function HomeScreen() {
       {/* Penguen + başlık */}
       <View style={styles.hero}>
         {/* Profilde seçilen penguen, kostümleriyle. */}
-        <Penguin character={avatar.character} costume={avatar.costume} size={190} label={t('app.name')} />
+        <Penguin character={avatar.character} costume={avatar.costume} size={isTablet ? s(300) : 190} label={t('app.name')} />
         <AppText variant="display" center accessibilityRole="header">
           {t('app.name').replace(' ', '\n')}
         </AppText>
@@ -116,20 +117,28 @@ export default function HomeScreen() {
         />
       </View>
 
-      {/* Alt köşeler */}
-      <View style={styles.cornerRow}>
-        <IconButton
-          icon="person.crop.circle.fill"
-          label={t('home.profile')}
-          onPress={() => router.push('/profile')}
-        />
-        <IconButton icon="map.fill" label={t('home.map')} onPress={() => router.push('/map')} />
-        <IconButton
-          icon="bag.fill"
-          label={t('home.shop')}
-          onPress={() => router.push('/shop')}
-        />
-      </View>
+      {/* Alt gezinme: telefonda üç küçük ikon, iPad'de ekranı boydan boya kaplayan etiketli kartlar. */}
+      {isTablet ? (
+        <View style={styles.tiles}>
+          <NavTile icon="person.crop.circle.fill" label={t('home.profile')} onPress={() => router.push('/profile')} />
+          <NavTile icon="map.fill" label={t('home.map')} onPress={() => router.push('/map')} />
+          <NavTile icon="bag.fill" label={t('home.shop')} onPress={() => router.push('/shop')} />
+        </View>
+      ) : (
+        <View style={styles.cornerRow}>
+          <IconButton
+            icon="person.crop.circle.fill"
+            label={t('home.profile')}
+            onPress={() => router.push('/profile')}
+          />
+          <IconButton icon="map.fill" label={t('home.map')} onPress={() => router.push('/map')} />
+          <IconButton
+            icon="bag.fill"
+            label={t('home.shop')}
+            onPress={() => router.push('/shop')}
+          />
+        </View>
+      )}
 
       {/* Günlük hediye: ilk açılış karşılamasında çıkmaz, oyuncu oynamaya başladıktan sonra gelir. */}
       {giftShowing && (
@@ -143,6 +152,21 @@ export default function HomeScreen() {
         />
       )}
     </Screen>
+  );
+}
+
+/** iPad alt gezinme kartı: büyük ikon ve altında adı. */
+function NavTile({ icon, label, onPress }: { icon: SFSymbol; label: string; onPress: () => void }) {
+  const { colors } = useTheme();
+  return (
+    <PressableScale
+      accessibilityLabel={label}
+      onPress={onPress}
+      style={[styles.tile, shadows.soft(colors.shadow), { backgroundColor: colors.surface }]}
+    >
+      <SymbolView name={icon} size={s(30)} weight="bold" tintColor={colors.primary} />
+      <AppText variant="label">{label}</AppText>
+    </PressableScale>
   );
 }
 
@@ -161,5 +185,16 @@ const styles = StyleSheet.create({
     gap: spacing.md,
     marginBottom: spacing.lg,
     paddingHorizontal: spacing.md,
+    // iPad'de düğmeler ekran boyunca uzamaz: ortada, rahat basılır genişlikte.
+    ...(isTablet && { width: '72%', alignSelf: 'center', paddingHorizontal: 0, marginBottom: spacing.xl }),
+  },
+  tiles: { flexDirection: 'row', gap: spacing.md, marginBottom: spacing.sm },
+  tile: {
+    flex: 1,
+    minHeight: s(84),
+    borderRadius: radii.md,
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: spacing.xs,
   },
 });

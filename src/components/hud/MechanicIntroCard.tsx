@@ -12,12 +12,12 @@ import { AppText, BigButton, ScrimBleed } from '@/components/ui';
 import type { MechanicIntro } from '@/data/mechanics';
 import { useLevelSession } from '@/game/useLevelSession';
 import { useTranslation } from '@/i18n';
-import { radii, shadows, spacing, useTheme } from '@/theme';
+import { radii, s, shadows, spacing, useTheme } from '@/theme';
 
 /** Hamleler arası bekleme ve döngü sonu duraklaması (ms). */
 const STEP_MS = 1250;
 const LOOP_PAUSE_MS = 1500;
-const DEMO_SIZE = 230;
+const DEMO_SIZE = s(230);
 
 export function MechanicIntroCard({ mechanic, onDone }: { mechanic: MechanicIntro; onDone: () => void }) {
   const { t } = useTranslation();
@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
   },
   card: {
     width: '100%',
-    maxWidth: 360,
+    maxWidth: s(360),
     borderRadius: radii.lg,
     padding: spacing.lg,
     gap: spacing.md,

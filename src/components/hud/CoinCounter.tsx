@@ -11,7 +11,7 @@ import { StyleSheet, View } from 'react-native';
 import { AppText } from '@/components/ui';
 import { useWallet } from '@/economy/wallet';
 import { useTranslation } from '@/i18n';
-import { penguinColors, radii, shadows, spacing, useTheme, type TypographyVariant } from '@/theme';
+import { penguinColors, radii, s, shadows, spacing, type TypographyVariant, useTheme } from '@/theme';
 
 /**
  * `target` değerine doğru sayan sayı. `from` verilirse ilk gösterimde oradan
@@ -94,7 +94,7 @@ export function CoinCounter({ value, prefix = '', from, delay, tone = 'pill', si
         tone === 'pill' && [styles.pill, shadows.soft(colors.shadow), { backgroundColor: colors.surface }],
       ]}
     >
-      <CoinIcon size={large ? 30 : 18} />
+      <CoinIcon size={large ? s(30) : s(18)} />
       {/* Rakamlar eşit genişlikte: sayarken yazı sağa sola oynamasın. */}
       <AppText variant={variant} style={styles.digits}>
         {prefix}
@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
   row: { flexDirection: 'row', alignItems: 'center', gap: spacing.xs + 2 },
   rowLarge: { gap: spacing.sm },
   pill: {
-    minHeight: 36,
+    minHeight: s(36),
     paddingHorizontal: spacing.sm + spacing.xs,
     borderRadius: radii.pill,
   },

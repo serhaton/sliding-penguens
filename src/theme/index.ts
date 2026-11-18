@@ -11,6 +11,7 @@ import { useSettings } from '@/store/settings';
 import { dayColors, nightColors, type ThemeColors } from './colors';
 
 export * from './colors';
+export * from './device';
 export * from './tokens';
 
 export type ThemeName = 'day' | 'night';

@@ -1,0 +1,115 @@
+/* Kayan Penguenler / Sliding Penguins — site stili (pazarlama, gizlilik, destek). */
+:root {
+  --bg: #e4f1fb;
+  --bg-top: #a9dcea;
+  --surface: #ffffff;
+  --sunken: #e3eef7;
+  --text: #1a2340;
+  --muted: #5d7090;
+  --primary: #2e86f5;
+  --primary-dark: #1b63c4;
+  --accent: #ff8a3d;
+  --line: #d3e2f0;
+  --shadow: 0 10px 30px rgba(27, 42, 74, 0.12);
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0d1830;
+    --bg-top: #13264a;
+    --surface: #16284a;
+    --sunken: #101f3c;
+    --text: #eef5ff;
+    --muted: #9db1d1;
+    --primary: #4c9bff;
+    --primary-dark: #2e7be0;
+    --accent: #ff9a55;
+    --line: #24395f;
+    --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+    color-scheme: dark;
+  }
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  font-family: ui-rounded, "SF Pro Rounded", "Nunito", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--text);
+  background: linear-gradient(180deg, var(--bg-top) 0, var(--bg) 420px) var(--bg) no-repeat;
+}
+a { color: var(--primary); text-decoration-thickness: 2px; text-underline-offset: 3px; }
+a:hover { color: var(--primary-dark); }
+img { max-width: 100%; height: auto; }
+.wrap { max-width: 980px; margin: 0 auto; padding: 0 20px; }
+.narrow { max-width: 720px; }
+
+/* Üst şerit */
+.top { display: flex; align-items: center; gap: 12px; padding-block: 18px; flex-wrap: wrap; }
+.brand { display: flex; align-items: center; gap: 12px; font-weight: 900; font-size: 19px; color: var(--text); text-decoration: none; margin-right: auto; }
+.brand img { width: 44px; height: 44px; border-radius: 11px; box-shadow: var(--shadow); }
+.nav { display: flex; gap: 6px; flex-wrap: wrap; }
+.nav a { padding: 8px 14px; border-radius: 999px; font-weight: 800; font-size: 15px; text-decoration: none; color: var(--text); }
+.nav a:hover, .nav a[aria-current="page"] { background: var(--surface); }
+.nav a.lang { color: var(--muted); border: 2px solid var(--line); padding: 6px 12px; }
+
+/* Kahraman */
+.hero { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 32px; align-items: center; padding-block: 28px 48px; }
+.hero h1 { font-size: clamp(38px, 6vw, 62px); line-height: 1.05; margin: 0 0 14px; font-weight: 900; letter-spacing: -0.01em; text-wrap: balance; }
+.hero p.lead { font-size: 20px; color: var(--muted); margin: 0 0 24px; max-width: 34ch; }
+.hero .shot { justify-self: center; width: min(300px, 78%); }
+.cta { display: inline-flex; align-items: center; gap: 10px; background: var(--primary); color: #fff; font-weight: 900; padding: 14px 24px; border-radius: 999px; text-decoration: none; box-shadow: 0 6px 0 var(--primary-dark); }
+.cta:hover { color: #fff; transform: translateY(1px); box-shadow: 0 5px 0 var(--primary-dark); }
+.cta.soon { background: var(--surface); color: var(--text); box-shadow: 0 6px 0 var(--line); cursor: default; }
+.facts { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px; padding: 0; list-style: none; }
+.facts li { background: var(--surface); border-radius: 999px; padding: 6px 14px; font-weight: 800; font-size: 14px; color: var(--muted); }
+
+.shot { border-radius: 34px; box-shadow: var(--shadow); display: block; background: var(--sunken); }
+
+/* Özellikler */
+.features { display: grid; gap: 28px; padding-block: 12px 40px; }
+.feature { display: grid; grid-template-columns: 240px 1fr; gap: 28px; align-items: center; background: var(--surface); border-radius: 28px; padding: 24px; box-shadow: var(--shadow); }
+.feature:nth-child(even) { grid-template-columns: 1fr 240px; }
+.feature:nth-child(even) .shot { order: 2; }
+.feature h2 { font-size: 28px; line-height: 1.15; margin: 0 0 8px; font-weight: 900; text-wrap: balance; }
+.feature p { margin: 0; color: var(--muted); max-width: 46ch; }
+.feature .shot { border-radius: 26px; box-shadow: none; }
+
+/* Galeri */
+.gallery { display: flex; gap: 16px; overflow-x: auto; padding: 4px 20px 24px; scroll-snap-type: x mandatory; }
+.gallery img { flex: 0 0 auto; width: 220px; border-radius: 26px; scroll-snap-align: center; box-shadow: var(--shadow); }
+.section-title { font-size: 30px; font-weight: 900; margin: 16px 0 12px; }
+
+/* Yazı sayfaları (gizlilik, destek) */
+.doc { background: var(--surface); border-radius: 28px; padding: 28px clamp(20px, 5vw, 44px) 36px; box-shadow: var(--shadow); margin-block: 8px 40px; }
+.doc h1 { font-size: clamp(30px, 5vw, 40px); line-height: 1.1; margin: 0 0 6px; font-weight: 900; }
+.doc .updated { color: var(--muted); margin: 0 0 20px; font-size: 15px; }
+.doc h2 { font-size: 22px; margin: 30px 0 8px; font-weight: 900; }
+.doc p, .doc li { max-width: 68ch; }
+.doc ul { padding-left: 22px; }
+.doc li { margin-block: 6px; }
+.doc .summary { background: var(--sunken); border-radius: 18px; padding: 16px 20px; margin: 0 0 8px; }
+.doc .summary ul { margin: 6px 0 0; }
+.table-wrap { overflow-x: auto; }
+.doc table { border-collapse: collapse; width: 100%; font-size: 15px; margin-block: 10px; }
+.doc th, .doc td { text-align: left; padding: 10px 12px; border-bottom: 2px solid var(--line); vertical-align: top; }
+.doc th { color: var(--muted); font-size: 13px; text-transform: uppercase; letter-spacing: 0.04em; }
+details { border-bottom: 2px solid var(--line); padding-block: 12px; }
+details summary { font-weight: 900; cursor: pointer; font-size: 18px; }
+details p { margin: 8px 0 0; color: var(--muted); }
+.contact { display: inline-block; background: var(--sunken); padding: 10px 16px; border-radius: 14px; font-weight: 800; }
+
+footer { color: var(--muted); font-size: 15px; padding-block: 8px 44px; display: flex; flex-wrap: wrap; gap: 8px 18px; }
+footer a { color: var(--muted); }
+footer .grow { margin-right: auto; }
+
+@media (max-width: 760px) {
+  .hero { grid-template-columns: 1fr; text-align: center; padding-block: 12px 32px; }
+  .hero p.lead { margin-inline: auto; }
+  .facts { justify-content: center; }
+  .feature, .feature:nth-child(even) { grid-template-columns: 1fr; text-align: center; padding: 20px; }
+  .feature:nth-child(even) .shot { order: 0; }
+  .feature .shot { width: min(240px, 70%); justify-self: center; }
+  .feature p { margin-inline: auto; }
+}

@@ -23,6 +23,8 @@ import { useDaily } from '@/game/useDaily';
 import { useTranslation } from '@/i18n';
 import { ads } from '@/services/ads';
 import { adsConfig } from '@/services/ads.config';
+import { devFlags } from '@/services/devFlags';
+import { gameCenter } from '@/services/gameCenter';
 import { useSettings } from '@/store/settings';
 import { spacing, useTheme } from '@/theme';
 
@@ -55,11 +57,17 @@ export default function HomeScreen() {
   // Günlük hediye kartı şu an ekranda mı?
   const giftShowing = giftOpen && firstRunDone && !progress.fresh && !daily.login.claimed;
 
-  // Reklam izinleri ve ilk yükleme: birkaç bölüm oynamış oyuncu için (ilk açılışta
-  // sorulmaz). Hediye kartı açıkken beklenir: iki pencere üst üste açılmasın.
+  // Sistem pencereleri sırayla ve hediye kartı kapandıktan sonra açılır; üst üste
+  // binmezler. İkisi de ilk açılış karşılamasında sorulmaz:
+  //  1) Game Center girişi (oyuncu oynamaya başladıktan sonra),
+  //  2) reklam izinleri ve ilk yükleme (birkaç bölüm oynandıktan sonra).
+  const adsDue = progress.currentNumber > adsConfig.startAfterLevel;
   useEffect(() => {
-    if (!giftShowing && progress.currentNumber > adsConfig.startAfterLevel) void ads.warmUp();
-  }, [giftShowing, progress.currentNumber]);
+    if (giftShowing || progress.fresh || devFlags.quiet) return;
+    void gameCenter.signIn().then(() => {
+      if (adsDue) void ads.warmUp();
+    });
+  }, [giftShowing, progress.fresh, adsDue]);
 
   return (
     <Screen>

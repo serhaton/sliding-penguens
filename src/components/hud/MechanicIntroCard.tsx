@@ -8,7 +8,7 @@ import { StyleSheet, View } from 'react-native';
 import Animated, { FadeIn } from 'react-native-reanimated';
 
 import { Board } from '@/components/board';
-import { AppText, BigButton } from '@/components/ui';
+import { AppText, BigButton, ScrimBleed } from '@/components/ui';
 import type { MechanicIntro } from '@/data/mechanics';
 import { useLevelSession } from '@/game/useLevelSession';
 import { useTranslation } from '@/i18n';
@@ -27,6 +27,7 @@ export function MechanicIntroCard({ mechanic, onDone }: { mechanic: MechanicIntr
 
   return (
     <Animated.View entering={FadeIn.duration(200)} style={[StyleSheet.absoluteFill, styles.scrim]}>
+      <ScrimBleed opacity={0.45} />
       <View style={[styles.card, shadows.lifted(colors.shadow), { backgroundColor: colors.surface }]}>
         <AppText variant="title" center>
           {t(mechanic.titleKey)}

@@ -1,7 +1,6 @@
 /**
- * Ayarlar. Şimdilik cihaza özel tercihler: dil, tema, ses, titreşim, semboller.
- * Game Center, iCloud yedekleme durumu ve gizlilik satırları kendi aşamalarında
- * eklenecek.
+ * Ayarlar: cihaza özel tercihler (dil, tema, ses, titreşim, semboller), iCloud
+ * yedekleme durumu ve Game Center girişi.
  */
 import { router, useLocalSearchParams } from 'expo-router';
 import { SymbolView } from 'expo-symbols';
@@ -11,6 +10,7 @@ import { ScrollView, StyleSheet, Switch, View } from 'react-native';
 import { AppText, IconButton, PressableScale, Screen, Segmented } from '@/components/ui';
 import { useWallet } from '@/economy/wallet';
 import { useTranslation } from '@/i18n';
+import { gameCenter, useGameCenter } from '@/services/gameCenter';
 import { haptics } from '@/services/haptics';
 import { useSettings } from '@/store/settings';
 import { radii, shadows, spacing, useTheme } from '@/theme';
@@ -65,6 +65,7 @@ export default function SettingsScreen() {
   const { colors } = useTheme();
   const settings = useSettings();
   const cloud = useWallet();
+  const gc = useGameCenter();
 
   // Geliştirme kolaylığı: slidingpenguins://settings?reset=intros bağlantısı
   // tanıtımları sıfırlar (ekrana dokunmadan test edebilmek için).
@@ -161,6 +162,33 @@ export default function SettingsScreen() {
               {!cloud.cloudAvailable ? t('icloud.off') : cloud.pendingSync ? t('icloud.pending') : t('icloud.on')}
             </AppText>
           </View>
+        </Card>
+
+        {/* Game Center: giriş durumu; dokununca giriş yapılır ya da liderlik tabloları açılır. */}
+        <Card>
+          <PressableScale
+            accessibilityLabel={t('gamecenter.title')}
+            disabled={!gc.available}
+            onPress={() => void gameCenter.show('leaderboards')}
+            style={styles.toggleRow}
+          >
+            <View style={styles.toggleTexts}>
+              <AppText>{t('gamecenter.title')}</AppText>
+              <AppText variant="caption" muted>
+                {!gc.available
+                  ? t('gamecenter.unavailable')
+                  : gc.signedIn
+                    ? t('gamecenter.signedIn', { name: gc.alias ?? '' })
+                    : t('gamecenter.signedOut')}
+              </AppText>
+            </View>
+            <SymbolView
+              name={gc.signedIn ? 'checkmark.circle.fill' : 'gamecontroller.fill'}
+              size={22}
+              weight="bold"
+              tintColor={gc.signedIn ? colors.primary : colors.textMuted}
+            />
+          </PressableScale>
         </Card>
 
         {/* Yalnızca geliştirme sürümünde: test sahneleri */}

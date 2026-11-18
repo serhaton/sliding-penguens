@@ -7,7 +7,7 @@ import { useState } from 'react';
 import { Pressable, StyleSheet, View } from 'react-native';
 import Animated, { FadeIn, FadeOut, ZoomIn } from 'react-native-reanimated';
 
-import { AppText, BigButton } from '@/components/ui';
+import { AppText, BigButton, ScrimBleed } from '@/components/ui';
 import { economy } from '@/economy/economy.config';
 import type { LoginStatus } from '@/game/daily';
 import { useTranslation } from '@/i18n';
@@ -40,6 +40,7 @@ export function LoginReward({ status, onClaim, onClose }: LoginRewardProps) {
       exiting={FadeOut.duration(150)}
       style={[StyleSheet.absoluteFill, styles.scrim]}
     >
+      <ScrimBleed />
       <Pressable style={StyleSheet.absoluteFill} accessibilityLabel={t('common.close')} onPress={onClose} />
       <Animated.View
         entering={ZoomIn.duration(220)}

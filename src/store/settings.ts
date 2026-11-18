@@ -11,6 +11,12 @@ import type { LanguagePreference } from '@/i18n/locale';
 import { zustandKvStorage } from '@/services/storage';
 import type { ThemePreference } from '@/theme';
 
+export interface Counters {
+  noUndoWins: number;
+  duelBlocks: number;
+  hardCpuWins: number;
+}
+
 export interface SettingsState {
   /** 'system' → cihaz dilini izle. */
   language: LanguagePreference;
@@ -27,6 +33,13 @@ export interface SettingsState {
   firstRunDone: boolean;
   /** İlk açılış zamanı (ms): başlangıç paketi teklifinin süresi buradan sayılır. 0 = henüz bilinmiyor. */
   firstRunAt: number;
+  /**
+   * Başarım sayaçları (bu cihazda): cüzdanda karşılığı olmayan olaylar.
+   *  - noUndoWins: geri al kullanmadan ilk kez bitirilen bölümler
+   *  - duelBlocks: düelloda rakibin pengueni bizimkine çarpıp durdu
+   *  - hardCpuWins: zor bilgisayara karşı kazanılan düellolar (liderlik tablosu)
+   */
+  counters: Counters;
   /** Başlatılan düello sayısı: her maçta sıradaki tahta gelsin diye. */
   duelMatches: number;
 
@@ -40,6 +53,8 @@ export interface SettingsState {
   /** İlk açılış zamanını bir kez kaydeder. */
   stampFirstRun: (now: number) => void;
   countDuelMatch: () => void;
+  /** Bir başarım sayacını bir artırır. */
+  bump: (counter: keyof Counters) => void;
 }
 
 export const useSettings = create<SettingsState>()(
@@ -54,6 +69,7 @@ export const useSettings = create<SettingsState>()(
       seenIntros: [],
       firstRunDone: false,
       firstRunAt: 0,
+      counters: { noUndoWins: 0, duelBlocks: 0, hardCpuWins: 0 },
       duelMatches: 0,
 
       setLanguage: (language) => set({ language }),
@@ -65,12 +81,13 @@ export const useSettings = create<SettingsState>()(
       markFirstRunDone: () => set({ firstRunDone: true }),
       stampFirstRun: (now) => set((s) => (s.firstRunAt > 0 ? s : { firstRunAt: now })),
       countDuelMatch: () => set((s) => ({ duelMatches: s.duelMatches + 1 })),
+      bump: (counter) => set((s) => ({ counters: { ...s.counters, [counter]: s.counters[counter] + 1 } })),
     }),
     {
       name: 'settings.v1',
       storage: createJSONStorage(() => zustandKvStorage),
       // Yalnızca veriyi sakla; fonksiyonlar her açılışta yeniden kurulur.
-      partialize: ({ language, theme, music, sfx, haptics, largeSymbols, seenIntros, firstRunDone, firstRunAt, duelMatches }) => ({
+      partialize: ({ language, theme, music, sfx, haptics, largeSymbols, seenIntros, firstRunDone, firstRunAt, counters, duelMatches }) => ({
         language,
         theme,
         music,
@@ -80,6 +97,7 @@ export const useSettings = create<SettingsState>()(
         seenIntros,
         firstRunDone,
         firstRunAt,
+        counters,
         duelMatches,
       }),
     },

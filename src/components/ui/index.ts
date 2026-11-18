@@ -4,3 +4,4 @@ export * from './IconButton';
 export * from './PressableScale';
 export * from './Screen';
 export * from './Segmented';
+export * from './ScrimBleed';

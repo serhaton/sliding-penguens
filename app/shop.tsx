@@ -23,6 +23,7 @@ import { dayIndex } from '@/game/daily';
 import { useAvatar, useOwnedCosmetics } from '@/game/useAvatar';
 import { useToday } from '@/game/useDaily';
 import { useTranslation, type TranslationKey } from '@/i18n';
+import { devFlags } from '@/services/devFlags';
 import { haptics } from '@/services/haptics';
 import { buy, restore, useStore } from '@/services/store';
 import { useSettings } from '@/store/settings';
@@ -121,7 +122,7 @@ export default function ShopScreen() {
       </View>
 
       <ScrollView contentContainerStyle={styles.list} showsVerticalScrollIndicator={false}>
-        {simulated && (
+        {simulated && !devFlags.quiet && (
           <View style={[styles.pill, { backgroundColor: colors.surfaceSunken }]}>
             <AppText variant="caption" muted>
               {t('shop.simulated')}

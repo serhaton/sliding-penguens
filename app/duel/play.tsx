@@ -139,6 +139,8 @@ function DuelMatch({
     void (async () => {
       await wallet().recordDuelResult(matchId, outcome);
       if (outcome !== 'win') return;
+      // Liderlik tablosu: zor bilgisayara karşı kazanılan düellolar.
+      if (cpu === 'hard') useSettings.getState().bump('hardCpuWins');
       // Bu zorlukta ilk galibiyet ödülü + günün ödüllü galibiyeti (günde sınırlı).
       const first = await wallet().claimCpuFirstWin(cpu);
       const daily = await wallet().claimDailyDuelWin(todayKey());

@@ -12,6 +12,9 @@ import { useEffect } from 'react';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 import { startWallet } from '@/economy/wallet';
+import { AchievementToast } from '@/components/hud/AchievementToast';
+import { startAchievements } from '@/services/achievementSync';
+import { startDevRemote } from '@/services/devRemote';
 import { startStore } from '@/services/store';
 import { useSettings } from '@/store/settings';
 import { motion, useTheme } from '@/theme';
@@ -24,6 +27,10 @@ export default function RootLayout() {
     startWallet();
     // Mağaza: yarım kalan satın alımlar teslim edilir, sahiplik yenilenir.
     void startStore();
+    // Başarımlar ve Game Center skorları: durum değiştikçe eşitlenir.
+    startAchievements();
+    // Yalnızca geliştirme: ekran görüntüsü otomasyonu için uzaktan kumanda.
+    startDevRemote();
     // Başlangıç paketi teklifinin süresi ilk açılıştan sayılır.
     useSettings.getState().stampFirstRun(Date.now());
   }, []);
@@ -44,6 +51,8 @@ export default function RootLayout() {
           contentStyle: { backgroundColor: colors.bgBottom },
         }}
       />
+      {/* Yeni başarım notu: hangi ekranda olunursa olsun üstte belirir. */}
+      <AchievementToast />
     </GestureHandlerRootView>
   );
 }

@@ -10,6 +10,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { chooseMove } from '@/ai';
 import { applyMove, type GameState, type LevelDef, type TeamId } from '@/engine';
 import { createRng, type Rng } from '@/generator/rng';
+import { useSettings } from '@/store/settings';
 
 import { CPU_TEAM, startDuel, type DuelSetup } from './duel';
 import type { BoardSignal } from './useLevelSession';
@@ -66,6 +67,14 @@ export function useDuelSession(board: LevelDef, setup: DuelSetup): DuelSession {
       setState(outcome.state);
       setSignal((s) => ({ id: s.id + 1, kind: 'move', events: outcome.events }));
       const mover = state.turn;
+      // Başarım sayacı: bilgisayarın pengueni bizim penguenimize çarpıp durdu (yolu kesildi).
+      const blocked = outcome.events.some(
+        (e) =>
+          e.type === 'bump' &&
+          e.obstacle.kind === 'penguin' &&
+          state.penguins.find((p) => p.id === (e.obstacle as { penguinId: string }).penguinId)?.team !== mover,
+      );
+      if (blocked && setup.cpu && !setup.demo && mover === CPU_TEAM) useSettings.getState().bump('duelBlocks');
       const pass = outcome.events.find((e) => e.type === 'pass');
       const slid = outcome.events.some((e) => e.type === 'slide');
       setNote((n) => {
@@ -74,7 +83,7 @@ export function useDuelSession(board: LevelDef, setup: DuelSetup): DuelSession {
         return slid ? null : { team: mover, kind: 'spin', id };
       });
     },
-    [state],
+    [state, setup.cpu, setup.demo],
   );
 
   // Oyuncu dokunuşu: bilgisayarın sırasında yok sayılır. Rakibin penguenine

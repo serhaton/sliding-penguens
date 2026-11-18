@@ -12,7 +12,7 @@ import { StyleSheet, View } from 'react-native';
 import Animated, { FadeIn, ZoomIn } from 'react-native-reanimated';
 
 import { ShareCard, SHARE_CARD_ASPECT } from '@/components/share/ShareCard';
-import { AppText, BigButton, IconButton, PressableScale } from '@/components/ui';
+import { AppText, BigButton, IconButton, PressableScale, ScrimBleed } from '@/components/ui';
 import type { CharacterId } from '@/data/characters';
 import { useTranslation } from '@/i18n';
 import { audio } from '@/services/audio';
@@ -112,6 +112,7 @@ export function LevelComplete({
 
   return (
     <Animated.View entering={FadeIn.duration(200)} style={[StyleSheet.absoluteFill, styles.scrim]}>
+      <ScrimBleed />
       <ShareCard
         cardRef={cardRef}
         title={title}

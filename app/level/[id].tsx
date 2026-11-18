@@ -12,6 +12,8 @@ import { wallet } from '@/economy/wallet';
 import { useTranslation } from '@/i18n';
 import { ads } from '@/services/ads';
 import { adsConfig } from '@/services/ads.config';
+import { devFlags } from '@/services/devFlags';
+import { useSettings } from '@/store/settings';
 
 export default function LevelRoute() {
   const { id, auto, autoNext, autoShare, offer } = useLocalSearchParams<{
@@ -45,10 +47,13 @@ export default function LevelRoute() {
       tutorial={number === 1}
       // İlerleme ve coinler cüzdana yazılır (aynı bölüm tekrar coin vermez).
       rewardFor={(stars) => wallet().previewLevelReward(level.id, stars)}
-      onWin={(stars) => {
+      onWin={(stars, { undoUsed }) => {
+        // Geri alsız ilk bitiriş başarım sayacına yazılır (tekrar oynamak saymaz).
+        const firstClear = !(level.id in wallet().getSnapshot().state.stars);
+        if (firstClear && !undoUsed) useSettings.getState().bump('noUndoWins');
         void wallet().recordLevelResult(level.id, stars);
         // Reklam izinleri ve ilk yükleme: ilk açılışta değil, birkaç bölümden sonra.
-        if (number >= adsConfig.startAfterLevel) void ads.warmUp();
+        if (number >= adsConfig.startAfterLevel && !devFlags.quiet) void ads.warmUp();
       }}
       hasNext={!!nextId}
       onNext={() => {

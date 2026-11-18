@@ -20,11 +20,14 @@ import { characterList, characters, type CharacterId } from '@/data/characters';
 import { cosmetics, cosmeticSlots, getCosmetic, type Cosmetic, type CosmeticSlot } from '@/data/cosmetics';
 import { useWallet, wallet } from '@/economy/wallet';
 import { getProduct } from '@/data/products';
+import { economy } from '@/economy/economy.config';
+import { achievementIds, achievementTitleKey } from '@/game/achievements';
 import { avatarFrom } from '@/game/avatar';
 import { useProgress } from '@/game/progress';
 import { useOwnedCosmetics } from '@/game/useAvatar';
 import { useDaily } from '@/game/useDaily';
 import { useTranslation } from '@/i18n';
+import { gameCenter, useGameCenter } from '@/services/gameCenter';
 import { haptics } from '@/services/haptics';
 import { penguinColors, radii, shadows, spacing, useTheme } from '@/theme';
 
@@ -34,6 +37,7 @@ export default function ProfileScreen() {
   const { state, balance } = useWallet();
   const progress = useProgress();
   const daily = useDaily();
+  const gc = useGameCenter();
   const owned = useOwnedCosmetics();
   // Mağaza vitrininden gelindiyse o kostüm denenmiş olarak açılır (?try=hat.crown).
   const params = useLocalSearchParams<{ try?: string }>();
@@ -194,6 +198,57 @@ export default function ProfileScreen() {
             label={`${t('profile.wins')} · ${t('profile.draws')} · ${t('profile.losses')}`}
           />
         </View>
+
+        {/* Başarımlar: kazanılanlar renkli, bekleyenler soluk; yanında coin ödülü. */}
+        <View style={styles.section}>
+          <AppText variant="label" muted>
+            {t('achievement.title')} · {t('achievement.count', { n: state.achievements.length, max: achievementIds.length })}
+          </AppText>
+          <View style={[styles.achievements, shadows.soft(colors.shadow), { backgroundColor: colors.surface }]}>
+            {achievementIds.map((id) => {
+              const done = state.achievements.includes(id);
+              return (
+                <View key={id} style={[styles.achievement, !done && styles.pending]} accessible>
+                  <SymbolView
+                    name={done ? 'trophy.fill' : 'trophy'}
+                    size={18}
+                    weight="bold"
+                    tintColor={done ? colors.coin : colors.textMuted}
+                  />
+                  <AppText style={styles.achievementName} numberOfLines={1}>
+                    {t(achievementTitleKey(id))}
+                  </AppText>
+                  <CoinIcon size={14} />
+                  <AppText variant="caption" muted>
+                    {economy.achievements[id]}
+                  </AppText>
+                </View>
+              );
+            })}
+          </View>
+        </View>
+
+        {/* Game Center: liderlik tabloları ve başarım ekranı. */}
+        {gc.available && (
+          <View style={styles.links}>
+            <PressableScale
+              accessibilityLabel={t('gamecenter.leaderboards')}
+              onPress={() => void gameCenter.show('leaderboards')}
+              style={[styles.link, { backgroundColor: colors.surface }]}
+            >
+              <SymbolView name="list.number" size={18} weight="bold" tintColor={colors.primary} />
+              <AppText variant="label">{t('gamecenter.leaderboards')}</AppText>
+            </PressableScale>
+            <PressableScale
+              accessibilityLabel={t('gamecenter.achievements')}
+              onPress={() => void gameCenter.show('achievements')}
+              style={[styles.link, { backgroundColor: colors.surface }]}
+            >
+              <SymbolView name="rosette" size={18} weight="bold" tintColor={colors.primary} />
+              <AppText variant="label">{t('gamecenter.achievements')}</AppText>
+            </PressableScale>
+          </View>
+        )}
       </ScrollView>
 
       {/* Deneme çubuğu: denenen ürünü satın al. */}
@@ -327,5 +382,18 @@ const styles = StyleSheet.create({
     paddingHorizontal: spacing.sm,
   },
   stat: { flex: 1, alignItems: 'center', gap: 2 },
+  achievements: { borderRadius: radii.md, paddingVertical: spacing.xs, paddingHorizontal: spacing.md },
+  achievement: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm, minHeight: 36 },
+  achievementName: { flex: 1 },
+  pending: { opacity: 0.5 },
+  links: { gap: spacing.sm },
+  link: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: spacing.sm,
+    minHeight: 48,
+    borderRadius: radii.pill,
+  },
   buy: { paddingHorizontal: spacing.md, paddingTop: spacing.sm },
 });

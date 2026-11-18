@@ -16,7 +16,7 @@ import Animated, { FadeIn } from 'react-native-reanimated';
 
 import { CoinCounter } from '@/components/hud/CoinCounter';
 import { ShareCard, SHARE_CARD_ASPECT } from '@/components/share/ShareCard';
-import { AppText, BigButton, IconButton, PressableScale } from '@/components/ui';
+import { AppText, BigButton, IconButton, PressableScale, ScrimBleed } from '@/components/ui';
 import type { PenguinColor } from '@/engine';
 import { useTranslation } from '@/i18n';
 import { audio } from '@/services/audio';
@@ -95,6 +95,7 @@ export function DuelComplete({
       entering={FadeIn.duration(200)}
       style={[StyleSheet.absoluteFill, styles.scrim, faceToFace && styles.scrimFaceToFace]}
     >
+      <ScrimBleed />
       <ShareCard cardRef={cardRef} title={t('duel.title')} headline={headline} caption={title} color={winnerColor} />
       {/* Yüz yüze oyunda üstteki oyuncu için ters duran ikinci bir kart. */}
       {faceToFace && <View style={styles.flipped}>{card(false)}</View>}

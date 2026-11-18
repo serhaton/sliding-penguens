@@ -11,7 +11,7 @@ import { Pressable, StyleSheet, View } from 'react-native';
 import Animated, { FadeIn, FadeOut, SlideInDown, SlideOutDown } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { AppText, PressableScale } from '@/components/ui';
+import { AppText, PressableScale, ScrimBleed } from '@/components/ui';
 import { useWallet } from '@/economy/wallet';
 import { canAfford, type Offer, type PayMethod } from '@/game/offers';
 import { useTranslation } from '@/i18n';
@@ -53,6 +53,7 @@ export function OfferSheet({ offer, videoReady, onPay, onClose }: OfferSheetProp
       exiting={FadeOut.duration(150)}
       style={[StyleSheet.absoluteFill, styles.scrim]}
     >
+      <ScrimBleed />
       <Pressable style={StyleSheet.absoluteFill} accessibilityLabel={t('common.close')} onPress={onClose} />
       <Animated.View
         entering={SlideInDown.duration(220)}

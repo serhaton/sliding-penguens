@@ -55,7 +55,7 @@ export function LevelPlay({
   /** Bu bitirişin kazandıracağı coin (kayıttan ÖNCE sorulur). */
   rewardFor: (stars: number) => number;
   /** Bölüm bitti: ilerlemeyi ve ödülü cüzdana yaz. */
-  onWin: (stars: number) => void;
+  onWin: (stars: number, info: { undoUsed: boolean }) => void;
   /** Bitiş kartında hamle sayısının altındaki kısa not (ör. günlük seri). */
   winNote?: (stars: number) => string | undefined;
   /** "Devam" var mı? Yoksa buton ana ekrana döner. */
@@ -92,6 +92,8 @@ export function LevelPlay({
   const [reward, setReward] = useState(0);
   /** Açık yardım teklifi (ipucu ya da geri alma): coin ya da video sorulur. */
   const [offer, setOffer] = useState<OfferKind | null>(initialOffer);
+  /** Bu denemede geri al kullanıldı mı ("geri alsız bitir" başarımı için)? */
+  const [undoUsed, setUndoUsed] = useState(false);
 
   useEffect(() => audio.preload(), []);
 
@@ -133,8 +135,10 @@ export function LevelPlay({
 
   // Geri al: ücretsiz hak varsa hemen; yoksa yeni hak teklif edilir.
   const onUndo = () => {
-    if (session.undosLeft > 0) session.undo();
-    else setOffer('undo');
+    if (session.undosLeft > 0) {
+      setUndoUsed(true);
+      session.undo();
+    } else setOffer('undo');
   };
 
   // İpucu: önce gösterilecek bir hamle var mı diye bakılır. Çıkmazdaysa
@@ -150,11 +154,15 @@ export function LevelPlay({
     const paid = await payFor(offers[offer], method, level.id);
     if (!paid) return false;
     if (offer === 'hint') session.hint();
-    else session.buyUndos(offers.undo.amount);
+    else {
+      setUndoUsed(true);
+      session.buyUndos(offers.undo.amount);
+    }
     return true;
   };
 
   const restart = () => {
+    setUndoUsed(false);
     setShowComplete(false);
     session.restart();
   };
@@ -193,7 +201,7 @@ export function LevelPlay({
               // İlerleme ve coinler cüzdana yazılır (aynı bölüm tekrar coin vermez).
               // Kazanç önce hesaplanır: kayıttan sonra sorulsa 0 çıkardı.
               setReward(rewardFor(session.stars));
-              onWin(session.stars);
+              onWin(session.stars, { undoUsed });
               setShowComplete(true);
             }}
           />

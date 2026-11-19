@@ -6,7 +6,7 @@ import type { Translations } from './tr';
 
 export const en: Translations = {
   // App
-  'app.name': 'Sliding Penguins',
+  'app.name': 'Pengolo',
 
   // Home
   'home.play': 'Play',
@@ -256,6 +256,7 @@ export const en: Translations = {
   'gamecenter.signedIn': 'Signed in as {name}',
   'gamecenter.signedOut': 'Not signed in. Tap to sign in.',
   'gamecenter.unavailable': 'Not available in this build',
+  'gamecenter.failed': 'Couldn’t open Game Center. Sign in to Game Center in the device Settings and try again.',
   'gamecenter.leaderboards': 'Leaderboards',
   'gamecenter.achievements': 'Game Center achievements',
   'common.back': 'Back',

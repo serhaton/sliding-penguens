@@ -56,7 +56,7 @@ CAPTIONS = {
     },
 }
 
-TITLE = {'en': 'Sliding Penguins', 'tr': 'Kayan Penguenler'}
+TITLE = {'en': 'Pengolo', 'tr': 'Pengolo'}
 TAGLINE = {'en': 'Slide. Bump. Come home.', 'tr': 'Kay. Çarp. Yuvana dön.'}
 
 
@@ -199,8 +199,10 @@ def social(icon):
         canvas.alpha_composite(art, (90, 135))
         title = TITLE[lang].replace(' ', '\n')
         font = ImageFont.truetype(FONT, 108)
-        draw.multiline_text((520, 150), title, font=font, fill=(255, 255, 255, 255), spacing=4)
-        draw.text((522, 420), TAGLINE[lang], font=ImageFont.truetype(FONT, 40), fill=(255, 255, 255, 235))
+        # Tek kelimelik ad tek satırdır: sloganla birlikte dikeyde ortalanır.
+        single = '\n' not in title
+        draw.multiline_text((520, 205 if single else 150), title, font=font, fill=(255, 255, 255, 255), spacing=4)
+        draw.text((522, 345 if single else 420), TAGLINE[lang], font=ImageFont.truetype(FONT, 40), fill=(255, 255, 255, 235))
         save(canvas.convert('RGB'), os.path.join(DOCS, 'assets', f'og-{lang}.png'))
 
 

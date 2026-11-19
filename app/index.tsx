@@ -15,7 +15,7 @@ import { StyleSheet, View } from 'react-native';
 import { CoinCounter } from '@/components/hud/CoinCounter';
 import { LoginReward } from '@/components/hud/LoginReward';
 import { Penguin } from '@/components/penguin';
-import { AppText, BigButton, IconButton, PressableScale, Screen } from '@/components/ui';
+import { AppText, BigButton, IconButton, PressableScale, Screen, Wordmark } from '@/components/ui';
 import { antarctica } from '@/data/continents';
 import { wallet } from '@/economy/wallet';
 import { useProgress } from '@/game/progress';
@@ -94,9 +94,7 @@ export default function HomeScreen() {
       <View style={styles.hero}>
         {/* Profilde seçilen penguen, kostümleriyle. */}
         <Penguin character={avatar.character} costume={avatar.costume} size={isTablet ? s(300) : 190} label={t('app.name')} />
-        <AppText variant="display" center accessibilityRole="header">
-          {t('app.name').replace(' ', '\n')}
-        </AppText>
+        <Wordmark text={t('app.name')} accessibilityRole="header" />
       </View>
 
       {/* Ana eylemler: başparmağın rahat ulaştığı alt bölge */}

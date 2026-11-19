@@ -9,7 +9,7 @@
  */
 export const tr = {
   // Uygulama
-  'app.name': 'Kayan Penguenler',
+  'app.name': 'Pengolo',
 
   // Ana ekran
   'home.play': 'Oyna',
@@ -259,6 +259,7 @@ export const tr = {
   'gamecenter.signedIn': '{name} olarak girildi',
   'gamecenter.signedOut': 'Giriş yapılmadı. Dokun ve gir.',
   'gamecenter.unavailable': 'Bu sürümde kullanılamıyor',
+  'gamecenter.failed': 'Game Center açılamadı. Cihazın Ayarlar bölümünden Game Center’a giriş yapıp yeniden dene.',
   'gamecenter.leaderboards': 'Liderlik tabloları',
   'gamecenter.achievements': 'Game Center başarımları',
   'common.back': 'Geri',

@@ -7,13 +7,13 @@
  * economy.config.ts'e (coinPacks), aynı kimlikle App Store Connect'e ürün.
  *
  * App Store Connect'teki ürün kimliği = STORE_PREFIX + id
- * (ör. com.serhatonal.slidingpenguins.coins.small).
+ * (ör. com.serhatonal.pengoloGame.coins.small).
  */
 import { cosmetics } from '@/data/cosmetics';
 import { economy } from '@/economy/economy.config';
 import type { TranslationKey } from '@/i18n';
 
-export const STORE_PREFIX = 'com.serhatonal.slidingpenguins.';
+export const STORE_PREFIX = 'com.serhatonal.pengoloGame.';
 
 export type ProductId = keyof typeof economy.coinPacks | 'noads';
 

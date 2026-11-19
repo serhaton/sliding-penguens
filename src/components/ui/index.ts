@@ -5,3 +5,4 @@ export * from './PressableScale';
 export * from './Screen';
 export * from './Segmented';
 export * from './ScrimBleed';
+export * from './Wordmark';

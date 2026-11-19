@@ -20,7 +20,7 @@ import sys
 import threading
 import time
 
-BUNDLE = 'com.serhatonal.slidingpenguins'
+BUNDLE = 'com.serhatonal.pengoloGame'
 PORT = 8799
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 

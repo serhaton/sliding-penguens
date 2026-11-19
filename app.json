@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "Kayan Penguenler",
-    "slug": "sliding-penguins",
-    "scheme": "slidingpenguins",
+    "name": "Pengolo",
+    "slug": "pengolo",
+    "scheme": "pengolo",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -16,7 +16,7 @@
       "en": "./locales/en.json"
     },
     "ios": {
-      "bundleIdentifier": "com.serhatonal.slidingpenguins",
+      "bundleIdentifier": "com.serhatonal.pengoloGame",
       "supportsTablet": true,
       "requireFullScreen": true,
       "infoPlist": {

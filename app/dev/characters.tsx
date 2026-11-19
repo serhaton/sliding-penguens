@@ -6,7 +6,7 @@
  * çizimi buradan ayarlıyoruz. Ayarlar → Geliştirici → Karakter sahnesi.
  *
  * Bağlantıyla belirli bir görünüm açılabilir (ekran görüntüsü almak için):
- *   slidingpenguins://dev/characters?who=nar&mood=oops&pose=idle&dir=left&scroll=900
+ *   pengolo://dev/characters?who=nar&mood=oops&pose=idle&dir=left&scroll=900
  */
 import { Canvas } from '@shopify/react-native-skia';
 import { router, useLocalSearchParams } from 'expo-router';

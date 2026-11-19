@@ -2,7 +2,7 @@
  * Tanıtım verisi (geliştirici aracı): mağaza ekran görüntüleri için oyunu
  * "ilerlemiş bir oyuncu" durumuna getirir ve sessiz modu açar.
  *
- *   slidingpenguins://dev/seed?lang=tr
+ *   pengolo://dev/seed?lang=tr
  *
  * Yalnızca boş bir simülatörde kullan: cüzdana gerçek kayıtlar yazar (yıldız,
  * coin, kostüm) ve iCloud açıksa bunlar eşitlenir.
@@ -31,8 +31,14 @@ const COSMETICS: [string, number][] = [
   ['scarf.rainbow', 3000],
 ];
 
-async function seed(lang: string | undefined, theme: string | undefined, symbols: string | undefined) {
-  devFlags.setQuiet(true);
+async function seed(
+  lang: string | undefined,
+  theme: string | undefined,
+  symbols: string | undefined,
+  quiet: string | undefined,
+) {
+  // ?quiet=0: sessiz mod kapalı kalır (açılış animasyonu ve sistem pencereleri görünür).
+  devFlags.setQuiet(quiet !== '0');
   const settings = useSettings.getState();
   settings.markFirstRunDone();
   for (const id of Object.keys(mechanics)) settings.markIntroSeen(id);
@@ -54,12 +60,17 @@ async function seed(lang: string | undefined, theme: string | undefined, symbols
 }
 
 export default function SeedScreen() {
-  const { lang, theme, symbols } = useLocalSearchParams<{ lang?: string; theme?: string; symbols?: string }>();
+  const { lang, theme, symbols, quiet } = useLocalSearchParams<{
+    lang?: string;
+    theme?: string;
+    symbols?: string;
+    quiet?: string;
+  }>();
   const [done, setDone] = useState(false);
 
   useEffect(() => {
     if (!__DEV__) return;
-    void seed(lang, theme, symbols).then(() => {
+    void seed(lang, theme, symbols, quiet).then(() => {
       setDone(true);
       router.dismissTo('/');
     });

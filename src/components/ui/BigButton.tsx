@@ -57,11 +57,18 @@ export function BigButton({
           <SymbolView name={icon} size={large ? s(26) : s(22)} weight="heavy" tintColor={text} />
         )}
         <View style={styles.texts}>
-          <AppText variant={large ? 'title' : 'button'} color={text}>
+          {/* Dar yerde (iPad sol bölmesi, uzun çeviri) taşmak yerine küçülür. */}
+          <AppText
+            variant={large ? 'title' : 'button'}
+            color={text}
+            numberOfLines={1}
+            adjustsFontSizeToFit
+            minimumFontScale={0.7}
+          >
             {title}
           </AppText>
           {subtitle && (
-            <AppText variant="label" color={text} style={styles.subtitle}>
+            <AppText variant="label" color={text} numberOfLines={1} style={styles.subtitle}>
               {subtitle}
             </AppText>
           )}
@@ -86,6 +93,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     gap: spacing.sm + spacing.xs,
   },
-  texts: { alignItems: 'center' },
+  texts: { alignItems: 'center', flexShrink: 1 },
   subtitle: { opacity: 0.85, marginTop: -2 },
 });

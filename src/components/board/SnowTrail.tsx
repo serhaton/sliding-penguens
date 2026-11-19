@@ -1,5 +1,5 @@
 /**
- * Kayan penguenin arkasından saçılan kar zerreleri. Her kayma için bir kez
+ * Kaymakta olan penguenin arkasından saçılan kar zerreleri. Her kayma için bir kez
  * kurulur, kendi kendine oynar ve biter. Bütün zerreler tek yol olarak çizilir.
  */
 import { Path, Skia } from '@shopify/react-native-skia';

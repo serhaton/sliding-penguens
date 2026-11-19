@@ -30,7 +30,7 @@ import { radii, s, spacing, useTheme } from '@/theme';
 /**
  * `autoplay` (yalnızca geliştirme): virgülle ayrılmış penguen kimlikleri sırayla
  * oynatılır — animasyonları dokunmadan izlemek için.
- *   slidingpenguins://level/4?auto=limon,nane,nar,piti
+ *   pengolo://level/4?auto=limon,nane,nar,piti
  */
 export function LevelPlay({
   level,

@@ -51,7 +51,13 @@ let interstitialReady = false;
 let levelsSinceLast = 0;
 let lastInterstitialAt = 0;
 
-const units = () => (__DEV__ ? adsConfig.testUnits : adsConfig.units);
+/**
+ * Geliştirme sürümünde her zaman test birimleri kullanılır. Cihaza elle kurulan
+ * deneme derlemesinde de test reklamı istenirse derleme EXPO_PUBLIC_TEST_ADS=1
+ * ile yapılır: yayımlanmamış uygulamaya gerçek birimler çoğu zaman reklam vermez.
+ */
+const testAds = __DEV__ || process.env.EXPO_PUBLIC_TEST_ADS === '1';
+const units = () => (testAds ? adsConfig.testUnits : adsConfig.units);
 
 function loadRewarded(): void {
   if (!gma) return;

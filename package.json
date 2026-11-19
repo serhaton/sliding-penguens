@@ -1,5 +1,5 @@
 {
-  "name": "sliding-penguins",
+  "name": "pengolo",
   "version": "1.0.0",
   "main": "expo-router/entry",
   "dependencies": {
@@ -60,7 +60,7 @@
     "levels:generate": "tsx scripts/generate-levels.ts",
     "levels:validate": "tsx scripts/validate-levels.ts",
     "levels:survey": "tsx scripts/survey-levels.ts",
-    "ios:provision": "xcodebuild -workspace ios/KayanPenguenler.xcworkspace -scheme KayanPenguenler -configuration Debug -destination generic/platform=iOS -allowProvisioningUpdates -allowProvisioningDeviceRegistration build",
+    "ios:provision": "xcodebuild -workspace ios/Pengolo.xcworkspace -scheme Pengolo -configuration Debug -destination generic/platform=iOS -allowProvisioningUpdates -allowProvisioningDeviceRegistration build",
     "duel:generate": "tsx scripts/generate-duel.ts"
   },
   "private": true,

@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   s.name           = 'PenguinGameCenter'
   s.version        = '1.0.0'
-  s.summary        = 'Game Center bridge for Sliding Penguins'
+  s.summary        = 'Game Center bridge for Pengolo'
   s.description    = 'Sign-in, leaderboards and achievements through GameKit.'
   s.author         = ''
   s.homepage       = 'https://docs.expo.dev/modules/'

@@ -1,7 +1,7 @@
 /**
  * Kostüm sayfası (geliştirici aracı): bütün kostümler tek ekranda, penguenin
  * üstünde. Yeni bir çizimi denetlemek için.
- *   slidingpenguins://dev/costumes?who=nar&pose=slide
+ *   pengolo://dev/costumes?who=nar&pose=slide
  */
 import { router, useLocalSearchParams } from 'expo-router';
 import { ScrollView, StyleSheet, View } from 'react-native';

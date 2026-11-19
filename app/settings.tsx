@@ -4,7 +4,7 @@
  */
 import { router, useLocalSearchParams } from 'expo-router';
 import { SymbolView } from 'expo-symbols';
-import { useEffect, type ReactNode } from 'react';
+import { useEffect, useState, type ReactNode } from 'react';
 import { ScrollView, StyleSheet, Switch, View } from 'react-native';
 
 import { AppText, IconButton, PressableScale, Screen, Segmented } from '@/components/ui';
@@ -66,8 +66,10 @@ export default function SettingsScreen() {
   const settings = useSettings();
   const cloud = useWallet();
   const gc = useGameCenter();
+  /** Game Center ekranı açılamadı: satırda nedenini söyleyen not görünür. */
+  const [gcFailed, setGcFailed] = useState(false);
 
-  // Geliştirme kolaylığı: slidingpenguins://settings?reset=intros bağlantısı
+  // Geliştirme kolaylığı: pengolo://settings?reset=intros bağlantısı
   // tanıtımları sıfırlar (ekrana dokunmadan test edebilmek için).
   const { reset } = useLocalSearchParams<{ reset?: string }>();
   const { resetIntros } = settings;
@@ -169,7 +171,7 @@ export default function SettingsScreen() {
           <PressableScale
             accessibilityLabel={t('gamecenter.title')}
             disabled={!gc.available}
-            onPress={() => void gameCenter.show('leaderboards')}
+            onPress={() => void gameCenter.show('leaderboards').then((opened) => setGcFailed(!opened))}
             style={styles.toggleRow}
           >
             <View style={styles.toggleTexts}>
@@ -179,7 +181,9 @@ export default function SettingsScreen() {
                   ? t('gamecenter.unavailable')
                   : gc.signedIn
                     ? t('gamecenter.signedIn', { name: gc.alias ?? '' })
-                    : t('gamecenter.signedOut')}
+                    : gcFailed
+                      ? t('gamecenter.failed')
+                      : t('gamecenter.signedOut')}
               </AppText>
             </View>
             <SymbolView

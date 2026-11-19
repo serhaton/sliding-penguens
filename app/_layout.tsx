@@ -1,8 +1,8 @@
 /**
  * Kök yerleşim: bütün ekranları saran yığın (stack) gezgini.
  *
- * Açılışta hiçbir bekleme yok: yazı tipleri uygulamaya gömülü, ayarlar MMKV'den
- * senkron okunuyor. Ekranlardan bağımsız servisler burada başlatılır (cüzdan ve
+ * Açılışta yükleme beklemesi yok: yazı tipleri uygulamaya gömülü, ayarlar
+ * MMKV'den senkron okunuyor. Yalnızca kısa açılış animasyonu (IntroSplash) oynar. Ekranlardan bağımsız servisler burada başlatılır (cüzdan ve
  * iCloud birleştirme, satın alma dinleyicisi; ileride Game Center girişi).
  */
 import { Stack } from 'expo-router';
@@ -13,6 +13,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 import { startWallet } from '@/economy/wallet';
 import { AchievementToast } from '@/components/hud/AchievementToast';
+import { IntroSplash } from '@/components/intro/IntroSplash';
 import { startAchievements } from '@/services/achievementSync';
 import { startDevRemote } from '@/services/devRemote';
 import { startStore } from '@/services/store';
@@ -53,6 +54,8 @@ export default function RootLayout() {
       />
       {/* Yeni başarım notu: hangi ekranda olunursa olsun üstte belirir. */}
       <AchievementToast />
+      {/* Açılış animasyonu: ad harf harf gelir, sonra perde açılır. */}
+      <IntroSplash />
     </GestureHandlerRootView>
   );
 }

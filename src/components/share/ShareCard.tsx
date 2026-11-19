@@ -9,7 +9,7 @@ import { SymbolView } from 'expo-symbols';
 import { StyleSheet, View } from 'react-native';
 
 import { Penguin } from '@/components/penguin';
-import { AppText } from '@/components/ui';
+import { AppText, Wordmark } from '@/components/ui';
 import type { CharacterId } from '@/data/characters';
 import type { PenguinColor } from '@/engine';
 import { useTranslation } from '@/i18n';
@@ -49,9 +49,7 @@ export function ShareCard({ cardRef, title, stars, headline, caption, character 
         {/* Kar tepesi: beyaz panel üstünde net dursun diye tek ve soluk */}
         <View style={[styles.hill, { backgroundColor: c.hillFar }]} />
 
-        <AppText variant="heading" center color={c.text}>
-          {t('app.name')}
-        </AppText>
+        <Wordmark text={t('app.name')} variant="heading" />
 
         <View style={styles.penguin}>
           <Penguin character={character} color={color} size={170} pose="dance" mood="excited" interactive={false} />

@@ -21,7 +21,7 @@ export default function MapScreen() {
   const episode = antarctica.episodes.find((e) => e.id === current?.world) ?? antarctica.episodes[0]!;
   const episodeLevels = levels.filter((level) => level.world === episode.id);
   const stars = episodeLevels.reduce((sum, level) => sum + progress.starsOf(level.id), 0);
-  // Geliştirme kolaylığı: slidingpenguins://map?overview=1 uzak görünümde kalır.
+  // Geliştirme kolaylığı: pengolo://map?overview=1 uzak görünümde kalır.
   const { overview } = useLocalSearchParams<{ overview?: string }>();
 
   return (

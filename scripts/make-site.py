@@ -8,13 +8,21 @@ sözlüklerde durur. Kıta çizimleri satır içi SVG'dir, ek görsel dosyası g
 
 Gizlilik ve destek sayfaları elle yazılır; bu betik onlara dokunmaz.
 """
+import hashlib
 import os
+import re
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DOCS = os.path.join(ROOT, 'docs', '1.0')
 
 # Addaki harflerin renkleri (uygulamadaki Wordmark ile aynı sıra).
 LETTER_COLORS = ['#2E86F5', '#FF8A3D', '#FF5470', '#FFB800', '#22C58B', '#8B6CF6']
+
+
+def style_version():
+    """Stil dosyasının kısa özeti: bağlantıya eklenir ki tarayıcı eski kopyayı kullanmasın."""
+    with open(os.path.join(DOCS, 'assets', 'style.css'), 'rb') as f:
+        return hashlib.sha1(f.read()).hexdigest()[:8]
 
 
 def wordmark():
@@ -247,7 +255,7 @@ def page(t):
 <link rel="icon" href="../assets/icon.png">
 <link rel="apple-touch-icon" href="../assets/icon.png">
 <link rel="alternate" hreflang="{t["other"]}" href="../{t["other"]}/index.html">
-<link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="../assets/style.css?v={style_version()}">
 </head>
 <body>
 {PENGUIN_SYMBOL}
@@ -337,6 +345,15 @@ def main():
         with open(path, 'w') as f:
             f.write(page(text))
         print(path)
+    # Elle yazılan sayfalar (gizlilik, destek, dil seçimi) da aynı sürümü kullanır.
+    version = style_version()
+    for name in ('index.html', 'tr/privacy.html', 'tr/support.html', 'en/privacy.html', 'en/support.html'):
+        path = os.path.join(DOCS, name)
+        with open(path) as f:
+            html = f.read()
+        html = re.sub(r'(assets/style\.css)(\?v=[0-9a-f]+)?"', r'\1?v=' + version + '"', html)
+        with open(path, 'w') as f:
+            f.write(html)
 
 
 if __name__ == '__main__':

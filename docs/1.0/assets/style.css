@@ -47,7 +47,7 @@ img { max-width: 100%; height: auto; }
 
 /* Üst şerit */
 .top { display: flex; align-items: center; gap: 12px; padding-block: 18px; flex-wrap: wrap; }
-.brand { display: flex; align-items: center; gap: 12px; font-weight: 900; font-size: 19px; color: var(--text); text-decoration: none; margin-right: auto; }
+.brand { display: flex; align-items: center; gap: 12px; font-weight: 900; font-size: 22px; color: var(--text); text-decoration: none; margin-right: auto; }
 .brand img { width: 44px; height: 44px; border-radius: 11px; box-shadow: var(--shadow); }
 .nav { display: flex; gap: 6px; flex-wrap: wrap; }
 .nav a { padding: 8px 14px; border-radius: 999px; font-weight: 800; font-size: 15px; text-decoration: none; color: var(--text); }
@@ -67,19 +67,60 @@ img { max-width: 100%; height: auto; }
 
 .shot { border-radius: 34px; box-shadow: var(--shadow); display: block; background: var(--sunken); }
 
-/* Özellikler */
-.features { display: grid; gap: 28px; padding-block: 12px 40px; }
-.feature { display: grid; grid-template-columns: 240px 1fr; gap: 28px; align-items: center; background: var(--surface); border-radius: 28px; padding: 24px; box-shadow: var(--shadow); }
-.feature:nth-child(even) { grid-template-columns: 1fr 240px; }
-.feature:nth-child(even) .shot { order: 2; }
-.feature h2 { font-size: 28px; line-height: 1.15; margin: 0 0 8px; font-weight: 900; text-wrap: balance; }
-.feature p { margin: 0; color: var(--muted); max-width: 46ch; }
-.feature .shot { border-radius: 26px; box-shadow: none; }
+/* Özellikler: iki sütun, küçük ekran görüntüsü + kısa yazı */
+.features { display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px; padding-block: 4px 40px; }
+.feature { display: grid; grid-template-columns: 150px 1fr; gap: 20px; align-items: center; background: var(--surface); border-radius: 26px; padding: 18px; box-shadow: var(--shadow); }
+.feature h3 { font-size: 23px; line-height: 1.15; margin: 0 0 8px; font-weight: 900; text-wrap: balance; }
+.feature p { margin: 0; color: var(--muted); font-size: 16px; line-height: 1.5; }
+.feature .shot { border-radius: 18px; box-shadow: none; }
 
 /* Galeri */
 .gallery { display: flex; gap: 16px; overflow-x: auto; padding: 4px 20px 24px; scroll-snap-type: x mandatory; }
 .gallery img { flex: 0 0 auto; width: 220px; border-radius: 26px; scroll-snap-align: center; box-shadow: var(--shadow); }
 .section-title { font-size: 30px; font-weight: 900; margin: 16px 0 12px; }
+
+/* Renkli ad */
+.wordmark { font-weight: 900; letter-spacing: -0.01em; }
+.hero-mark { margin: 0 0 6px; font-size: clamp(30px, 4.6vw, 44px); line-height: 1; }
+.hero-mark .wordmark { text-shadow: 0 3px 0 rgba(13, 24, 48, 0.08); }
+
+/* Kahramandaki iki telefon: önde gündüz, arkada gece */
+.duo { position: relative; justify-self: center; width: min(360px, 92%); aspect-ratio: 360 / 560; }
+.duo .shot { position: absolute; width: 66%; }
+.duo .back { right: 0; top: 0; transform: rotate(6deg); }
+.duo .front { left: 0; bottom: 0; transform: rotate(-4deg); }
+
+/* Bölüm başlıkları */
+.kicker { margin: 0 0 6px; font-weight: 900; font-size: 14px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); }
+.big { font-size: clamp(32px, 5vw, 50px); line-height: 1.08; font-weight: 900; margin: 0 0 14px; letter-spacing: -0.01em; text-wrap: balance; }
+.section-lead { font-size: 19px; color: var(--muted); max-width: 60ch; margin: 0 0 28px; }
+
+/* Dünya turu */
+.tour { padding-block: 44px 36px; }
+.stops { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+.stop { background: var(--surface); border-radius: 26px; overflow: hidden; box-shadow: var(--shadow); display: flex; flex-direction: column; }
+.stop.live { outline: 4px solid var(--primary); outline-offset: -4px; }
+.scene { display: block; width: 100%; aspect-ratio: 320 / 190; }
+.stop-body { padding: 16px 20px 22px; }
+.stop-no { font-weight: 900; font-size: 13px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); margin-right: 8px; }
+.badge { display: inline-block; font-weight: 900; font-size: 12px; padding: 3px 10px; border-radius: 999px; vertical-align: 1px; }
+.badge.live { background: var(--primary); color: #fff; }
+.badge.soon { background: var(--sunken); color: var(--muted); }
+.stop h3 { font-size: 24px; line-height: 1.15; font-weight: 900; margin: 8px 0 6px; }
+.stop p { margin: 0; color: var(--muted); font-size: 16px; line-height: 1.5; }
+.note { color: var(--muted); font-size: 14px; margin: 18px 0 0; }
+
+/* Gece teması bandı: sayfa açık temadayken de koyu kalır */
+.night { margin-block: 20px 28px; padding-block: 48px 28px; color: #eef5ff;
+  background: radial-gradient(90% 70% at 15% 0%, rgba(45, 212, 160, 0.42), transparent 60%),
+    radial-gradient(80% 70% at 90% 5%, rgba(139, 108, 246, 0.5), transparent 62%), #0d1830; }
+.night .section-lead { color: #b9c9e6; }
+.night .kicker { color: #7ee7c1; }
+.night .gallery img { box-shadow: 0 12px 34px rgba(0, 0, 0, 0.45); }
+
+/* Kapanış */
+.finale { text-align: center; background: var(--surface); border-radius: 32px; padding: 34px 24px 40px; box-shadow: var(--shadow); margin-block: 24px 40px; }
+.finale .section-lead { margin-inline: auto; margin-bottom: 22px; }
 
 /* Yazı sayfaları (gizlilik, destek) */
 .doc { background: var(--surface); border-radius: 28px; padding: 28px clamp(20px, 5vw, 44px) 36px; box-shadow: var(--shadow); margin-block: 8px 40px; }
@@ -104,12 +145,17 @@ footer { color: var(--muted); font-size: 15px; padding-block: 8px 44px; display:
 footer a { color: var(--muted); }
 footer .grow { margin-right: auto; }
 
+@media (max-width: 900px) {
+  .stops { grid-template-columns: repeat(2, 1fr); }
+}
 @media (max-width: 760px) {
+  .stops { grid-template-columns: 1fr; }
+  .duo { margin-top: 8px; }
+  .section-lead { font-size: 17px; }
   .hero { grid-template-columns: 1fr; text-align: center; padding-block: 12px 32px; }
   .hero p.lead { margin-inline: auto; }
   .facts { justify-content: center; }
-  .feature, .feature:nth-child(even) { grid-template-columns: 1fr; text-align: center; padding: 20px; }
-  .feature:nth-child(even) .shot { order: 0; }
-  .feature .shot { width: min(240px, 70%); justify-self: center; }
-  .feature p { margin-inline: auto; }
+  .features { grid-template-columns: 1fr; }
+  .feature { grid-template-columns: 112px 1fr; gap: 16px; padding: 14px; }
+  .feature h3 { font-size: 20px; }
 }

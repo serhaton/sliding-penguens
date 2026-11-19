@@ -137,7 +137,7 @@ RAHAT OYNANSIN DİYE
 • Büyük semboller seçeneği: renk hiçbir zaman tek ipucu değil.
 • iPhone ve iPad için ayrı ayrı tasarlandı.
 • İlerleme iCloud ile cihazların arasında eşitlenir.
-• Game Center liderlik tabloları ve başarımlar.
+• Game Center liderlik tabloları ve başarılar.
 • Türkçe ve İngilizce.
 
 Pengolo ücretsizdir. İsteğe bağlı uygulama içi satın alımlar içerir ve reklam gösterir; tek seferlik bir satın alım bölüm aralarındaki reklamları kaldırır.
@@ -301,7 +301,7 @@ Non-consumable. Permanently removes the interstitial ads that are shown between 
 
 Where to find it: launch the app, tap the bag icon in the bottom-right corner of the home screen (on iPad, the "Shop" tile), then look under "Special bundles".
 
-What it changes: without this purchase, an interstitial ad may appear between levels, starting after level 10 and at most once every three levels. After the purchase, these ads are never shown.
+What it changes: without this purchase, an interstitial ad may appear between levels, starting after level 8 and at most once every two levels. After the purchase, these ads are never shown.
 
 What it does not change: optional rewarded videos remain available. For example, the "x2" button on the level-complete card lets the player choose to watch a video to double the coins they just earned. These are always started by the player and are never shown automatically.
 
@@ -317,7 +317,7 @@ After purchase, the card in the Shop shows as owned. The purchase can be restore
 | Contact email | `serhaton@gmail.com` |
 | Contact phone | Kendi numaran |
 
-Notes (3626 karakter; sınır 4000):
+Notes (3721 karakter; sınır 4000):
 
 ```
 Pengolo is a sliding puzzle game. No account, no login, no server of our own; nothing needs to be set up to review it.
@@ -326,7 +326,8 @@ Pengolo is a sliding puzzle game. No account, no login, no server of our own; no
 A recording made on a physical iPhone is attached. It starts with launching the app and shows the first levels, the tracking prompt after level 3, a duel, the wardrobe, and the Shop with the purchases and "Restore purchases". It shows no ads: see ADS.
 
 2. TESTED ON
-<fill in: e.g. iPhone 16, iOS 27.x; iPad (model), iPadOS 27.x; iPad Pro 13-inch (M4) simulator>
+Physical devices: iPhone 16, iOS 27.2; iPad Air (5th generation), iPadOS 26.6.1.
+Simulators: iPhone 16 Pro Max, iOS 18.6; iPad Pro 13-inch (M4), iPadOS 18.6; iPad Air 11-inch (M3), iPadOS 26.2.
 
 3. WHAT THE APP IS AND WHO IT IS FOR
 A casual puzzle game for a general audience. It is not directed at children under 13 and is not in the Kids category. 90 adventure levels, a daily puzzle, and duels for two players on one device or against the computer.
@@ -355,7 +356,7 @@ PERMISSIONS
 Only App Tracking Transparency, asked after level 3 is completed (not at launch). If declined, ads are not personalised and the game works the same. The app does not use the microphone, camera, location, contacts, photos or notifications, and declares no background modes: sounds are short effects that play only while the game is open, respect the silent switch and mix with other apps' audio.
 
 ADS
-Ad loading starts after level 3. Rewarded videos are optional and always started by the player (for example the "x2" button on the level-complete card). Full-screen ads can appear between adventure levels after level 10, at most once every three levels; never in duels or the daily puzzle.
+Ad loading starts after level 3. Rewarded videos are optional and always started by the player (for example the "x2" button on the level-complete card). Full-screen ads can appear between adventure levels after level 8, at most once every two levels; never in duels or the daily puzzle.
 Please note: the AdMob ad units are new and the app is not on the App Store yet, so AdMob may answer every request with "no fill". By design, when no ad is available the "x2" and other "watch a video" buttons are simply not shown and no full-screen ad appears; the game continues normally. This is intended behaviour, not a fault.
 
 The name on the Home Screen is "Pengolo", the first word of the store name. The game is fully playable offline.
@@ -427,7 +428,6 @@ Uygulamada etkinleştirilecek; liderlik tabloları ve 18 başarım oyundaki kiml
 Göndermeden önce doğrulanması gerekenler:
 
 - [ ] **Ekran kaydı:** Gerçek iPhone'da temiz kurulumdan başlayarak çek: açılış, ilk bölümler, 3. bölümden sonraki izleme izni, bir düello, gardırop, Mağaza ile satın alma ve "Restore purchases". App Review Information › Attachment'a ekle.
-- [ ] **Denenen cihazlar:** İnceleme notunun 2. maddesini doldur (Ayarlar › Genel › Hakkında'daki model ve sürüm).
 - [ ] **Info.plist:** Her `prebuild` sonrası `UIBackgroundModes`, mikrofon ve Face ID metinlerinin olmadığını gör.
 - [ ] **App Privacy tablosu:** Google'ın AdMob için yayımladığı güncel "App Store data disclosure" listesiyle karşılaştır; özellikle "kullanıcıya bağlı mı" ve "izleme" sütunları.
 - [ ] **İngilizce arayüz yazıları:** İnceleme notlarındaki "Restore purchases", "x2", "Coin packs", "Special bundles", "Most loved", "Best value", "One time" yazımlarını oyunun İngilizce arayüzünde gör.

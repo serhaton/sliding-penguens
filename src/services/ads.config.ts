@@ -21,10 +21,10 @@ export const adsConfig = {
   startAfterLevel: 3,
   interstitial: {
     /** İlk bu kadar bölümde araya reklam girmez. */
-    freeLevels: 10,
+    freeLevels: 8,
     /** En az bu kadar bölüm bitirildikten sonra bir reklam. */
-    everyLevels: 3,
+    everyLevels: 2,
     /** İki reklam arasında en az bu kadar süre (ms). */
-    minGapMs: 90_000,
+    minGapMs: 65_000,
   },
 } as const;

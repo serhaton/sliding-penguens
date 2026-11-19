@@ -8,6 +8,9 @@
  *
  *   /duel/play?mode=local                    aynı cihazda iki kişi
  *   /duel/play?mode=cpu&difficulty=medium    bilgisayara karşı
+ *
+ * Renkler: cihaz sahibi kendi pengueninin renginde oynar; rakibin rengi lobide
+ * rastgele seçilir (?rival=red) ve seri boyunca değişmez.
  */
 import { router, useLocalSearchParams } from 'expo-router';
 import { useEffect, useMemo, useState } from 'react';
@@ -18,7 +21,8 @@ import { Board } from '@/components/board';
 import { DuelComplete } from '@/components/duel/DuelComplete';
 import { PlayerBar } from '@/components/duel/PlayerBar';
 import { AppText, IconButton, Screen } from '@/components/ui';
-import { duelBoardAt, duelTeamColors } from '@/data/duel';
+import { duelBoardAt, isPenguinColor, randomRivalColor, recolorDuelBoard, type DuelColors } from '@/data/duel';
+import { characters } from '@/data/characters';
 import { wallet } from '@/economy/wallet';
 import type { LevelDef, TeamId } from '@/engine';
 import {
@@ -52,7 +56,12 @@ function newMatchId(): string {
 }
 
 export default function DuelPlayRoute() {
-  const { mode, difficulty, demo } = useLocalSearchParams<{ mode?: string; difficulty?: string; demo?: string }>();
+  const { mode, difficulty, demo, rival } = useLocalSearchParams<{
+    mode?: string;
+    difficulty?: string;
+    demo?: string;
+    rival?: string;
+  }>();
   const cpu = mode === 'cpu' ? (DIFFICULTIES.find((d) => d === difficulty) ?? 'easy') : null;
 
   /** Serinin kaçıncı oyunu, kim başlıyor ve şu ana kadarki seri skoru. */
@@ -61,6 +70,14 @@ export default function DuelPlayRoute() {
     starter: HUMAN_TEAM,
     score: [0, 0],
   });
+  // Takım renkleri: oyuncu kendi pengueninin renginde, rakip farklı bir renkte.
+  const mine = characters[useAvatar().character].color;
+  const [rivalColor] = useState(() => (isPenguinColor(rival) && rival !== mine ? rival : randomRivalColor(mine)));
+  const teamColors = useMemo<DuelColors>(
+    // Oyuncu seri sırasında rengini değiştiremez, ama renkler çakışırsa rakip yine ayrışır.
+    () => [mine, rivalColor === mine ? randomRivalColor(mine, () => 0) : rivalColor],
+    [mine, rivalColor],
+  );
   /** Ekran açılırken sıradaki tahtanın numarası: her maçta farklı tahta gelir. */
   const [firstBoard] = useState(() => useSettings.getState().duelMatches);
   const countDuelMatch = useSettings((s) => s.countDuelMatch);
@@ -73,7 +90,8 @@ export default function DuelPlayRoute() {
     <DuelMatch
       // key: yeni maçta oturum (durum, zamanlayıcılar) sıfırdan kurulsun.
       key={match.n}
-      board={duelBoardAt(firstBoard + match.n)}
+      board={recolorDuelBoard(duelBoardAt(firstBoard + match.n), teamColors)}
+      teamColors={teamColors}
       cpu={cpu}
       starter={match.starter}
       score={match.score}
@@ -86,6 +104,7 @@ export default function DuelPlayRoute() {
 
 function DuelMatch({
   board,
+  teamColors,
   cpu,
   starter,
   score,
@@ -93,6 +112,7 @@ function DuelMatch({
   onNext,
 }: {
   board: LevelDef;
+  teamColors: DuelColors;
   cpu: Difficulty | null;
   starter: TeamId;
   /** Bu oyundan önceki seri skoru. */
@@ -104,7 +124,7 @@ function DuelMatch({
   const { t } = useTranslation();
   const { colors } = useTheme();
   const largeSymbols = useSettings((s) => s.largeSymbols);
-  // Düelloda atkı takım rengini taşır: özel atkı takılmaz, gerisi (şapka, saç, gözlük) kalır.
+  // Düelloda atkı takım rengini (oyuncunun kendi rengini) taşır: özel atkı takılmaz, gerisi (şapka, saç, gözlük) kalır.
   const profile = useAvatar();
   const avatar = useMemo(() => withoutScarf(profile), [profile]);
   const session = useDuelSession(board, { cpu, starter, demo: demo ? 'hard' : null });
@@ -150,7 +170,7 @@ function DuelMatch({
 
   const names: Record<TeamId, string> = cpu
     ? { [HUMAN_TEAM]: t('duel.you'), [CPU_TEAM]: t('duel.cpu') }
-    : { 0: t('duel.blue'), 1: t('duel.orange') };
+    : { 0: t(`duel.${teamColors[0]}`), 1: t(`duel.${teamColors[1]}`) };
 
   /** Oyuncunun şeridindeki kısa not. */
   const noteFor = (team: TeamId): string | undefined => {
@@ -166,7 +186,7 @@ function DuelMatch({
   const bar = (team: TeamId) => (
     <PlayerBar
       name={names[team]!}
-      color={duelTeamColors[team]!}
+      color={teamColors[team]!}
       home={homeCount(state, team)}
       total={teamSize(state, team)}
       wins={after[team]}
@@ -239,8 +259,8 @@ function DuelMatch({
           title={title}
           series={after}
           gameScore={[homeCount(state, 0), homeCount(state, 1)]}
-          colors={[duelTeamColors[0]!, duelTeamColors[1]!]}
-          winnerColor={winner === null ? undefined : duelTeamColors[winner]}
+          colors={teamColors}
+          winnerColor={winner === null ? undefined : teamColors[winner]}
           coins={coins}
           finished={champion !== null}
           faceToFace={!cpu}

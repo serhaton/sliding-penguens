@@ -14,7 +14,8 @@ import { Penguin } from '@/components/penguin';
 import { withoutScarf } from '@/game/avatar';
 import { useAvatar } from '@/game/useAvatar';
 import { AppText, BigButton, IconButton, PressableScale, Screen, Segmented } from '@/components/ui';
-import { duelTeamColors } from '@/data/duel';
+import { characters } from '@/data/characters';
+import { randomRivalColor } from '@/data/duel';
 import { SERIES_WINS } from '@/game/duel';
 import { useTranslation } from '@/i18n';
 import { isTablet, radii, s, shadows, spacing, useTheme } from '@/theme';
@@ -24,6 +25,9 @@ export default function DuelLobbyScreen() {
   const avatar = withoutScarf(useAvatar());
   const { colors } = useTheme();
   const [difficulty, setDifficulty] = useState<Difficulty>('easy');
+  // Oyuncu kendi pengueninin renginde; rakibin rengi lobi açılırken rastgele seçilir ve maça taşınır.
+  const mine = characters[avatar.character].color;
+  const [rival] = useState(() => randomRivalColor(mine));
 
   return (
     <Screen>
@@ -37,7 +41,7 @@ export default function DuelLobbyScreen() {
 
       {/* İki takımın penguenleri karşı karşıya: ekranın ne olduğunu yazısız anlatır. */}
       <View style={styles.hero}>
-        <Penguin character={avatar.character} costume={avatar.costume} color={duelTeamColors[0]} direction="right" mood="excited" size={isTablet ? s(190) : 120} label={t('duel.blue')} />
+        <Penguin character={avatar.character} costume={avatar.costume} color={mine} direction="right" mood="excited" size={isTablet ? s(190) : 120} label={t(`duel.${mine}`)} />
         <View style={styles.versus}>
           <AppText variant="title" muted>
             vs
@@ -46,7 +50,7 @@ export default function DuelLobbyScreen() {
             {t('duel.firstTo', { n: SERIES_WINS })}
           </AppText>
         </View>
-        <Penguin color={duelTeamColors[1]} direction="left" mood="excited" size={isTablet ? s(190) : 120} label={t('duel.orange')} />
+        <Penguin color={rival} direction="left" mood="excited" size={isTablet ? s(190) : 120} label={t(`duel.${rival}`)} />
       </View>
 
       <View style={styles.cards}>
@@ -54,7 +58,7 @@ export default function DuelLobbyScreen() {
         <PressableScale
           pressScale={0.97}
           accessibilityLabel={`${t('duel.local')}, ${t('duel.localHint')}`}
-          onPress={() => router.push({ pathname: '/duel/play', params: { mode: 'local' } })}
+          onPress={() => router.push({ pathname: '/duel/play', params: { mode: 'local', rival } })}
         >
           <Card icon="person.2.fill" tint={colors.accent} title={t('duel.local')} hint={t('duel.localHint')}>
             <SymbolView name="chevron.right" size={s(20)} weight="bold" tintColor={colors.textMuted} />
@@ -78,7 +82,7 @@ export default function DuelLobbyScreen() {
               title={t('duel.start')}
               icon="play.fill"
               size="medium"
-              onPress={() => router.push({ pathname: '/duel/play', params: { mode: 'cpu', difficulty } })}
+              onPress={() => router.push({ pathname: '/duel/play', params: { mode: 'cpu', difficulty, rival } })}
             />
           </View>
         </Card>

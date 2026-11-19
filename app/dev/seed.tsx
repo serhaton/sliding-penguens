@@ -74,7 +74,7 @@ export default function SeedScreen() {
       setDone(true);
       router.dismissTo('/');
     });
-  }, [lang, theme, symbols]);
+  }, [lang, theme, symbols, quiet]);
 
   return (
     <Screen>

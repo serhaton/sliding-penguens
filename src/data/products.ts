@@ -62,7 +62,7 @@ export const products: readonly Product[] = [
     nameKey: 'shop.coinsMedium',
     bodyKey: 'shop.coinsBody',
     badgeKey: 'shop.badgePopular',
-    devPrice: '$2.99',
+    devPrice: '$2.49',
   },
   {
     id: 'coins.large',

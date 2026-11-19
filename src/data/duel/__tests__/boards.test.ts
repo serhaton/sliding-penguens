@@ -68,3 +68,29 @@ describe('düello tahtaları', () => {
     expect(duelBoardAt(-1)).toBe(duelBoards[duelBoards.length - 1]);
   });
 });
+
+describe('takım renkleri', () => {
+  const { randomRivalColor, recolorDuelBoard } = jest.requireActual('../index') as typeof import('../index');
+
+  it('rakibin rengi oyuncununkinden hep farklıdır', () => {
+    for (const mine of ['blue', 'orange', 'red', 'yellow', 'green', 'purple'] as const) {
+      for (const r of [0, 0.2, 0.5, 0.99, 1]) expect(randomRivalColor(mine, () => r)).not.toBe(mine);
+    }
+  });
+
+  it('tahta boyanınca penguenler ve iglolar takım rengini alır, düzen değişmez', () => {
+    const board = duelBoards[0]!;
+    const painted = recolorDuelBoard(board, ['green', 'red']);
+    for (const p of painted.penguins) expect(p.color).toBe(p.team === 1 ? 'red' : 'green');
+    for (const g of painted.igloos) expect(g.color).toBe(g.team === 1 ? 'red' : 'green');
+    expect(painted.grid).toEqual(board.grid);
+    expect(painted.penguins.map((p) => [p.x, p.y, p.dir])).toEqual(board.penguins.map((p) => [p.x, p.y, p.dir]));
+    // Boyanmış her tahta motor için geçerlidir ve takımlar aynı kalır.
+    for (const each of duelBoards) {
+      const game = createGame(recolorDuelBoard(each, ['purple', 'yellow']));
+      expect(game.penguins.map((p) => p.team)).toEqual(createGame(each).penguins.map((p) => p.team));
+    }
+    // Asıl tahta bozulmaz.
+    expect(board.penguins[0]!.color).toBe('blue');
+  });
+});

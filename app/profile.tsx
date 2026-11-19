@@ -6,6 +6,7 @@
  * Kostüm deneme: sahip olunmayan bir ürüne dokununca penguen onu dener ve
  * altta "Al" butonu çıkar; satın alınca takılır. Sahip olunan ürüne dokununca
  * hemen takılır, takılı ürüne dokununca çıkarılır. Karakterler ücretsizdir.
+ * Coin yetmiyorsa buton "Coin al" olur ve mağazaya götürür.
  * Bir mağaza paketine özel kostümler (hediye ikonlu) coinle alınmaz; "Al"
  * butonu mağazaya götürür.
  */
@@ -97,6 +98,11 @@ export default function ProfileScreen() {
     if (!trying || busy) return;
     // Pakete özel kostüm coinle alınmaz: mağazadaki pakete götür.
     if (trying.exclusive) {
+      router.push('/shop');
+      return;
+    }
+    // Coin yetmiyor: mağazaya götür. Dönünce deneme sürer, düğme "Al"a döner.
+    if (!affordable) {
       router.push('/shop');
       return;
     }
@@ -194,13 +200,13 @@ export default function ProfileScreen() {
             ? t('profile.onlyIn', { name: t(bundle.nameKey) })
             : affordable
               ? `${t('profile.buy')}  ${trying.price}`
-              : t('profile.noCoins')
+              : t('profile.getCoins')
         }
-        subtitle={t(trying.nameKey)}
-        icon={bundle ? 'gift.fill' : affordable ? 'bag.fill' : 'lock.fill'}
+        subtitle={bundle || affordable ? t(trying.nameKey) : t('profile.coinsShort', { n: trying.price - balance.raw })}
+        icon={bundle ? 'gift.fill' : affordable ? 'bag.fill' : 'cart.fill'}
         tone="accent"
         size="medium"
-        disabled={!bundle && (!affordable || busy)}
+        disabled={!bundle && busy}
         onPress={buy}
       />
     </View>

@@ -57,8 +57,19 @@
         }
       ],
       "expo-localization",
-      "expo-audio",
-      "expo-secure-store",
+      [
+        "expo-audio",
+        {
+          "microphonePermission": false,
+          "enableBackgroundPlayback": false
+        }
+      ],
+      [
+        "expo-secure-store",
+        {
+          "faceIDPermission": false
+        }
+      ],
       "expo-sharing",
       "expo-asset",
       "@nauverse/expo-cloud-settings",

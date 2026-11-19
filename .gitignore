@@ -40,3 +40,6 @@ yarn-error.*
 /ios
 /android
 __pycache__/
+
+# App Store önizleme videoları (büyük dosyalar; scripts/record-previews.py üretir)
+store-previews/

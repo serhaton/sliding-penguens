@@ -281,6 +281,7 @@ const styles = StyleSheet.create({
     borderRadius: radii.pill,
     justifyContent: 'center',
   },
-  top: { marginTop: spacing.sm },
+  // zIndex: üstteki şeridin çıkartma seçicisi tahtanın üstüne açılır; tahtanın altında kalıp dokunuşu kaçırmasın.
+  top: { marginTop: spacing.sm, zIndex: 1 },
   boardArea: { flex: 1, alignItems: 'center', justifyContent: 'center', marginVertical: spacing.sm },
 });

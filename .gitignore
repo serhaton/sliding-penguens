@@ -43,3 +43,6 @@ __pycache__/
 
 # App Store önizleme videoları (büyük dosyalar; scripts/record-previews.py üretir)
 store-previews/
+
+# Yerel App Store derlemesi (arşiv ve IPA)
+/build/

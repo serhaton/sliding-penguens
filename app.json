@@ -72,7 +72,14 @@
       ],
       "expo-sharing",
       "expo-asset",
+      "./plugins/withKvsOnlyICloud",
       "@nauverse/expo-cloud-settings",
+      [
+        "./plugins/withKvsOnlyICloud",
+        {
+          "pass": 2
+        }
+      ],
       "expo-iap",
       [
         "react-native-google-mobile-ads",

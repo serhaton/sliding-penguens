@@ -384,20 +384,20 @@ After purchase, the card in the Shop shows as owned. The purchase can be restore
 | Contact email | `serhaton@gmail.com` |
 | Contact phone | Kendi numaran |
 
-Notes (3990 karakter; sınır 4000):
+Notes (3989 karakter; sınır 4000):
 
 ```
-Pengolo is a sliding puzzle game. No account, no login, no server of our own; nothing needs to be set up to review it.
+Pengolo is a sliding puzzle game. No account, no login, no server of our own; no setup is needed to review it.
 
 1. SCREEN RECORDING
-A recording made on a physical iPhone is attached. It starts with launching the app and shows the first levels, the tracking prompt after level 3, a duel, the wardrobe, and the Shop with the purchases and "Restore purchases". It shows no ads: see ADS.
+A recording from a physical iPhone is attached. It starts with launching the app and shows levels, a duel, the wardrobe, and the Shop with the purchases and "Restore purchases". It was made on a device that already had progress, so the tracking prompt (see PERMISSIONS) does not appear in it. No ads in it: see ADS.
 
 2. TESTED ON
 Devices: iPhone 16, iOS 27.2; iPad Air (5th generation), iPadOS 27.2.1.
-Simulators: iPhone 16 Pro Max, iOS 18.6; iPad Pro 13-inch (M4), iPadOS 18.6; iPad Air 11-inch (M3), iPadOS 26.2.
+Simulators: iPhone 16 Pro Max, iOS 18.6; iPad Pro 13-inch (M4), iPadOS 18.6.
 
 3. WHAT THE APP IS AND WHO IT IS FOR
-A casual puzzle game for a general audience. It is not directed at children under 13 and is not in the Kids category. 90 adventure levels, a daily puzzle, and duels for two players on one device or against the computer.
+A casual puzzle game for a general audience. Not directed at children under 13; not in the Kids category. 90 adventure levels, a daily puzzle, and duels for two players on one device or against the computer.
 
 4. HOW TO USE IT
 Tap a penguin and it slides the way it is facing until it hits something. Get every penguin into the igloo of its own colour. Level 1 starts on first launch and teaches this without text.
@@ -420,16 +420,16 @@ IN-APP PURCHASES
 All six are in the Shop: three consumable coin packs and three non-consumables (Welcome Pack, Aurora Bundle, No Ads). The Welcome Pack is a one-time offer shown only during the first 48 hours after first launch; reinstall the app if it is no longer visible. "Restore purchases" is at the bottom of the Shop. Coins buy cosmetic outfits only; no purchase unlocks levels or makes puzzles easier.
 
 PERMISSIONS
-Only App Tracking Transparency, asked after level 3 is completed (not at launch). If declined, ads are not personalised and the game works the same. The app does not use the microphone, camera, location, contacts, photos or notifications, and declares no background modes: sound effects and background music play only while the game is in the foreground and respect the silent switch; the music stays off while another app plays audio.
+Only App Tracking Transparency. On a new install it is asked after level 3 is completed, not at launch. If declined, ads are not personalised and the game works the same. The app does not use the microphone, camera, location, contacts, photos or notifications, and declares no background modes: sound effects and background music play only while the game is in the foreground and respect the silent switch; the music stays off while another app plays audio.
 
 ADS
-Ad loading starts after level 3. Ad requests are limited to content rated G (general audiences). Rewarded videos are optional and always started by the player (for example the "x2" button on the level-complete card, or one extra wheel spin a day). Full-screen ads can appear between adventure levels after level 8, at most once every two levels; never in duels or the daily puzzle.
+Ad loading starts after level 3. Ad requests are limited to content rated G (general audiences). Rewarded videos are optional and always started by the player (e.g. the "x2" button on the level-complete card, or one extra wheel spin a day). Full-screen ads can appear between adventure levels after level 8, at most once every two levels; never in duels or the daily puzzle.
 The AdMob ad units are new and the app is not on the App Store yet, so AdMob may answer every request with "no fill". By design, when no ad is available the "x2" and other "watch a video" buttons are not shown and no full-screen ad appears.
 
 LUCKY WHEEL
 One spin a day (Daily > Lucky wheel) gives a few coins or, rarely, a cosmetic outfit. It cannot be bought or spun with coins or money.
 
-The name on the Home Screen is "Pengolo", the first word of the store name. Fully playable offline.
+The name on the Home Screen is "Pengolo", the first word of the store name.
 ```
 
 ### Önceki incelemelerden dersler
@@ -499,7 +499,7 @@ Uygulamada etkinleştirilecek; liderlik tabloları ve 18 başarım oyundaki kiml
 
 Göndermeden önce doğrulanması gerekenler:
 
-- [ ] **Ekran kaydı:** Gerçek iPhone'da temiz kurulumdan başlayarak çek: açılış, ilk bölümler, 3. bölümden sonraki izleme izni, bir düello, gardırop, Mağaza ile satın alma ve "Restore purchases". App Review Information › Attachment'a ekle.
+- [ ] **Ekran kaydı:** Gerçek iPhone'da çek: açılış, bölümler, bir düello, gardırop, Mağaza ile satın alma ve "Restore purchases". App Review Information › Attachment'a ekle. İlerlemesi olan cihazda çekildiği için izleme izni penceresi kayıtta yok; inceleme notu bunu söylüyor.
 - [ ] **Info.plist:** Her `prebuild` sonrası `UIBackgroundModes`, mikrofon ve Face ID metinlerinin olmadığını gör.
 - [ ] **App Privacy tablosu:** yanıtlar SDK'ların kendi gizlilik bildirimlerinden alındı (bkz. Uygulama gizliliği); App Store Connect'e girilip "Publish" edilmeli.
 - [ ] **İngilizce arayüz yazıları:** İnceleme notlarındaki "Restore purchases", "x2", "Coin packs", "Special bundles", "Most loved", "Best value", "One time" yazımlarını oyunun İngilizce arayüzünde gör.

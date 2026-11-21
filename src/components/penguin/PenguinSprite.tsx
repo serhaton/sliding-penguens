@@ -208,8 +208,7 @@ function StandingBody({
           </>
         )}
 
-        <HairLayer hair={costume?.hair} scarf={scarf} />
-        <HatLayer hat={costume?.hat} scarf={scarf} />
+        <Headwear motion={motion} lookX={look.x} lookY={look.y} costume={costume} scarf={scarf} />
       </Group>
 
       {pose === 'sleep' && <Zzz clock={clock} />}
@@ -284,9 +283,50 @@ function SlideBody({ direction, mood, motion, clock, scarf, costume }: BodyProps
       >
         <Face mood={mood} pose="slide" motion={motion} lookX={dx * 5} lookY={dy * 4} costume={costume} />
         {/* Şapka da yüz gibi dik kalır: kayarken de kafanın üstünde durur. */}
-        <HairLayer hair={costume?.hair} scarf={scarf} />
-        <HatLayer hat={costume?.hat} scarf={scarf} />
+        <Headwear motion={motion} lookX={dx * 5} lookY={dy * 4} costume={costume} scarf={scarf} />
       </Group>
+    </Group>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Saç ve şapka: kafayla birlikte döner
+// ---------------------------------------------------------------------------
+
+/**
+ * Yüz bakış yönüne kaydığında saç ve şapkanın ne kadar peşinden gideceği.
+ * 1'den küçük: tepedeki şey yüzdeki gözlükten daha az yer değiştirir; kafa
+ * dönüyormuş gibi görünür ve şapka kafanın dışına taşmaz.
+ */
+const HEADWEAR_FOLLOW = { x: 0.6, y: 0.5 };
+
+/**
+ * Saç ve şapka. Yüzle aynı bakış kaymasını (yön + anlık bakınma) izler; yoksa
+ * penguen kafasını çevirdiğinde yüz döner ama şapka yerinde kalırdı. Gözlük
+ * zaten yüzün içinde çizildiği için yüzle birlikte kayar.
+ */
+function Headwear({
+  motion,
+  lookX,
+  lookY,
+  costume,
+  scarf,
+}: {
+  motion: SharedValue<Motion>;
+  lookX: number;
+  lookY: number;
+  costume?: Costume;
+  scarf: BodyProps['scarf'];
+}) {
+  const transform = useDerivedValue(() => [
+    { translateX: (lookX + motion.value.lookX) * HEADWEAR_FOLLOW.x },
+    { translateY: (lookY + motion.value.lookY) * HEADWEAR_FOLLOW.y },
+  ]);
+  if (!costume?.hair && !costume?.hat) return null;
+  return (
+    <Group transform={transform}>
+      <HairLayer hair={costume.hair} scarf={scarf} />
+      <HatLayer hat={costume.hat} scarf={scarf} />
     </Group>
   );
 }

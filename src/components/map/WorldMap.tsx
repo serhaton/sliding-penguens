@@ -30,6 +30,7 @@ import { useMemo } from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import { Penguin } from '@/components/penguin';
+import type { Costume } from '@/components/penguin/types';
 import { AppText, PressableScale } from '@/components/ui';
 import type { CharacterId } from '@/data/characters';
 import { levelSections } from '@/data/levels';
@@ -116,12 +117,14 @@ export interface WorldMapProps {
   progress: Progress;
   /** Sıradaki düğümde bekleyen penguen. */
   character?: CharacterId;
+  /** O penguenin kostümü (oyuncunun gardıroptan seçtiği). */
+  costume?: Costume;
   onOpenLevel: (levelId: string) => void;
   /** Yalnızca geliştirme: açılışta yakınlaşma; kıtanın tamamı görünür kalsın. */
   stayFar?: boolean;
 }
 
-export function WorldMap({ progress, character = 'piti', onOpenLevel, stayFar = false }: WorldMapProps) {
+export function WorldMap({ progress, character = 'piti', costume, onOpenLevel, stayFar = false }: WorldMapProps) {
   const { t } = useTranslation();
   const { colors, isNight } = useTheme();
   const land = useMemo(() => continentPath(), []);
@@ -200,7 +203,7 @@ export function WorldMap({ progress, character = 'piti', onOpenLevel, stayFar = 
       stayFar={stayFar}
       backdrop={backdrop}
       // Sıradaki düğümde bekleyen penguen: harita küçülse de aynı boyda kalır.
-      pin={<Penguin character={character} size={PENGUIN} interactive={false} />}
+      pin={<Penguin character={character} costume={costume} size={PENGUIN} interactive={false} />}
       pinSize={PENGUIN}
       // Penguenin ayakları düğümün üst kenarına basar.
       pinLift={CURRENT_NODE / 2 - 6}

@@ -9,12 +9,12 @@
  */
 import { router } from 'expo-router';
 import { SymbolView, type SFSymbol } from 'expo-symbols';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, type ReactNode } from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import { CoinCounter } from '@/components/hud/CoinCounter';
 import { LoginReward } from '@/components/hud/LoginReward';
-import { Penguin } from '@/components/penguin';
+import { Penguin, PenguinAvatar } from '@/components/penguin';
 import { AppText, BigButton, IconButton, PressableScale, Screen, Wordmark } from '@/components/ui';
 import { antarctica } from '@/data/continents';
 import { wallet } from '@/economy/wallet';
@@ -27,7 +27,7 @@ import { adsConfig } from '@/services/ads.config';
 import { devFlags } from '@/services/devFlags';
 import { gameCenter } from '@/services/gameCenter';
 import { useSettings } from '@/store/settings';
-import { isTablet, radii, s, shadows, spacing, useTheme } from '@/theme';
+import { hitTarget, isTablet, radii, s, shadows, spacing, useTheme } from '@/theme';
 
 /**
  * Günlük hediye kartı bu oturumda kapatıldı mı? Oturumda en fazla bir pop-up
@@ -118,7 +118,12 @@ export default function HomeScreen() {
       {/* Alt gezinme: telefonda üç küçük ikon, iPad'de ekranı boydan boya kaplayan etiketli kartlar. */}
       {isTablet ? (
         <View style={styles.tiles}>
-          <NavTile icon="person.crop.circle.fill" label={t('home.profile')} onPress={() => router.push('/profile')} />
+          <NavTile
+            icon="person.crop.circle.fill"
+            art={<PenguinAvatar size={s(44)} character={avatar.character} costume={avatar.costume} />}
+            label={t('home.profile')}
+            onPress={() => router.push('/profile')}
+          />
           <NavTile icon="map.fill" label={t('home.map')} onPress={() => router.push('/map')} />
           <NavTile icon="bag.fill" label={t('home.shop')} onPress={() => router.push('/shop')} />
         </View>
@@ -128,7 +133,10 @@ export default function HomeScreen() {
             icon="person.crop.circle.fill"
             label={t('home.profile')}
             onPress={() => router.push('/profile')}
-          />
+          >
+            {/* Profil butonu: soyut ikon yerine oyuncunun kendi pengueni. */}
+            <PenguinAvatar size={hitTarget - 6} character={avatar.character} costume={avatar.costume} />
+          </IconButton>
           <IconButton icon="map.fill" label={t('home.map')} onPress={() => router.push('/map')} />
           <IconButton
             icon="bag.fill"
@@ -154,7 +162,18 @@ export default function HomeScreen() {
 }
 
 /** iPad alt gezinme kartı: büyük ikon ve altında adı. */
-function NavTile({ icon, label, onPress }: { icon: SFSymbol; label: string; onPress: () => void }) {
+function NavTile({
+  icon,
+  art,
+  label,
+  onPress,
+}: {
+  icon: SFSymbol;
+  /** İkonun yerine çizilecek içerik (profil kartında oyuncunun pengueni). */
+  art?: ReactNode;
+  label: string;
+  onPress: () => void;
+}) {
   const { colors } = useTheme();
   return (
     <PressableScale
@@ -162,7 +181,7 @@ function NavTile({ icon, label, onPress }: { icon: SFSymbol; label: string; onPr
       onPress={onPress}
       style={[styles.tile, shadows.soft(colors.shadow), { backgroundColor: colors.surface }]}
     >
-      <SymbolView name={icon} size={s(30)} weight="bold" tintColor={colors.primary} />
+      {art ?? <SymbolView name={icon} size={s(30)} weight="bold" tintColor={colors.primary} />}
       <AppText variant="label">{label}</AppText>
     </PressableScale>
   );

@@ -3,6 +3,7 @@
  * İkonlar iOS'un yerleşik SF Symbols setinden gelir: harici görsel yok.
  */
 import { SymbolView, type SymbolViewProps } from 'expo-symbols';
+import type { ReactNode } from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import { fonts, hitTarget, radii, s, shadows, useTheme } from '@/theme';
@@ -12,6 +13,8 @@ import { PressableScale, type PressableScaleProps } from './PressableScale';
 
 export interface IconButtonProps extends Omit<PressableScaleProps, 'children' | 'style'> {
   icon: SymbolViewProps['name'];
+  /** İkonun yerine çizilecek içerik (ör. oyuncunun penguen portresi); verilirse `icon` çizilmez. */
+  children?: ReactNode;
   /** Ekran okuyucu için zorunlu: ikonun yazısı yok. */
   label: string;
   /** Sağ üstte küçük rozet (seri sayısı, kalan hak...). */
@@ -24,6 +27,7 @@ export interface IconButtonProps extends Omit<PressableScaleProps, 'children' | 
 
 export function IconButton({
   icon,
+  children,
   label,
   badge,
   size = hitTarget,
@@ -48,12 +52,14 @@ export function IconButton({
           { width: size, height: size, backgroundColor: colors.surface },
         ]}
       >
-        <SymbolView
-          name={icon}
-          size={size * 0.46}
-          weight="bold"
-          tintColor={tint ?? colors.text}
-        />
+        {children ?? (
+          <SymbolView
+            name={icon}
+            size={size * 0.46}
+            weight="bold"
+            tintColor={tint ?? colors.text}
+          />
+        )}
       </View>
       {badge !== undefined && (
         <View style={[styles.badge, { backgroundColor: colors.accent, borderColor: colors.surface }]}>

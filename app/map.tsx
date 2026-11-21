@@ -11,11 +11,13 @@ import { AppText, IconButton, Screen } from '@/components/ui';
 import { antarctica } from '@/data/continents';
 import { getLevel, levels } from '@/data/levels';
 import { useProgress } from '@/game/progress';
+import { useAvatar } from '@/game/useAvatar';
 import { useTranslation } from '@/i18n';
 
 export default function MapScreen() {
   const { t } = useTranslation();
   const progress = useProgress();
+  const avatar = useAvatar();
   // Oyuncunun kaldığı macera ve o maceradaki yıldızları.
   const current = getLevel(progress.currentId);
   const episode = antarctica.episodes.find((e) => e.id === current?.world) ?? antarctica.episodes[0]!;
@@ -50,6 +52,8 @@ export default function MapScreen() {
 
       <WorldMap
         progress={progress}
+        character={avatar.character}
+        costume={avatar.costume}
         stayFar={__DEV__ && overview === '1'}
         onOpenLevel={(id) => router.push({ pathname: '/level/[id]', params: { id } })}
       />

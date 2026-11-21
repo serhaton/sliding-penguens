@@ -16,6 +16,11 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DOCS = os.path.join(ROOT, 'docs', '1.0')
 
 # Addaki harflerin renkleri (uygulamadaki Wordmark ile aynı sıra).
+# App Store Connect'teki Apple ID (App Information > Apple ID). Boşsa sayfalar "Yakında" yazar;
+# dolunca Apple'ın resmi "Download on the App Store" rozeti mağaza bağlantısıyla çıkar.
+APP_STORE_ID = '6836513717'
+STORE_BADGE = {'en': ('Download on the App Store', 120), 'tr': ("App Store'dan indirin", 151)}
+
 LETTER_COLORS = ['#2E86F5', '#FF8A3D', '#FF5470', '#FFB800', '#22C58B', '#8B6CF6']
 
 
@@ -208,6 +213,15 @@ TEXT = {
 NIGHT = [('01-home', 'home'), ('02-level', 'level'), ('03-map', 'map'), ('07-duel', 'duel'), ('08-profile', 'profile'), ('05-cracked', 'cracked'), ('10-daily', 'daily')]
 
 
+def store_cta(lang, t):
+    if not APP_STORE_ID:
+        return f'<span class="cta soon">{t["cta"]}</span>'
+    alt, width = STORE_BADGE[lang]
+    url = f'https://apps.apple.com/{"tr" if lang == "tr" else "us"}/app/id{APP_STORE_ID}'
+    return (f'<a class="store-badge" href="{url}"><img src="../assets/appstore-badge-{lang}.svg" '
+            f'alt="{alt}" width="{width * 1.5:.0f}" height="60"></a>')
+
+
 def shot(lang, name, alt, cls='shot', lazy=True):
     lazy_attr = ' loading="lazy"' if lazy else ''
     return f'<img class="{cls}" src="../assets/shots/{lang}/{name}.jpg" alt="{alt}" width="660" height="1434"{lazy_attr}>'
@@ -274,7 +288,7 @@ def page(t):
     <p class="hero-mark">{wordmark()}</p>
     <h1>{t["tagline"]}</h1>
     <p class="lead">{t["lead"]}</p>
-    <span class="cta soon">{t["cta"]}</span>
+    {store_cta(lang, t)}
     <ul class="facts">{facts}</ul>
   </div>
   <div class="duo">
@@ -325,7 +339,7 @@ def page(t):
     <svg viewBox="0 0 100 110" width="120" height="132" aria-hidden="true" style="color:#2E86F5"><use href="#peng"/></svg>
     <h2 class="big">{t["end_title"]}</h2>
     <p class="section-lead">{t["end_lead"]}</p>
-    <span class="cta soon">{t["cta"]}</span>
+    {store_cta(lang, t)}
   </div>
 </section>
 </main>

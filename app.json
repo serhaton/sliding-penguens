@@ -17,6 +17,7 @@
     },
     "ios": {
       "bundleIdentifier": "com.serhatonal.pengoloGame",
+      "buildNumber": "2",
       "supportsTablet": true,
       "requireFullScreen": true,
       "infoPlist": {

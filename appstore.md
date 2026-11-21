@@ -9,6 +9,8 @@ Göndermeden önce doğrulanması gerekenler belgenin sonundaki [Kontrol listesi
 | Alan | Değer |
 |---|---|
 | Bundle ID | `com.serhatonal.pengoloGame` |
+| Apple ID | `6836513717` |
+| Mağaza bağlantısı | `https://apps.apple.com/app/id6836513717` (yayına ya da ön siparişe kadar açılmaz) |
 | SKU | `pengolo-ios` (yalnızca panelde görünür, istediğin gibi seçebilirsin) |
 | Birincil dil | English (U.S.) |
 | Ek dil | Turkish |

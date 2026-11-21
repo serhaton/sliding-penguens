@@ -3,6 +3,7 @@
  * burada bölümün ödülü cüzdana yazılır ve "Devam" sıradaki bölümü açar.
  */
 import { router, useLocalSearchParams } from 'expo-router';
+import { useRef } from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import { LevelPlay } from '@/components/level/LevelPlay';
@@ -13,6 +14,7 @@ import { useTranslation } from '@/i18n';
 import { ads } from '@/services/ads';
 import { adsConfig } from '@/services/ads.config';
 import { devFlags } from '@/services/devFlags';
+import { review } from '@/services/review';
 import { useSettings } from '@/store/settings';
 
 export default function LevelRoute() {
@@ -25,6 +27,8 @@ export default function LevelRoute() {
   }>();
   const { t } = useTranslation();
   const level = getLevel(id);
+  /** Bu bitirişin yıldızı: puanlama isteği "Devam"a basılınca buna bakar. */
+  const wonStars = useRef(0);
 
   if (!level) {
     return (
@@ -48,6 +52,7 @@ export default function LevelRoute() {
       // İlerleme ve coinler cüzdana yazılır (aynı bölüm tekrar coin vermez).
       rewardFor={(stars) => wallet().previewLevelReward(level.id, stars)}
       onWin={(stars, { undoUsed }) => {
+        wonStars.current = stars;
         // Geri alsız ilk bitiriş başarım sayacına yazılır (tekrar oynamak saymaz).
         const firstClear = !(level.id in wallet().getSnapshot().state.stars);
         if (firstClear && !undoUsed) useSettings.getState().bump('noUndoWins');
@@ -57,11 +62,16 @@ export default function LevelRoute() {
       }}
       hasNext={!!nextId}
       onNext={() => {
-        // Gerekiyorsa araya giren reklam; kapanınca devam edilir.
-        void ads.afterLevel(number).then(() => {
+        const go = () => {
           if (nextId) router.replace({ pathname: '/level/[id]', params: { id: nextId } });
           else router.dismissTo('/');
-        });
+        };
+        // Üç yıldızlı bir bitirişten sonra puanlama isteği; o geçişte reklam çıkmaz.
+        // Diğer geçişlerde gerekiyorsa araya giren reklam; kapanınca devam edilir.
+        void review
+          .maybeAsk(number, wonStars.current)
+          .then((asked) => (asked ? undefined : ads.afterLevel(number)))
+          .then(go);
       }}
       autoplay={__DEV__ ? auto : undefined}
       autoNext={__DEV__ && autoNext === '1'}

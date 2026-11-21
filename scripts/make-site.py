@@ -160,7 +160,7 @@ TEXT = {
         night_lead='Güneş batınca Pengolo da geceye geçer: lacivert bir gökyüzü, yeşil-mor kutup ışıkları ve usul usul yağan kar. Tema telefonunun ayarını izler; istersen her zaman gece ya da her zaman gündüz kalır.',
         night_alts=dict(home='Gece temasında ana ekran', level='Gece temasında bir bulmaca', map='Gece temasında Antarktika haritası', cracked='Gece temasında çatlak buzlu bulmaca', duel='Gece temasında düello', profile='Gece temasında gardırop', daily='Gece temasında günlük bulmaca', sleepy='Gece temasında uykucu penguenli bulmaca'),
         more_title='Oyundan daha fazlası',
-        more_alts=('Üç yıldızlı bölüm sonu kartı', 'Coin paketleri ve paketlerin olduğu mağaza', 'Günlük bulmaca', 'Bereli ve gökkuşağı atkılı penguenle ana ekran'),
+        more_alts=('Üç yıldızlı bölüm sonu kartı', 'Günlük şans çarkı', 'Günlük bulmaca', 'Bereli ve gökkuşağı atkılı penguenle ana ekran'),
         end_title='Bavulunu hazırla.', end_lead='İlk durak Antarktika. Gerisi yolda.',
         footer='© 2026 Serhat Önal · Üşüyen ayaklar ve sıcak iglolar için özenle yapıldı.',
     ),
@@ -199,7 +199,7 @@ TEXT = {
         night_lead='When the sun goes down, Pengolo follows: a deep blue sky, green and purple lights, and quiet falling snow. The theme follows your phone’s setting, or you can keep it on night or day all the time.',
         night_alts=dict(home='Home screen in the night theme', level='A puzzle in the night theme', map='The map of Antarctica in the night theme', cracked='A cracked-ice puzzle in the night theme', duel='A duel in the night theme', profile='The wardrobe in the night theme', daily='The daily puzzle in the night theme', sleepy='A sleepy-penguin puzzle in the night theme'),
         more_title='More from the game',
-        more_alts=('Level-complete card with three stars', 'The shop with coin packs and bundles', 'The daily puzzle', 'Home screen with a penguin in a beanie and rainbow scarf'),
+        more_alts=('Level-complete card with three stars', 'The daily lucky wheel', 'The daily puzzle', 'Home screen with a penguin in a beanie and rainbow scarf'),
         end_title='Pack your bags.', end_lead='First stop: Antarctica. The rest is on the way.',
         footer='© 2026 Serhat Önal · Made with care for cold feet and warm igloos.',
     ),
@@ -236,7 +236,7 @@ def page(t):
     night = '\n'.join('    ' + shot(lang, 'night-' + name, t['night_alts'][key], cls='') for name, key in NIGHT)
     more = '\n'.join(
         '    ' + shot(lang, name, alt, cls='')
-        for name, alt in zip(('04-complete', '09-shop', '10-daily', '01-home'), t['more_alts'])
+        for name, alt in zip(('04-complete', '09-wheel', '10-daily', '01-home'), t['more_alts'])
     )
     facts = ''.join(f'<li>{fact}</li>' for fact in t['facts'])
     home, support, privacy = t['nav']

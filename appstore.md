@@ -145,7 +145,7 @@ Pengolo ücretsizdir. İsteğe bağlı uygulama içi satın alımlar içerir ve 
 
 ## Adresler
 
-Sayfalar şu an `serhaton.com/sliding-penguens/1.0/` altında yayında. Yol değişirse (örneğin `serhaton.com/pengolo`) bu üç adres de güncellenmeli.
+Sayfalar şu an `serhaton.com/sliding-penguens/1.0/` altında yayında. Yol değişirse (örneğin `serhaton.com/pengolo`) bu üç adres de, oyunun Ayarlar'daki "Gizlilik politikası" satırının kullandığı `src/services/links.ts` de güncellenmeli (bu ikincisi yeni derleme ister).
 
 | Alan | English | Türkçe |
 |---|---|---|
@@ -174,6 +174,7 @@ Sayfalar şu an `serhaton.com/sliding-penguens/1.0/` altında yayında. Yol değ
 | Ödül kutusu (loot box) | Yok |
 | Kısıtsız web erişimi | Yok |
 | Kullanıcı içeriği, mesajlaşma, sohbet | Yok |
+| Sosyal medya özellikleri (Eylül 2026'dan beri zorunlu soru) | Yok |
 | Reklam | Var |
 
 Beklenen sonuç: 4+. Panelde burada olmayan bir soru çıkarsa cevap büyük olasılıkla "Yok".
@@ -317,7 +318,7 @@ After purchase, the card in the Shop shows as owned. The purchase can be restore
 | Contact email | `serhaton@gmail.com` |
 | Contact phone | Kendi numaran |
 
-Notes (3721 karakter; sınır 4000):
+Notes (3865 karakter; sınır 4000):
 
 ```
 Pengolo is a sliding puzzle game. No account, no login, no server of our own; nothing needs to be set up to review it.
@@ -334,7 +335,7 @@ A casual puzzle game for a general audience. It is not directed at children unde
 
 4. HOW TO USE IT
 Tap a penguin and it slides the way it is facing until it hits something. Get every penguin into the igloo of its own colour. Level 1 starts on first launch and teaches this without text.
-From the home screen: Play (adventure), Duel, flame icon top left (daily puzzle), profile icon bottom left ("My penguin" on iPad: wardrobe, achievements), map icon bottom centre, bag icon bottom right ("Shop" on iPad), gear top right (language, theme, sound, larger symbols, Game Center).
+From the home screen: Play (adventure), Duel, flame icon top left (daily puzzle), profile icon bottom left ("My penguin" on iPad: wardrobe, achievements), map icon bottom centre, bag icon bottom right ("Shop" on iPad), gear top right (language, theme, sound, larger symbols, Game Center, privacy policy).
 
 5. EXTERNAL SERVICES
 - Google AdMob (Google Mobile Ads SDK, with Google's consent message where required): ads.
@@ -347,7 +348,7 @@ Nothing else: no analytics SDK, no backend, no accounts, no AI services.
 The app works the same in every region. English and Turkish; follows the device language (changeable in Settings).
 
 7. CONTENT AND RIGHTS
-Not a regulated field. All artwork, levels and sounds were made for this game by the developer. No third-party or licensed material, no user-generated content, no chat. The game has no links that leave the app; the only way out is tapping an ad.
+Not a regulated field. All artwork, levels and sounds were made for this game by the developer. No third-party or licensed material, no user-generated content, no chat. The only link that leaves the app is "Privacy policy" in Settings, which opens in Safari; apart from that, the only way out is tapping an ad.
 
 IN-APP PURCHASES
 All six are in the Shop: three consumable coin packs and three non-consumables (Welcome Pack, Aurora Bundle, No Ads). The Welcome Pack is a one-time offer shown only during the first 48 hours after first launch; reinstall the app if it is no longer visible. "Restore purchases" is at the bottom of the Shop. Coins buy cosmetic outfits only; no purchase unlocks levels or makes puzzles easier.
@@ -356,7 +357,7 @@ PERMISSIONS
 Only App Tracking Transparency, asked after level 3 is completed (not at launch). If declined, ads are not personalised and the game works the same. The app does not use the microphone, camera, location, contacts, photos or notifications, and declares no background modes: sounds are short effects that play only while the game is open, respect the silent switch and mix with other apps' audio.
 
 ADS
-Ad loading starts after level 3. Rewarded videos are optional and always started by the player (for example the "x2" button on the level-complete card). Full-screen ads can appear between adventure levels after level 8, at most once every two levels; never in duels or the daily puzzle.
+Ad loading starts after level 3. Ad requests are limited to content rated G (general audiences). Rewarded videos are optional and always started by the player (for example the "x2" button on the level-complete card). Full-screen ads can appear between adventure levels after level 8, at most once every two levels; never in duels or the daily puzzle.
 Please note: the AdMob ad units are new and the app is not on the App Store yet, so AdMob may answer every request with "no fill". By design, when no ad is available the "x2" and other "watch a video" buttons are simply not shown and no full-screen ad appears; the game continues normally. This is intended behaviour, not a fault.
 
 The name on the Home Screen is "Pengolo", the first word of the store name. The game is fully playable offline.
@@ -399,7 +400,7 @@ Made by a solo developer in Türkiye. Fully localised in English and Turkish, wi
 "What makes you stand out" (500 karakter):
 
 ```
-Pengolo is made by one developer in Türkiye. Every rule is taught through a few seconds of play, never text, so a child who can't read yet learns the same way as a grandparent. Purchases are cosmetic only: no paywalls, no timers, nothing that makes a puzzle easier. Every puzzle is verified solvable, and a larger-symbols mode means colours are never the only cue. It's fully localised in English and Turkish, and Antarctica is just the first stop of a world tour, one continent per update.
+Pengolo is made by one developer in Türkiye. Every rule is taught through a few seconds of play, never text, so anyone can pick it up without reading a word. Purchases are cosmetic only: no paywalls, no timers, nothing that makes a puzzle easier. Every puzzle is verified solvable, and a larger-symbols mode means colours are never the only cue. It's fully localised in English and Turkish, and Antarctica is just the first stop of a world tour, one continent per update.
 ```
 
 Helpful details (isteğe bağlı):
@@ -432,7 +433,12 @@ Göndermeden önce doğrulanması gerekenler:
 - [ ] **App Privacy tablosu:** Google'ın AdMob için yayımladığı güncel "App Store data disclosure" listesiyle karşılaştır; özellikle "kullanıcıya bağlı mı" ve "izleme" sütunları.
 - [ ] **İngilizce arayüz yazıları:** İnceleme notlarındaki "Restore purchases", "x2", "Coin packs", "Special bundles", "Most loved", "Best value", "One time" yazımlarını oyunun İngilizce arayüzünde gör.
 - [ ] **Kostüm yerleri:** Kâşif kalpağının "Hat", Kutup ışığı atkısının "Scarf" bölümünde çıktığını gör.
-- [ ] **Orta paket fiyatı:** Mağaza ekran görüntüsünde (`09-shop`) hâlâ $2.99 yazıyor; ürün $2.49 girilecekse görsel yenilenmeli.
+- [ ] **Mağaza ekran görüntüsü (2.3.7):** `09-shop` altı ürünün dolar fiyatını gösteriyor ve orta paket hâlâ $2.99 (ürün $2.49). Mağaza sayfasındaki ekran görüntülerinde fiyat olmamalı: bu görseli yalnızca ürünlerin inceleme ekran görüntüsü olarak kullan (fiyatı düzeltip), mağaza sayfasında yerine fiyat göstermeyen bir ekran (ör. gardırop) koy.
+- [ ] **Yeni derleme:** `build/` içindeki 19 Kasım arşivi 21 Kasım düzeltmelerinden önce alındı (Ayarlar'da gizlilik politikası, geliştirici ekranlarının kapatılması, Online kartı ve Müzik anahtarının kaldırılması, reklam içerik sınırı). Yeniden arşivle ve yükle.
+- [ ] **Ürünler sürüme ekli mi:** Altı ürün de "Ready to Submit" olmalı ve 1.0 sürüm sayfasında "In-App Purchases" altında seçilmeli; yoksa inceleyen Mağaza'da fiyat yerine "—" görür.
+- [ ] **Game Center sürüme ekli mi:** Liderlik tabloları ve başarımlar tanımlanıp 1.0 sürümüne eklenmeli.
+- [ ] **AdMob içerik sınırı:** Kod reklamları G ile sınırlıyor; AdMob panelinde de uygulamanın "Ad content rating" ayarını G yap.
+- [ ] **Gizlilik bağlantısı:** Yayın derlemesinde Ayarlar › "Privacy policy" satırının Safari'de doğru sayfayı açtığını ve `pengolo://dev/wallet` bağlantısının ana ekrana döndüğünü gör.
 - [ ] **Adresler:** Sitenin kalıcı yolu netleşince Marketing, Privacy ve Support adreslerini güncelle.
 - [ ] **Game Center kimlikleri:** Liderlik tablosu ve başarım kimliklerini koddan çıkarıp bu belgeye ekle.
 - [ ] **Ücretli Uygulamalar sözleşmesi:** Banka ve vergi bilgileri onaylı olmalı; yoksa ürünler mağazada görünmez.

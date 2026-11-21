@@ -47,11 +47,12 @@ export const en: Translations = {
   'settings.auto': 'Auto',
   'settings.day': 'Day',
   'settings.night': 'Night',
-  'settings.music': 'Music',
   'settings.sfx': 'Sound effects',
   'settings.haptics': 'Vibration',
   'settings.largeSymbols': 'Large symbols',
   'settings.largeSymbolsHint': 'Makes colors easier to tell apart',
+  'settings.privacy': 'Privacy policy',
+  'settings.adChoices': 'Ad choices',
 
   // Level screen
   'level.title': 'Level {n}',
@@ -78,7 +79,6 @@ export const en: Translations = {
   'duel.easy': 'Easy',
   'duel.medium': 'Medium',
   'duel.hard': 'Hard',
-  'duel.online': 'Online',
   'duel.start': 'Start',
   'duel.blue': 'Blue',
   'duel.orange': 'Orange',
@@ -120,9 +120,8 @@ export const en: Translations = {
   'intro.sleep': 'Bump to wake up!',
   'intro.gotIt': 'Got it',
 
-  // Screens that are not built yet
+  // Map episodes that are not open yet
   'soon.title': 'Coming soon',
-  'soon.body': 'The penguins are getting this ready.',
 
   // iCloud backup
   'icloud.title': 'iCloud backup',

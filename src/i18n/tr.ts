@@ -50,11 +50,12 @@ export const tr = {
   'settings.auto': 'Otomatik',
   'settings.day': 'Gündüz',
   'settings.night': 'Gece',
-  'settings.music': 'Müzik',
   'settings.sfx': 'Ses efektleri',
   'settings.haptics': 'Titreşim',
   'settings.largeSymbols': 'Büyük semboller',
   'settings.largeSymbolsHint': 'Renkleri ayırt etmeyi kolaylaştırır',
+  'settings.privacy': 'Gizlilik politikası',
+  'settings.adChoices': 'Reklam tercihleri',
 
   // Bölüm ekranı
   'level.title': 'Bölüm {n}',
@@ -81,7 +82,6 @@ export const tr = {
   'duel.easy': 'Kolay',
   'duel.medium': 'Orta',
   'duel.hard': 'Zor',
-  'duel.online': 'Online',
   'duel.start': 'Başla',
   'duel.blue': 'Mavi',
   'duel.orange': 'Turuncu',
@@ -123,9 +123,8 @@ export const tr = {
   'intro.sleep': 'Çarp, uyansın!',
   'intro.gotIt': 'Anladım',
 
-  // Henüz yapılmamış ekranlar
+  // Haritada henüz açılmamış episode'lar
   'soon.title': 'Çok yakında',
-  'soon.body': 'Penguenler burayı hazırlıyor.',
 
   // iCloud yedekleme
   'icloud.title': 'iCloud yedekleme',

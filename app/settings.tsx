@@ -1,17 +1,20 @@
 /**
  * Ayarlar: cihaza özel tercihler (dil, tema, ses, titreşim, semboller), iCloud
- * yedekleme durumu ve Game Center girişi.
+ * yedekleme durumu, Game Center girişi ve gizlilik (gizlilik politikası,
+ * gereken bölgelerde reklam tercihleri).
  */
 import { router, useLocalSearchParams } from 'expo-router';
 import { SymbolView } from 'expo-symbols';
 import { useEffect, useState, type ReactNode } from 'react';
-import { ScrollView, StyleSheet, Switch, View } from 'react-native';
+import { Linking, ScrollView, StyleSheet, Switch, View } from 'react-native';
 
 import { AppText, IconButton, PressableScale, Screen, Segmented } from '@/components/ui';
 import { useWallet } from '@/economy/wallet';
 import { useTranslation } from '@/i18n';
+import { showAdPrivacyOptions, useAdPrivacyOptions } from '@/services/ads';
 import { gameCenter, useGameCenter } from '@/services/gameCenter';
 import { haptics } from '@/services/haptics';
+import { links } from '@/services/links';
 import { useSettings } from '@/store/settings';
 import { radii, s, shadows, spacing, useTheme } from '@/theme';
 
@@ -61,8 +64,9 @@ function ToggleRow({
 }
 
 export default function SettingsScreen() {
-  const { t } = useTranslation();
+  const { t, language } = useTranslation();
   const { colors } = useTheme();
+  const adPrivacyOptions = useAdPrivacyOptions();
   const settings = useSettings();
   const cloud = useWallet();
   const gc = useGameCenter();
@@ -123,11 +127,6 @@ export default function SettingsScreen() {
         </Card>
 
         <Card>
-          <ToggleRow
-            label={t('settings.music')}
-            value={settings.music}
-            onToggle={() => settings.toggle('music')}
-          />
           <ToggleRow
             label={t('settings.sfx')}
             value={settings.sfx}
@@ -193,6 +192,31 @@ export default function SettingsScreen() {
               tintColor={gc.signedIn ? colors.primary : colors.textMuted}
             />
           </PressableScale>
+        </Card>
+
+        {/* Gizlilik: politika Safari'de açılır; reklam tercihleri yalnızca rıza formunun gerektiği bölgelerde. */}
+        <Card>
+          <PressableScale
+            pressScale={0.98}
+            accessibilityRole="link"
+            accessibilityLabel={t('settings.privacy')}
+            onPress={() => void Linking.openURL(links.privacy(language)).catch(() => {})}
+            style={styles.linkRow}
+          >
+            <AppText>{t('settings.privacy')}</AppText>
+            <SymbolView name="arrow.up.right" size={s(16)} weight="bold" tintColor={colors.textMuted} />
+          </PressableScale>
+          {adPrivacyOptions && (
+            <PressableScale
+              pressScale={0.98}
+              accessibilityLabel={t('settings.adChoices')}
+              onPress={() => void showAdPrivacyOptions()}
+              style={styles.linkRow}
+            >
+              <AppText>{t('settings.adChoices')}</AppText>
+              <SymbolView name="chevron.right" size={s(16)} weight="bold" tintColor={colors.textMuted} />
+            </PressableScale>
+          )}
         </Card>
 
         {/* Yalnızca geliştirme sürümünde: test sahneleri */}

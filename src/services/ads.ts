@@ -37,8 +37,10 @@ const RETRY_MS = 30_000;
 
 interface AdsState {
   rewardedReady: boolean;
+  /** Oyuncunun bölgesinde reklam rızası sonradan değiştirilebilmeli mi (ör. AB)? */
+  privacyOptions: boolean;
 }
-const useAds = create<AdsState>(() => ({ rewardedReady: false }));
+const useAds = create<AdsState>(() => ({ rewardedReady: false, privacyOptions: false }));
 
 let gma: Gma | null = null;
 /** Yerel modül yok (eski geliştirme derlemesi): reklamlar taklit edilir. */
@@ -100,12 +102,21 @@ async function prepare(): Promise<void> {
     // eslint-disable-next-line @typescript-eslint/no-require-imports
     lib = require('react-native-google-mobile-ads') as Gma;
     // 1) Rıza formu: yalnızca gereken bölgelerde (ör. AB) görünür.
-    await lib.AdsConsent.gatherConsent().catch(() => undefined);
+    const consent = await lib.AdsConsent.gatherConsent().catch(() => undefined);
+    // Rızanın sonradan değiştirilebilmesi gereken bölgelerde Ayarlar'da bir satır görünür.
+    useAds.setState({
+      privacyOptions:
+        consent?.privacyOptionsRequirementStatus === lib.AdsConsentPrivacyOptionsRequirementStatus.REQUIRED,
+    });
     // 2) iOS izleme izni. Reddedilirse reklamlar kişiselleştirilmeden gösterilir.
     // eslint-disable-next-line @typescript-eslint/no-require-imports
     const tracking = require('expo-tracking-transparency') as typeof import('expo-tracking-transparency');
     await tracking.requestTrackingPermissionsAsync().catch(() => undefined);
-    // 3) SDK.
+    // 3) SDK. Oyun 4+ derecelendirmeli: yalnızca genel izleyiciye uygun reklam istenir.
+    await lib
+      .default()
+      .setRequestConfiguration({ maxAdContentRating: lib.MaxAdContentRating.G })
+      .catch(() => undefined);
     await lib.default().initialize();
   } catch {
     // SDK başlatılamadı: reklam yok, ona bağlı butonlar görünmez.
@@ -190,6 +201,20 @@ export const ads = {
     });
   },
 };
+
+/** Reklam rızası formunu yeniden açar (Ayarlar'daki "Reklam tercihleri"). Asla hata fırlatmaz. */
+export function showAdPrivacyOptions(): Promise<void> {
+  if (!gma) return Promise.resolve();
+  return gma.AdsConsent.showPrivacyOptionsForm().then(
+    () => undefined,
+    () => undefined,
+  );
+}
+
+/** "Reklam tercihleri" satırı gösterilsin mi? Yalnızca rıza formunun gerektiği bölgelerde. */
+export function useAdPrivacyOptions(): boolean {
+  return useAds((s) => s.privacyOptions);
+}
 
 /** Ödüllü video hazır mı; hazır olunca bileşeni yeniden çizer. */
 export function useRewardedReady(): boolean {

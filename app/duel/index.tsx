@@ -1,8 +1,7 @@
 /**
- * Düello lobisi: üç kart.
+ * Düello lobisi: iki kart.
  *   1. Arkadaşınla — aynı telefonda, karşı karşıya.
  *   2. Bilgisayara karşı — zorluk seçimiyle.
- *   3. Online — yakında (Game Center ile, sonraki güncellemede).
  */
 import { router } from 'expo-router';
 import { SymbolView, type SymbolViewProps } from 'expo-symbols';
@@ -86,11 +85,6 @@ export default function DuelLobbyScreen() {
             />
           </View>
         </Card>
-
-        {/* 3 — Online: henüz yok, soluk durur. */}
-        <View style={styles.soon} accessibilityLabel={`${t('duel.online')}, ${t('soon.title')}`}>
-          <Card icon="globe" tint={colors.textMuted} title={t('duel.online')} hint={t('soon.title')} />
-        </View>
       </View>
     </Screen>
   );
@@ -159,5 +153,4 @@ const styles = StyleSheet.create({
   },
   cardTexts: { flex: 1 },
   cpu: { gap: spacing.md },
-  soon: { opacity: 0.55 },
 });

@@ -20,24 +20,42 @@ Göndermeden önce doğrulanması gerekenler belgenin sonundaki [Kontrol listesi
 
 | Alan (sınır) | English | Türkçe |
 |---|---|---|
-| Ad (30) | Pengolo: Penguin Slide Puzzle | Pengolo: Penguen Bulmacası |
-| Alt başlık (30) | Slide, bump, come home | Kay, çarp, yuvana dön |
+| Ad (30) | Pengolo: Penguin Slide Puzzle | Pengolo: Penguen Bulmaca Oyunu |
+| Alt başlık (30) | Cozy ice logic & brain games | Buzda zeka ve mantık oyunları |
+
+Ad ve alt başlık aramada en ağır basan iki alan, o yüzden slogan yerine aranan kelimeler var. "Slide, bump, come home" / "Kay, çarp, yuvana dön" sloganı açıklamanın ilk satırında ve ekran görüntülerinde duruyor. Türkçe adda "Bulmaca Oyunu" yazmasının nedeni: Apple Türkçe ekleri ayıramıyor, "bulmacası" yazınca "bulmaca" araması eşleşmiyor.
 
 ## Anahtar kelimeler (100)
 
-Adda ve alt başlıkta geçen kelimeler tekrar edilmedi; Apple onları zaten sayıyor.
+Adda ve alt başlıkta geçen kelimeler tekrar edilmedi; Apple onları zaten sayıyor ve alanlar arasında kelimeleri kendisi birleştiriyor ("penguin" + "games", "2" + "player" + "games"). Virgülden sonra boşluk yok.
 
-English:
-
-```
-ice,sliding,logic,brain,igloo,cute,cozy,relaxing,offline,duel,two player,family,daily,maze,arctic
-```
-
-Türkçe:
+English (98):
 
 ```
-buz,kaydırma,mantık,zeka,iglo,sevimli,rahatlatıcı,internetsiz,düello,iki kişilik,aile,günlük,kutup
+sliding,maze,cute,relaxing,offline,no,wifi,2,two,player,thinking,family,adults,animal,daily,teaser
 ```
+
+Türkçe (97):
+
+```
+buz,kaydırma,kaydırmalı,puzzle,akıl,beyin,2,iki,kişilik,oyunlar,oyun,internetsiz,rahatlatıcı,aile
+```
+
+### Neden bu kelimeler (21 Kasım 2026 taraması)
+
+App Store'un arama önerilerine ve ilk sıradaki oyunların oy sayılarına ABD ve Türkiye mağazalarında bakıldı.
+
+| Hedef arama | Durum |
+|---|---|
+| penguin slide | "penguin" yazınca ilk öneri. İki kelime de adda. |
+| penguin puzzle, ice slide, ice puzzle, slide puzzle | İlk sıradaki oyunların çoğunda oy yok ya da çok az; yeni bir oyunun görünebileceği yer burası. |
+| penguin games, cozy games, logic games, brain games | Hepsi öneri listesinde. "games" alt başlıkta olduğu için kapsanıyor. |
+| 2 player games, two player games, no wifi games, offline puzzle games, relaxing puzzle games, thinking games, family games | Öneri listesinde; rekabet yüksek, ama kelimeler ucuz. |
+| penguen oyunu, penguen oyunları, bulmaca oyunu, bulmaca oyunları | "penguen" ve "bulmaca" yazınca ilk öneriler. Ad ve alt başlıkla kapsanıyor. |
+| zeka oyunları, mantık oyunları, akıl oyunları, beyin oyunları | Türkiye'de en çok önerilenler; rekabet yüksek. |
+| 2 kişilik oyunlar, iki kişilik oyun, internetsiz oyunlar, rahatlatıcı oyunlar, kaydırmalı puzzle, aile oyunları | Öneri listesinde. |
+
+Çıkarılanlar: igloo, arctic, duel, iglo, kutup, düello. Bu kelimelerle oyun arayan yok; öneriler başka türden uygulamalara gidiyor. "kids" ve "çocuk" bilerek eklenmedi: oyun çocuk kategorisinde değil ve gizlilik metni 13 yaş altına yönelik olmadığını söylüyor.
 
 ## Tanıtım metni (Promotional Text, 170)
 
@@ -46,7 +64,7 @@ Yeni sürüm göndermeden değiştirilebilen tek metin alanı.
 English:
 
 ```
-The penguins are leaving home! Start in Antarctica with 90 cosy sliding puzzles, a new daily puzzle and duels on one device. Next stop: the rest of the world.
+The penguins are leaving home! Start in Antarctica with 90 cozy sliding puzzles, a new daily puzzle and duels on one device. Next stop: the rest of the world.
 ```
 
 Türkçe:
@@ -57,12 +75,14 @@ Penguenler yola çıkıyor! Antarktika'da 90 sıcacık bulmaca, her gün yeni bi
 
 ## Açıklama (Description, 4000)
 
+Apple açıklamayı aramada kullanmıyor; bu metin sayfaya gelen kişiyi indirmeye ikna etmek için. "Devamı"na basılmadan görünen ilk paragraf oyunun ne olduğunu ve en çok aranan özelliklerini (çevrimdışı, iki kişilik, günlük) söylüyor.
+
 English:
 
 ```
 Slide. Bump. Come home.
 
-Pengolo is a cosy puzzle game on ice. Tap a penguin and it glides until something stops it: a rock, the edge of the ice, or another penguin. Your job is to get every penguin back to its igloo.
+Pengolo is a cozy penguin sliding puzzle on ice. Tap a penguin and it glides until something stops it: a rock, the edge of the ice, or another penguin. Your job is to get every penguin back to its igloo. 90 logic puzzles, a new one every day, two-player duels on one device, and it all plays offline.
 
 It sounds simple, and the first levels are. Then you notice the real puzzle is the order. Who goes first? Who waits? And which penguin has to become the wall that someone else needs?
 
@@ -78,7 +98,7 @@ Every new rule is shown in a few seconds, without a line of text.
 A PUZZLE EVERY DAY
 A fresh daily puzzle, a streak to keep alive, a gift waiting each day you come back and one spin of the lucky wheel.
 
-DUELS ON ONE DEVICE
+TWO-PLAYER DUELS ON ONE DEVICE
 Play a friend face to face on the same iPhone or iPad, or take on the computer at three difficulty levels. First to three wins takes the duel.
 
 MAKE THE PENGUIN YOURS
@@ -105,7 +125,7 @@ Türkçe:
 ```
 Kay. Çarp. Yuvana dön.
 
-Pengolo, buzda geçen sıcacık bir bulmaca oyunu. Penguene dokun; bir şeye çarpana kadar kayar: bir kayaya, buzun kenarına ya da başka bir penguene. Görevin her pengueni kendi iglosuna ulaştırmak.
+Pengolo, buzda geçen sıcacık bir penguen bulmaca oyunu. Penguene dokun; bir şeye çarpana kadar kayar: bir kayaya, buzun kenarına ya da başka bir penguene. Görevin her pengueni kendi iglosuna ulaştırmak. 90 zeka bulmacası, her gün yenisi, tek cihazda iki kişilik düello; hepsi internetsiz oynanır.
 
 Kulağa kolay geliyor, ilk bölümler de öyle. Sonra asıl bulmacanın sıra olduğunu fark ediyorsun. Kim önce gidecek? Kim bekleyecek? Hangi penguen bir başkasının ihtiyaç duyduğu duvar olacak?
 
@@ -121,7 +141,7 @@ Her yeni kural birkaç saniyede, tek satır yazı olmadan gösterilir.
 HER GÜN BİR BULMACA
 Her gün yeni bir günlük bulmaca, sürdürülecek bir seri, uğradığın her gün seni bekleyen bir hediye ve şans çarkında bir çevirme.
 
-TEK CİHAZDA DÜELLO
+TEK CİHAZDA İKİ KİŞİLİK DÜELLO
 Arkadaşınla aynı iPhone ya da iPad'de karşı karşıya oyna ya da üç zorluk seviyesinde bilgisayara meydan oku. Üç oyun kazanan düelloyu alır.
 
 PENGUENİ KENDİN YAP
@@ -181,17 +201,61 @@ Beklenen sonuç: 4+. Panelde burada olmayan bir soru çıkarsa cevap büyük ola
 
 ## Uygulama gizliliği (App Privacy)
 
-"Veri topluyor musunuz?": Evet. Tek neden AdMob. Oyunun kendi sunucusu yok; ilerleme cihazda ve oyuncunun kendi iCloud'unda durur, bunlar beyan edilmez.
+Oyunda veri toplayan tek şey AdMob ve onun izin ekranı (UMP). Oyunun kendi sunucusu yok; ilerleme cihazda ve oyuncunun kendi iCloud'unda durur, satın alımlar ve Game Center Apple üzerinden yürür. Bunlar beyan edilmez.
 
-| Veri türü | Amaç | Kullanıcıya bağlı mı | İzleme için mi |
+### 1. Başlangıç
+
+App Store Connect → uygulama → sol menüde **App Privacy** → **Get Started**.
+
+| Soru | Yanıt |
+|---|---|
+| Do you or your third-party partners collect data from this app? | Yes, we collect data from this app |
+
+### 2. Veri türlerini işaretleme
+
+Uzun listeden yalnızca şu yedisi işaretlenir, gerisi boş kalır. Sonra **Save**.
+
+| Başlık | İşaretlenecek |
+|---|---|
+| Location | Coarse Location |
+| Identifiers | Device ID |
+| Usage Data | Product Interaction |
+| Usage Data | Advertising Data |
+| Diagnostics | Crash Data |
+| Diagnostics | Performance Data |
+| Diagnostics | Other Diagnostic Data |
+
+İşaretlenmeyecekler arasında dikkat çekenler: Contact Info, Purchases, User Content (Gameplay Content dahil), User ID, Precise Location, Health, Financial Info, Contacts, Browsing History, Search History, Sensitive Info.
+
+### 3. Her veri türü için üç soru
+
+Her tür için sırayla amaç, kimliğe bağlılık ve izleme sorulur.
+
+| Veri türü | Amaçlar (işaretlenecek kutular) | Linked to the user's identity? | Used for tracking? |
 |---|---|---|---|
-| Identifiers → Device ID | Third-Party Advertising, Analytics | Hayır | Evet |
-| Location → Coarse Location | Third-Party Advertising | Hayır | Hayır |
-| Usage Data → Advertising Data | Third-Party Advertising, Analytics | Hayır | Evet |
-| Usage Data → Product Interaction | Third-Party Advertising, Analytics | Hayır | Hayır |
-| Diagnostics → Crash Data, Performance Data | Analytics, App Functionality | Hayır | Hayır |
+| Coarse Location | Third-Party Advertising, Developer's Advertising or Marketing, Analytics, App Functionality | Yes | No |
+| Device ID | Third-Party Advertising, Developer's Advertising or Marketing, Analytics | Yes | **Yes** |
+| Product Interaction | Third-Party Advertising, Developer's Advertising or Marketing, Analytics, App Functionality | Yes | No |
+| Advertising Data | Third-Party Advertising, Developer's Advertising or Marketing, Analytics | Yes | No |
+| Crash Data | Analytics | No | No |
+| Performance Data | Third-Party Advertising, Developer's Advertising or Marketing, Analytics, App Functionality | No | No |
+| Other Diagnostic Data | Third-Party Advertising, Developer's Advertising or Marketing, Analytics | No | No |
 
-Bu tablo AdMob için Google'ın önerdiği beyana göre hazırlandı ama güncel liste kontrol edilmedi; bkz. kontrol listesi.
+Product Personalization ve Other Purposes hiçbirinde işaretlenmez.
+
+### 4. Yayınlama
+
+- Bütün türler tamamlanınca sağ üstte **Publish** çıkar. Basılmadan yanıtlar kaydedilmiş ama yayınlanmamış sayılır.
+- Aynı sayfadaki **Privacy Policy URL** alanına [Adresler](#adresler) bölümündeki gizlilik adresleri girilir (her dil kaydı için kendi adresi).
+
+### Notlar
+
+- **Mağazada görünüm:** "Data Used to Track You: Identifiers" ve "Data Linked to You: Location, Identifiers, Usage Data" etiketleri çıkar. Reklamlı ücretsiz oyunlarda olağan görünüm budur.
+- **İzleme "Yes" olduğu için:** oyunun izleme izni penceresini göstermesi gerekir; oyun bunu gösteriyor.
+- **Konum izni yok:** "Coarse Location" oyunun konum izni istediği anlamına gelmez; AdMob IP adresinden yaklaşık bölge çıkarır.
+- **Developer's Advertising or Marketing:** oyun kendi reklamını yapmıyor, ama Google'ın bildirim dosyası bu amacı da sayıyor. Fazla beyan sorun çıkarmaz, eksik beyan çıkarabilir; o yüzden işaretli.
+- **App Functionality:** bu amaç UMP'den (izin ekranı) geliyor.
+- **Kaynak:** derlemeye giren SDK'ların kendi gizlilik bildirimleri (`ios/Pods/Google-Mobile-Ads-SDK/.../PrivacyInfo.xcprivacy` ve `ios/Pods/GoogleUserMessagingPlatform/.../PrivacyInfo.xcprivacy`), 21 Kasım 2026'da okundu. AdMob SDK'sı yükseltilirse bu dosyalar yeniden okunmalı.
 
 ## Uygulama içi satın alımlar
 
@@ -374,7 +438,7 @@ Tersten, Oyun Treni ve Echo Trail'de App Review'ın takıldığı noktalar ve Pe
 |---|---|---|
 | 2.5.4 Arka plan sesi | Tersten ve Oyun Treni, arka planda ses çalmadıkları halde `UIBackgroundModes` içinde `audio` bildiriyordu. | Pengolo'da da açıktı (expo-audio varsayılanı). `app.json`'da `enableBackgroundPlayback: false` ile kapatıldı; üretilen Info.plist'te `UIBackgroundModes` yok. Her `prebuild` sonrası kontrol: `grep UIBackgroundModes ios/Pengolo/Info.plist` boş dönmeli. |
 | 5.1.1 İzin metinleri | Genel ve kullanılmayan izin metinleri sorun sayılıyor. | Kullanılmayan mikrofon (expo-audio) ve Face ID (expo-secure-store) metinleri kaldırıldı. Kalan tek izin izleme izni; metni iki dilde ve amaca özel. |
-| 2.3.8 Ad uyuşmazlığı | Mağaza adı ile cihazdaki ad birbirine benzemiyordu. | Mağaza "Pengolo: Penguin Slide Puzzle" / "Pengolo: Penguen Bulmacası", cihazda "Pengolo". |
+| 2.3.8 Ad uyuşmazlığı | Mağaza adı ile cihazdaki ad birbirine benzemiyordu. | Mağaza "Pengolo: Penguin Slide Puzzle" / "Pengolo: Penguen Bulmaca Oyunu", cihazda "Pengolo". |
 | 1.3 Çocuk kategorisi | Çocuk kategorisinde gönderilen oyun reklam, bağlantı ve satın alma yüzünden reddedildi. | Kids kategorisi ve "Made for Kids" seçilmeyecek (bkz. Kategori). |
 | 2.1 Bilgi talebi | Apple gerçek cihazda ekran kaydı, denenen cihazlar, tanım ve hedef kitle, kullanım adımları, dış servisler, bölge farkları ve içerik hakları istedi. | Yedisi de inceleme notunda sırayla yanıtlandı. Ekran kaydı ve cihaz listesi sende (kontrol listesi). |
 | 2.1 Reklam görünmüyor | Echo Trail'de yeni AdMob birimleri reklam vermediği için butonlar boşta kalıyordu. | Reklam yoksa butonlar hiç görünmüyor, yükleme 30 saniyede bir yeniden deneniyor, oyun reklamı beklemiyor. Not bunu açıklıyor. |
@@ -393,7 +457,7 @@ Tersten, Oyun Treni ve Echo Trail'de App Review'ın takıldığı noktalar ve Pe
 Description:
 
 ```
-Pengolo is a cosy sliding puzzle about getting penguins home. Tap a penguin and it glides until something stops it; the puzzle is working out who moves first and who becomes the wall someone else needs. Every rule is taught in seconds without a line of text.
+Pengolo is a cozy sliding puzzle about getting penguins home. Tap a penguin and it glides until something stops it; the puzzle is working out who moves first and who becomes the wall someone else needs. Every rule is taught in seconds without a line of text.
 
 The launch version covers Antarctica: 90 hand-tuned puzzles across three episodes, a daily puzzle, and first-to-three duels against a friend on one device or against the computer. Antarctica is the first stop of a world tour: future updates will add new continents, each with its own scenery and puzzles.
 
@@ -409,7 +473,7 @@ Pengolo is made by one developer in Türkiye. Every rule is taught through a few
 Helpful details (isteğe bağlı):
 
 ```
-Good fit for: cosy games, family-friendly puzzles, indie developer stories, games that play offline.
+Good fit for: cozy games, family-friendly puzzles, indie developer stories, games that play offline.
 Accessibility: larger symbols for colour-blind players, VoiceOver labels, no time pressure in the adventure.
 ```
 
@@ -435,7 +499,7 @@ Göndermeden önce doğrulanması gerekenler:
 
 - [ ] **Ekran kaydı:** Gerçek iPhone'da temiz kurulumdan başlayarak çek: açılış, ilk bölümler, 3. bölümden sonraki izleme izni, bir düello, gardırop, Mağaza ile satın alma ve "Restore purchases". App Review Information › Attachment'a ekle.
 - [ ] **Info.plist:** Her `prebuild` sonrası `UIBackgroundModes`, mikrofon ve Face ID metinlerinin olmadığını gör.
-- [ ] **App Privacy tablosu:** Google'ın AdMob için yayımladığı güncel "App Store data disclosure" listesiyle karşılaştır; özellikle "kullanıcıya bağlı mı" ve "izleme" sütunları.
+- [ ] **App Privacy tablosu:** yanıtlar SDK'ların kendi gizlilik bildirimlerinden alındı (bkz. Uygulama gizliliği); App Store Connect'e girilip "Publish" edilmeli.
 - [ ] **İngilizce arayüz yazıları:** İnceleme notlarındaki "Restore purchases", "x2", "Coin packs", "Special bundles", "Most loved", "Best value", "One time" yazımlarını oyunun İngilizce arayüzünde gör.
 - [ ] **Kostüm yerleri:** Kâşif kalpağının "Hat", Kutup ışığı atkısının "Scarf" bölümünde çıktığını gör.
 - [x] **Ekran görüntüleri ve önizleme videoları (21 Kasım 2026'da yenilendi):** Güncel arayüzle yeniden çekildi; mağaza ekranı (fiyat gösterdiği için, 2.3.7) setten çıkarıldı, yerine şans çarkı geldi. Önizleme videoları `store-previews/` altında (git dışı): oyunun kendi fon müziğiyle, efekt sesleri olmadan. Yüklemeden önce birini sesli izle.

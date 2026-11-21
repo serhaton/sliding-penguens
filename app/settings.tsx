@@ -128,6 +128,11 @@ export default function SettingsScreen() {
 
         <Card>
           <ToggleRow
+            label={t('settings.music')}
+            value={settings.music}
+            onToggle={() => settings.toggle('music')}
+          />
+          <ToggleRow
             label={t('settings.sfx')}
             value={settings.sfx}
             onToggle={() => settings.toggle('sfx')}

@@ -7,6 +7,7 @@ import { useWallet } from '@/economy/wallet';
 import { todayKey } from '@/services/clock';
 
 import { loginStatus, puzzleStreak } from './daily';
+import { wheelStatus } from './wheel';
 
 /** Bugünün tarihi; uygulama öne geldiğinde yenilenir (gece yarısını geçen oturumlar). */
 export function useToday(): string {
@@ -30,5 +31,7 @@ export function useDaily() {
     solved: claims.includes(dailyPuzzleKey(today)),
     streak: puzzleStreak(claims, today),
     login: loginStatus(claims, today),
+    /** Şans çarkı: bugünkü çevirmeler ve kalan haklar. */
+    wheel: wheelStatus(claims, today),
   };
 }

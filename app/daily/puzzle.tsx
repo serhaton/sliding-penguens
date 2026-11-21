@@ -1,5 +1,5 @@
 /**
- * Günlük bulmaca. Her gün tarihe göre seçilen tek bir bulmaca. Günde bir kez
+ * Günlük bulmaca (Günlük sayfasından açılır). Her gün tarihe göre seçilen tek bir bulmaca. Günde bir kez
  * oynanır: çözünce ödül verilir ve seri bir gün uzar; o gün yeniden açılırsa
  * bulmaca yerine "bugünkünü oynadın" diyen üzgün penguen çıkar.
  */

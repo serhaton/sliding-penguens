@@ -41,8 +41,9 @@ SHOTS = [
     ('06-sleepy', '/level/66', 4),
     ('07-duel', '/duel/play?mode=cpu&difficulty=medium', 4),
     ('08-profile', '/profile', 4),
-    ('09-shop', '/shop', 4),
-    ('10-daily', '/daily', 4),
+    # Mağaza ekranı fiyat gösterdiği için mağaza sayfasına konmaz (App Review 2.3.7); yerine şans çarkı.
+    ('09-wheel', '/daily/wheel', 5),
+    ('10-daily', '/daily/puzzle', 4),
 ]
 
 # İnceleme için ek ekranlar: yalnızca --only ile adı verilirse çekilir.
@@ -51,6 +52,9 @@ EXTRA = [
     ('21-duel-menu', '/duel', 4),
     ('22-level1', '/level/1', 6),
     ('23-duel-2p', '/duel/play?mode=local', 4),
+    # Uygulama içi satın alımların inceleme görseli (App Store Connect'te ürünlere eklenir).
+    ('24-shop', '/shop', 4),
+    ('25-daily-hub', '/daily', 4),
 ]
 
 

@@ -76,7 +76,7 @@ RULES YOU LEARN BY PLAYING
 Every new rule is shown in a few seconds, without a line of text.
 
 A PUZZLE EVERY DAY
-A fresh daily puzzle, a streak to keep alive and a gift waiting each day you come back.
+A fresh daily puzzle, a streak to keep alive, a gift waiting each day you come back and one spin of the lucky wheel.
 
 DUELS ON ONE DEVICE
 Play a friend face to face on the same iPhone or iPad, or take on the computer at three difficulty levels. First to three wins takes the duel.
@@ -119,7 +119,7 @@ OYNAYARAK ÖĞRENİLEN KURALLAR
 Her yeni kural birkaç saniyede, tek satır yazı olmadan gösterilir.
 
 HER GÜN BİR BULMACA
-Her gün yeni bir günlük bulmaca, sürdürülecek bir seri ve uğradığın her gün seni bekleyen bir hediye.
+Her gün yeni bir günlük bulmaca, sürdürülecek bir seri, uğradığın her gün seni bekleyen bir hediye ve şans çarkında bir çevirme.
 
 TEK CİHAZDA DÜELLO
 Arkadaşınla aynı iPhone ya da iPad'de karşı karşıya oyna ya da üç zorluk seviyesinde bilgisayara meydan oku. Üç oyun kazanan düelloyu alır.
@@ -170,8 +170,8 @@ Sayfalar şu an `serhaton.com/sliding-penguens/1.0/` altında yayında. Yol değ
 | Cinsel içerik, çıplaklık, küfür, kaba mizah | Yok |
 | Alkol, tütün, uyuşturucu | Yok |
 | Tıbbi içerik | Yok |
-| Kumar, simüle kumar, yarışma | Yok |
-| Ödül kutusu (loot box) | Yok |
+| Kumar, simüle kumar, yarışma | Yok (şans çarkı günlük, karşılıksız bir ödül: bahis ya da ödeme yok) |
+| Ödül kutusu (loot box) | Yok (şans çarkı satın alınamaz ve coinle çevrilemez) |
 | Kısıtsız web erişimi | Yok |
 | Kullanıcı içeriği, mesajlaşma, sohbet | Yok |
 | Sosyal medya özellikleri (Eylül 2026'dan beri zorunlu soru) | Yok |
@@ -219,7 +219,7 @@ Bu tablo AdMob için Google'ın önerdiği beyana göre hazırlandı ama güncel
 | 5 | Aurora Bundle | 2,500 coins and the exclusive Aurora scarf. | Kutup Işığı Paketi | 2500 coin ve bu pakete özel Kutup ışığı atkı. |
 | 6 | No Ads | Removes ads between levels. | Reklamsız | Bölüm aralarındaki reklamları kaldırır. |
 
-İnceleme ekran görüntüsü (hepsi için): `docs/1.0/appstore/screenshots/en/iphone-6.9/09-shop.png`
+İnceleme ekran görüntüsü (hepsi için): `docs/1.0/appstore/iap-review/shop.png` (mağaza ekranının ham görüntüsü; fiyat gösterdiği için mağaza sayfası setinde yer almaz)
 
 ### Ürün inceleme notları
 
@@ -230,7 +230,7 @@ Consumable. Adds 500 coins to the player's balance.
 
 Where to find it: launch the app, tap the bag icon in the bottom-right corner of the home screen (on iPad, the "Shop" tile), then look under "Coin packs". It is the first of three packs.
 
-What coins do: coins are the in-game soft currency. They are earned by finishing levels and can also be bought here. They are spent on cosmetic outfits for the penguin (Home > profile icon > Wardrobe). Coins never unlock levels and give no gameplay advantage.
+What coins do: coins are the in-game soft currency. They are earned by finishing levels and can also be bought here. They are spent on cosmetic outfits for the penguin (Home > penguin portrait (bottom left) > Wardrobe). Coins never unlock levels and give no gameplay advantage.
 
 After purchase, the coin counter at the top of the screen increases by 500 immediately.
 ```
@@ -242,7 +242,7 @@ Consumable. Adds 1,500 coins to the player's balance.
 
 Where to find it: launch the app, tap the bag icon in the bottom-right corner of the home screen (on iPad, the "Shop" tile), then look under "Coin packs". It is the middle pack, marked "Most loved".
 
-What coins do: coins are the in-game soft currency. They are earned by finishing levels and can also be bought here. They are spent on cosmetic outfits for the penguin (Home > profile icon > Wardrobe). Coins never unlock levels and give no gameplay advantage.
+What coins do: coins are the in-game soft currency. They are earned by finishing levels and can also be bought here. They are spent on cosmetic outfits for the penguin (Home > penguin portrait (bottom left) > Wardrobe). Coins never unlock levels and give no gameplay advantage.
 
 After purchase, the coin counter at the top of the screen increases by 1,500 immediately.
 ```
@@ -254,7 +254,7 @@ Consumable. Adds 4,000 coins to the player's balance.
 
 Where to find it: launch the app, tap the bag icon in the bottom-right corner of the home screen (on iPad, the "Shop" tile), then look under "Coin packs". It is the third pack, marked "Best value".
 
-What coins do: coins are the in-game soft currency. They are earned by finishing levels and can also be bought here. They are spent on cosmetic outfits for the penguin (Home > profile icon > Wardrobe). Coins never unlock levels and give no gameplay advantage.
+What coins do: coins are the in-game soft currency. They are earned by finishing levels and can also be bought here. They are spent on cosmetic outfits for the penguin (Home > penguin portrait (bottom left) > Wardrobe). Coins never unlock levels and give no gameplay advantage.
 
 After purchase, the coin counter at the top of the screen increases by 4,000 immediately.
 ```
@@ -273,7 +273,7 @@ Where to find it: launch the app, tap the bag icon in the bottom-right corner of
 
 How to verify after purchase:
 - The coin counter increases by 1,000.
-- The Explorer hat becomes available under Home > profile icon > Wardrobe > Hat.
+- The Explorer hat becomes available under Home > penguin portrait (bottom left) > Wardrobe > Hat.
 - The "No Ads" card in the Shop shows as owned.
 
 The purchase can be restored with the "Restore purchases" button at the bottom of the Shop.
@@ -290,7 +290,7 @@ Where to find it: launch the app, tap the bag icon in the bottom-right corner of
 
 How to verify after purchase:
 - The coin counter increases by 2,500.
-- The Aurora scarf becomes available under Home > profile icon > Wardrobe > Scarf, and can be worn by tapping it.
+- The Aurora scarf becomes available under Home > penguin portrait (bottom left) > Wardrobe > Scarf, and can be worn by tapping it.
 
 The item is cosmetic only and gives no gameplay advantage. The purchase can be restored with the "Restore purchases" button at the bottom of the Shop.
 ```
@@ -318,7 +318,7 @@ After purchase, the card in the Shop shows as owned. The purchase can be restore
 | Contact email | `serhaton@gmail.com` |
 | Contact phone | Kendi numaran |
 
-Notes (3865 karakter; sınır 4000):
+Notes (3990 karakter; sınır 4000):
 
 ```
 Pengolo is a sliding puzzle game. No account, no login, no server of our own; nothing needs to be set up to review it.
@@ -327,7 +327,7 @@ Pengolo is a sliding puzzle game. No account, no login, no server of our own; no
 A recording made on a physical iPhone is attached. It starts with launching the app and shows the first levels, the tracking prompt after level 3, a duel, the wardrobe, and the Shop with the purchases and "Restore purchases". It shows no ads: see ADS.
 
 2. TESTED ON
-Physical devices: iPhone 16, iOS 27.2; iPad Air (5th generation), iPadOS 26.6.1.
+Devices: iPhone 16, iOS 27.2; iPad Air (5th generation), iPadOS 27.2.1.
 Simulators: iPhone 16 Pro Max, iOS 18.6; iPad Pro 13-inch (M4), iPadOS 18.6; iPad Air 11-inch (M3), iPadOS 26.2.
 
 3. WHAT THE APP IS AND WHO IT IS FOR
@@ -335,14 +335,14 @@ A casual puzzle game for a general audience. It is not directed at children unde
 
 4. HOW TO USE IT
 Tap a penguin and it slides the way it is facing until it hits something. Get every penguin into the igloo of its own colour. Level 1 starts on first launch and teaches this without text.
-From the home screen: Play (adventure), Duel, flame icon top left (daily puzzle), profile icon bottom left ("My penguin" on iPad: wardrobe, achievements), map icon bottom centre, bag icon bottom right ("Shop" on iPad), gear top right (language, theme, sound, larger symbols, Game Center, privacy policy).
+From the home screen: Play (adventure), Duel, flame icon top left (Daily: daily puzzle and lucky wheel), penguin portrait bottom left ("My penguin" on iPad: wardrobe, achievements), map icon bottom centre, bag icon bottom right ("Shop" on iPad), gear top right (language, theme, music and sound, larger symbols, Game Center, privacy policy).
 
 5. EXTERNAL SERVICES
 - Google AdMob (Google Mobile Ads SDK, with Google's consent message where required): ads.
 - Apple StoreKit: six in-app purchases.
 - Apple Game Center: leaderboards and achievements (optional).
 - Apple iCloud key-value storage: the player's progress and purchases, so they survive a reinstall. We cannot access this data.
-Nothing else: no analytics SDK, no backend, no accounts, no AI services.
+No analytics SDK, backend, accounts or AI services.
 
 6. REGIONS
 The app works the same in every region. English and Turkish; follows the device language (changeable in Settings).
@@ -354,13 +354,16 @@ IN-APP PURCHASES
 All six are in the Shop: three consumable coin packs and three non-consumables (Welcome Pack, Aurora Bundle, No Ads). The Welcome Pack is a one-time offer shown only during the first 48 hours after first launch; reinstall the app if it is no longer visible. "Restore purchases" is at the bottom of the Shop. Coins buy cosmetic outfits only; no purchase unlocks levels or makes puzzles easier.
 
 PERMISSIONS
-Only App Tracking Transparency, asked after level 3 is completed (not at launch). If declined, ads are not personalised and the game works the same. The app does not use the microphone, camera, location, contacts, photos or notifications, and declares no background modes: sounds are short effects that play only while the game is open, respect the silent switch and mix with other apps' audio.
+Only App Tracking Transparency, asked after level 3 is completed (not at launch). If declined, ads are not personalised and the game works the same. The app does not use the microphone, camera, location, contacts, photos or notifications, and declares no background modes: sound effects and background music play only while the game is in the foreground and respect the silent switch; the music stays off while another app plays audio.
 
 ADS
-Ad loading starts after level 3. Ad requests are limited to content rated G (general audiences). Rewarded videos are optional and always started by the player (for example the "x2" button on the level-complete card). Full-screen ads can appear between adventure levels after level 8, at most once every two levels; never in duels or the daily puzzle.
-Please note: the AdMob ad units are new and the app is not on the App Store yet, so AdMob may answer every request with "no fill". By design, when no ad is available the "x2" and other "watch a video" buttons are simply not shown and no full-screen ad appears; the game continues normally. This is intended behaviour, not a fault.
+Ad loading starts after level 3. Ad requests are limited to content rated G (general audiences). Rewarded videos are optional and always started by the player (for example the "x2" button on the level-complete card, or one extra wheel spin a day). Full-screen ads can appear between adventure levels after level 8, at most once every two levels; never in duels or the daily puzzle.
+The AdMob ad units are new and the app is not on the App Store yet, so AdMob may answer every request with "no fill". By design, when no ad is available the "x2" and other "watch a video" buttons are not shown and no full-screen ad appears.
 
-The name on the Home Screen is "Pengolo", the first word of the store name. The game is fully playable offline.
+LUCKY WHEEL
+One spin a day (Daily > Lucky wheel) gives a few coins or, rarely, a cosmetic outfit. It cannot be bought or spun with coins or money.
+
+The name on the Home Screen is "Pengolo", the first word of the store name. Fully playable offline.
 ```
 
 ### Önceki incelemelerden dersler
@@ -420,6 +423,8 @@ Accessibility: larger symbols for colour-blind players, VoiceOver labels, no tim
 
 `<dil>`: `en` ya da `tr`. Her klasörde 10 görsel var (boyut başına üst sınır).
 
+Önizleme videoları: `store-previews/<dil>/iphone/preview-1..3.mp4` (886×1920) ve `store-previews/<dil>/ipad/preview-1..3.mp4` (1200×1600); 24–29 saniye, H.264, stereo AAC. Yeniden üretmek için: `scripts/store-shots.py`, `scripts/make-store-assets.py`, `scripts/record-previews.py`.
+
 ## Game Center
 
 Uygulamada etkinleştirilecek; liderlik tabloları ve 18 başarım oyundaki kimliklerle tanımlanacak. Kimliklerin listesi bu belgede henüz yok.
@@ -433,7 +438,10 @@ Göndermeden önce doğrulanması gerekenler:
 - [ ] **App Privacy tablosu:** Google'ın AdMob için yayımladığı güncel "App Store data disclosure" listesiyle karşılaştır; özellikle "kullanıcıya bağlı mı" ve "izleme" sütunları.
 - [ ] **İngilizce arayüz yazıları:** İnceleme notlarındaki "Restore purchases", "x2", "Coin packs", "Special bundles", "Most loved", "Best value", "One time" yazımlarını oyunun İngilizce arayüzünde gör.
 - [ ] **Kostüm yerleri:** Kâşif kalpağının "Hat", Kutup ışığı atkısının "Scarf" bölümünde çıktığını gör.
-- [ ] **Mağaza ekran görüntüsü (2.3.7):** `09-shop` altı ürünün dolar fiyatını gösteriyor ve orta paket hâlâ $2.99 (ürün $2.49). Mağaza sayfasındaki ekran görüntülerinde fiyat olmamalı: bu görseli yalnızca ürünlerin inceleme ekran görüntüsü olarak kullan (fiyatı düzeltip), mağaza sayfasında yerine fiyat göstermeyen bir ekran (ör. gardırop) koy.
+- [x] **Ekran görüntüleri ve önizleme videoları (21 Kasım 2026'da yenilendi):** Güncel arayüzle yeniden çekildi; mağaza ekranı (fiyat gösterdiği için, 2.3.7) setten çıkarıldı, yerine şans çarkı geldi. Önizleme videoları `store-previews/` altında (git dışı): oyunun kendi fon müziğiyle, efekt sesleri olmadan. Yüklemeden önce birini sesli izle.
+- [ ] **Derleme numarası:** Build 1 App Store Connect'e yüklendiyse yeni arşiv için `app.json`'da `ios.buildNumber` artırılmalı (aynı numara reddedilir).
+- [ ] **Şans çarkı:** Gerçek cihazda Günlük › Şans çarkı'nı dene: çevirme, ödülün bakiyeye eklenmesi, videoyla ikinci çevirme, sonra "yarın" yazısı. Günlük ekran görüntüsü artık `/daily/puzzle` rotasından alınır (`scripts/store-shots.py` güncellendi).
+- [ ] **Fon müziği:** Gerçek cihazda dene: ana temanın açılışta başlaması, bölüme girince bölge ezgisine geçmesi, Ayarlar › Music kapalıyken, telefon sessizdeyken, başka uygulamadan müzik çalarken ve reklam sırasında susması; uygulama arka plana geçince durup dönünce devam etmesi. `grep UIBackgroundModes ios/Pengolo/Info.plist` boş dönmeli.
 - [ ] **Yeni derleme:** `build/` içindeki 19 Kasım arşivi 21 Kasım düzeltmelerinden önce alındı (Ayarlar'da gizlilik politikası, geliştirici ekranlarının kapatılması, Online kartı ve Müzik anahtarının kaldırılması, reklam içerik sınırı). Yeniden arşivle ve yükle.
 - [ ] **Ürünler sürüme ekli mi:** Altı ürün de "Ready to Submit" olmalı ve 1.0 sürüm sayfasında "In-App Purchases" altında seçilmeli; yoksa inceleyen Mağaza'da fiyat yerine "—" görür.
 - [ ] **Game Center sürüme ekli mi:** Liderlik tabloları ve başarımlar tanımlanıp 1.0 sürümüne eklenmeli.

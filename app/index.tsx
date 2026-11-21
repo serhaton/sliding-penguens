@@ -74,12 +74,12 @@ export default function HomeScreen() {
     <Screen>
       {/* Üst köşeler */}
       <View style={styles.cornerRow}>
-        {/* Günlük bulmaca: rozet seriyi gösterir; bugün çözülmediyse ikon vurgulu. */}
+        {/* Günlük sayfası (bulmaca + şans çarkı): rozet seriyi gösterir; bugün yapılacak bir şey varsa ikon vurgulu. */}
         <IconButton
           icon={daily.streak > 0 ? 'flame.fill' : 'calendar'}
           label={`${t('home.daily')}${daily.streak > 0 ? `, ${t('daily.streak', { n: daily.streak })}` : ''}`}
           badge={daily.streak > 0 ? daily.streak : undefined}
-          tint={daily.solved ? undefined : colors.accent}
+          tint={daily.solved && !daily.wheel.freeAvailable ? undefined : colors.accent}
           onPress={() => router.push('/daily')}
         />
         <CoinCounter />

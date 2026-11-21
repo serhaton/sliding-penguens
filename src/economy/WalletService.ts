@@ -26,6 +26,8 @@ import {
   dailyPuzzleKey,
   levelReward,
   loginKey,
+  wheelCoins,
+  wheelKey,
   type Balance,
 } from './rewards';
 import {
@@ -216,6 +218,27 @@ export class WalletService {
       `login:${date}`,
       () => this.snapshot.state.dailyClaims.some((c) => c.startsWith(`login:${date}:`)),
     );
+  }
+
+  /**
+   * Şans çarkı ödülü. `spin`: günün kaçıncı çevirmesi; her çevirme günde bir
+   * kez kaydedilir. `prize`: dilim kimliği (ya da WHEEL_ITEM_FALLBACK).
+   * `cosmeticId` verilirse o kostüm bedelsiz açılır. Kaydedildiyse `true`.
+   */
+  async claimWheel(date: string, spin: number, prize: string, cosmeticId?: string): Promise<boolean> {
+    const n = Math.floor(spin);
+    if (n < 1 || n > economy.wheel.spinsPerDay) return false;
+    if (this.snapshot.state.dailyClaims.some((c) => c.startsWith(`wheel:${date}:${n}:`))) return false;
+    const key = wheelKey(date, n, prize);
+    const cosmetics =
+      cosmeticId && !(cosmeticId in this.snapshot.state.cosmetics)
+        ? { ...this.doc.cosmetics, [cosmeticId]: 0 }
+        : this.doc.cosmetics;
+    await this.commit(
+      { ...this.doc, dailyClaims: [...this.doc.dailyClaims, key], cosmetics },
+      this.entry(`daily:${key}`, wheelCoins(prize), 'daily', cosmeticId ?? key),
+    );
+    return true;
   }
 
   unlockAchievement(id: AchievementId): Promise<number> {

@@ -1,3 +1,4 @@
+import AVFoundation
 import ExpoModulesCore
 import GameKit
 
@@ -14,6 +15,13 @@ public class PenguinGameCenterModule: Module {
 
     Function("isAuthenticated") { () -> Bool in
       GKLocalPlayer.local.isAuthenticated
+    }
+
+    // Başka bir uygulama ses çalıyor mu (müzik, podcast)? Oyun, fon sesini
+    // oyuncunun kendi müziğinin üstüne bindirmemek için sorar. Game Center'la
+    // ilgisi yok; oyunun tek yerel modülü bu olduğu için burada durur.
+    Function("isOtherAudioPlaying") { () -> Bool in
+      AVAudioSession.sharedInstance().isOtherAudioPlaying
     }
 
     // Giriş. Oyuncu cihazda Game Center'a girmişse sessizce tamamlanır;

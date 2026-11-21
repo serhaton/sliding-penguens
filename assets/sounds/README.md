@@ -7,6 +7,25 @@ kodda değişiklik gerekmez (bkz. `src/services/audio.ts`).
 Biçim: WAV ya da M4A/AAC, 44.1 kHz. Efektler mono ve kısa; müzikler stereo ve döngüsel
 (başı ile sonu ek yeri duyulmadan birleşmeli).
 
+## Fon müziği
+
+Hepsi `scripts/generate-placeholder-sounds.mjs` içinde nota nota yazılı, sentezlenmiş yer tutucudur
+(16 ölçü, ek yeri duyulmadan döner; mono, 22 kHz). Ses düzeyi dosyanın içindedir. Hangi bölümde
+hangisinin çalacağı `src/game/music.ts` içinde, oynatma `src/services/music.ts` içinde.
+
+| Dosya | Nerede | Tarif |
+|---|---|---|
+| `music-home.wav` | Ana ekran ve menüler | sıcak, karşılayan müzik kutusu ezgisi |
+| `music-shore.wav` | 1A Sakin Kıyı | zıplayan marimba |
+| `music-spin.wav` | 1B Dönme Buzulu | kendi çevresinde dönen nota halkaları, çan |
+| `music-waves.wav` | 1C Dalga Koyu | dalga gibi yükselip alçalan ezgi, sallanan ritim |
+| `music-thin.wav` | 2A İnce Buz | parmak ucunda, ince ve seyrek çanlar |
+| `music-pass.wav` | 2B Kırık Geçit | aksak, şakacı marimba |
+| `music-lake.wav` | 2C Buzul Gölü | durgun; uzun flüt notaları, davulsuz |
+| `music-valley.wav` | 3A Uykucu Vadi | ağır tempolu ninni, müzik kutusu |
+| `music-snore.wav` | 3B Horultu Tepesi | tembel, sallanan, biraz komik yürüyüş |
+| `music-dream.wav` | 3C Rüya Koyu | ışıltılı, rüya gibi çan ezgisi |
+
 ## Efektler
 
 | Dosya | Durum | Ne zaman | Tarif |
@@ -20,6 +39,7 @@ Biçim: WAV ya da M4A/AAC, 44.1 kHz. Efektler mono ve kısa; müzikler stereo ve
 | `nope.wav` | yer tutucu | Hareket edemeyen penguene dokunma | iki alçak, sevimli "ı-ıh" |
 | `crack.wav` | yer tutucu | Çatlak buz kırılırken | buz çıtırtısı + küçük "şlop" |
 | `wake.wav` | yer tutucu | Uyuyan penguen uyanırken | yükselen, şaşkın bir cıvıltı |
+| `tick.wav` | yer tutucu | Şans çarkı dönerken ibre her dilimi geçtiğinde | kısa, tahta gibi bir "tık" (≤ 50 ms); art arda hızlı çalınır |
 | `coin.wav` | eksik | Coin sayacı dolarken | hafif şıngırtı; hızlı tekrar edilebilir olmalı |
 | `button.wav` | eksik | Arayüz butonları | `tap`ten daha sessiz, nötr bir tık |
 | `undo.wav` | eksik | Geri al | kısa "geri sarma" hışırtısı |

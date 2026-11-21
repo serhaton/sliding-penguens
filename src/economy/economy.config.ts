@@ -23,6 +23,30 @@ export const economy = {
   dailyPuzzle: 50,
   /** Günlük giriş serisi: 7 günlük döngü, 7. gün büyük ödül. */
   loginStreak: [10, 15, 20, 25, 30, 40, 100],
+  /**
+   * Şans çarkı (Günlük sayfası): günde bir çevirme, istenirse bir ödüllü
+   * videoyla bir çevirme daha. Dilimler çarktaki sırayla yazılır; `weight`
+   * olasılıktır (toplam 100). Küçük ödüller sık, büyükler seyrek çıkar;
+   * ortalama çevirme başına yaklaşık 28 coin.
+   *
+   * `item`: coinle satılan kostümlerden rastgele biri (pakete özel olanlar
+   * hariç). Oyuncu hepsine sahipse yerine `itemFallback` coin verilir.
+   */
+  wheel: {
+    segments: [
+      { id: 'c10', coins: 10, weight: 26 },
+      { id: 'c50', coins: 50, weight: 9 },
+      { id: 'c15', coins: 15, weight: 24 },
+      { id: 'c500', coins: 500, weight: 1 },
+      { id: 'c20', coins: 20, weight: 20 },
+      { id: 'item', coins: 0, weight: 2 },
+      { id: 'c30', coins: 30, weight: 14 },
+      { id: 'c100', coins: 100, weight: 4 },
+    ],
+    itemFallback: 300,
+    /** Günde en fazla çevirme: 1 karşılıksız + 1 videoyla. */
+    spinsPerDay: 2,
+  },
   duel: {
     /** Bilgisayara karşı her zorlukta ilk galibiyet. */
     cpuFirstWin: { easy: 30, medium: 60, hard: 120 },

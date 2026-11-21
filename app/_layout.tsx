@@ -16,9 +16,13 @@ import { AchievementToast } from '@/components/hud/AchievementToast';
 import { IntroSplash } from '@/components/intro/IntroSplash';
 import { startAchievements } from '@/services/achievementSync';
 import { startDevRemote } from '@/services/devRemote';
+import { music } from '@/services/music';
 import { startStore } from '@/services/store';
 import { useSettings } from '@/store/settings';
 import { motion, useTheme } from '@/theme';
+
+/** Açılış animasyonu bitene kadar müzik beklenir (ms). */
+const MUSIC_DELAY_MS = 2600;
 
 export default function RootLayout() {
   const { colors, isNight } = useTheme();
@@ -32,8 +36,11 @@ export default function RootLayout() {
     startAchievements();
     // Yalnızca geliştirme: ekran görüntüsü otomasyonu için uzaktan kumanda.
     startDevRemote();
+    // Fon müziği: açılış animasyonunun harf sesleri bittikten sonra ana tema başlar.
+    const musicTimer = setTimeout(() => music.start(), MUSIC_DELAY_MS);
     // Başlangıç paketi teklifinin süresi ilk açılıştan sayılır.
     useSettings.getState().stampFirstRun(Date.now());
+    return () => clearTimeout(musicTimer);
   }, []);
 
   // Ekran geçişlerinde arkadan beyaz bir zemin görünmesin.

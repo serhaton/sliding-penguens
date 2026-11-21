@@ -19,11 +19,13 @@ import type { CharacterId } from '@/data/characters';
 import { getMechanic } from '@/data/mechanics';
 import { wallet } from '@/economy/wallet';
 import type { LevelDef } from '@/engine';
+import { musicTrackFor } from '@/game/music';
 import { offers, payFor, type OfferKind, type PayMethod } from '@/game/offers';
 import { useLevelSession } from '@/game/useLevelSession';
 import { useTranslation } from '@/i18n';
 import { ads, useRewardedReady } from '@/services/ads';
 import { audio } from '@/services/audio';
+import { music } from '@/services/music';
 import { useSettings } from '@/store/settings';
 import { radii, s, spacing, useTheme } from '@/theme';
 
@@ -96,6 +98,11 @@ export function LevelPlay({
   const [undoUsed, setUndoUsed] = useState(false);
 
   useEffect(() => audio.preload(), []);
+
+  // Fon müziği: bölüm ekrandayken o bölgenin ezgisi çalar, çıkınca ana temaya
+  // dönülür. Aynı bölgede art arda bölümlerde ezgi kesilmeden devam eder.
+  const track = musicTrackFor(level);
+  useEffect(() => music.play(track), [track]);
 
   const [autoQueue, setAutoQueue] = useState(() => (autoplay ? autoplay.split(',') : []));
   const { tap, betweenWaves } = session;

@@ -39,7 +39,7 @@ CAPTIONS = {
         '06-sleepy': 'Wake up\nthe sleepy ones',
         '07-duel': 'Duel a friend\nor the computer',
         '08-profile': 'Dress up\nyour penguin',
-        '09-shop': 'Hats, hair and\nrainbow scarves',
+        '09-wheel': 'Spin the wheel\nevery day',
         '10-daily': 'A new puzzle\nevery day',
     },
     'tr': {
@@ -51,7 +51,7 @@ CAPTIONS = {
         '06-sleepy': 'Uykucuları\nuyandır',
         '07-duel': 'Arkadaşınla ya da\nbilgisayarla düello',
         '08-profile': 'Penguenini\ngiydir',
-        '09-shop': 'Şapkalar, saçlar,\ngökkuşağı atkılar',
+        '09-wheel': 'Her gün\nçarkı çevir',
         '10-daily': 'Her gün\nyeni bir bulmaca',
     },
 }

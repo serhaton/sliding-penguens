@@ -24,6 +24,7 @@ import { hasNoAds } from '@/data/products';
 import { shouldShowInterstitial } from '@/game/adPolicy';
 
 import { adsConfig } from './ads.config';
+import { music } from './music';
 import { useStore } from './store';
 
 type Gma = typeof import('react-native-google-mobile-ads');
@@ -158,10 +159,13 @@ export const ads = {
     return new Promise<boolean>((resolve) => {
       let earned = false;
       const done = () => {
+        music.hold(false);
         resolve(earned);
         // Sıradaki video için önden yükle.
         loadRewarded();
       };
+      // Reklamın kendi sesi var: süresince fon müziği susar.
+      music.hold(true);
       ad.addAdEventListener(RewardedAdEventType.EARNED_REWARD, () => {
         earned = true;
       });
@@ -193,9 +197,11 @@ export const ads = {
 
     return new Promise<void>((resolve) => {
       const done = () => {
+        music.hold(false);
         resolve();
         loadInterstitial();
       };
+      music.hold(true);
       ad.addAdEventListener(AdEventType.CLOSED, done);
       ad.show().catch(done);
     });

@@ -11,8 +11,12 @@ da bilgisayarın oynadığı maç olarak gösterilir. Görüntü oyunun kendi ek
 Çıktı: store-previews/<dil>/<cihaz>/preview-N.mp4 (git'e girmez)
 
 Apple'ın ölçüleri (Kasım 2026): iPhone 886×1920, iPad 1200×1600; 15–30 saniye;
-H.264 High 4.0, en çok 30 kare/sn, 10–12 Mbps; stereo AAC 256 kbps. Simülatör
-ses kaydetmediği için videolara sessiz bir ses izi eklenir.
+H.264 High 4.0, en çok 30 kare/sn, 10–12 Mbps; stereo AAC 256 kbps.
+
+Ses: simülatör ses kaydetmez. Videoya oyunun kendi fon müziği eklenir; her
+adımda, oyunda o ekranda çalan ezgi çalar (menülerde ana tema, bölümlerde o
+bölgenin ezgisi). Dokunma ve kayma gibi efekt sesleri videoda yoktur: görüntüyle
+tam eşleştirilemezler.
 
 Gerekenler: Metro çalışıyor olmalı, simülatörde geliştirme derlemesi kurulu olmalı.
 Yalnızca tanıtım verisi yüklenebilecek bir simülatörde kullan (dev/seed cüzdana yazar).
@@ -58,6 +62,39 @@ VIDEOS = {
 }
 
 
+SOUNDS = os.path.join(ROOT, 'assets', 'sounds')
+# Bölgelerin ezgileri, 10'ar bölümlük sırayla (bkz. src/game/music.ts).
+REGION_TRACKS = ['shore', 'spin', 'waves', 'thin', 'pass', 'lake', 'valley', 'snore', 'dream']
+# Ekran değişimi komuttan biraz sonra görünür (yoklama aralığı + geçiş): müzik de o kadar geç değişir.
+SWITCH_LAG = 0.6
+
+
+def track_for(route):
+    """Oyunda bu ekranda çalan ezgi."""
+    if route.startswith('/level/'):
+        number = int(route.split('/')[2].split('?')[0])
+        return REGION_TRACKS[min(len(REGION_TRACKS) - 1, (number - 1) // 10)]
+    return 'home'
+
+
+def soundtrack(steps, duration):
+    """Adımlardan ses bölümleri çıkarır: [(ezgi, saniye)]. Art arda aynı ezgi tek bölüm olur."""
+    segments = []
+    for i, (route, seconds) in enumerate(steps):
+        track = track_for(route)
+        # İlk ekran kayıt başlarken zaten açıktır; sonrakiler gecikmeyle görünür.
+        length = seconds + (SWITCH_LAG if i == 0 and len(steps) > 1 else 0)
+        if i == len(steps) - 1 and len(steps) > 1:
+            length -= SWITCH_LAG
+        if segments and segments[-1][0] == track:
+            segments[-1][1] += length
+        else:
+            segments.append([track, length])
+    # Son bölüm videonun sonuna kadar uzar.
+    segments[-1][1] = max(1.0, duration - sum(length for _, length in segments[:-1]))
+    return segments
+
+
 def record(udid, steps, raw):
     recorder = subprocess.Popen(
         ['xcrun', 'simctl', 'io', udid, 'recordVideo', '--codec=h264', '--force', raw],
@@ -67,19 +104,30 @@ def record(udid, steps, raw):
     return recorder
 
 
-def encode(raw, out, size, start, duration):
+def encode(raw, out, size, start, duration, steps):
     width, height = size
     os.makedirs(os.path.dirname(out), exist_ok=True)
+    segments = soundtrack(steps, duration)
+    inputs, chains = [], []
+    for i, (track, length) in enumerate(segments):
+        inputs += ['-i', os.path.join(SOUNDS, f'music-{track}.wav')]
+        # Her ezgi baştan başlar; bölümler kısa bir kısılma ve açılmayla birbirine bağlanır.
+        chains.append(
+            f'[{i + 1}:a]atrim=0:{length:.2f},afade=t=in:d=0.25,afade=t=out:st={max(0, length - 0.35):.2f}:d=0.35[m{i}]')
+    mix = ''.join(f'[m{i}]' for i in range(len(segments)))
+    # Müzik dosyaları oyunda efektlerin altında kalsın diye kısıktır; videoda normal düzeye çıkarılır.
+    audio = (';'.join(chains) + f';{mix}concat=n={len(segments)}:v=0:a=1,loudnorm=I=-17:TP=-1.5:LRA=11,'
+             f'afade=t=out:st={max(0, duration - 0.9):.2f}:d=0.9,aresample=48000[a]')
     subprocess.run(
-        ['ffmpeg', '-y', '-loglevel', 'error', '-ss', f'{start:.2f}', '-i', raw,
-         '-f', 'lavfi', '-i', 'anullsrc=r=48000:cl=stereo',
+        ['ffmpeg', '-y', '-loglevel', 'error', '-ss', f'{start:.2f}', '-i', raw, *inputs,
          '-t', f'{duration:.2f}',
          # Genişliğe göre ölçekle, fazla yüksekliği ortadan kırp (telefon oranı birkaç piksel farklıdır).
-         '-vf', f'scale={width}:-2:flags=lanczos,crop={width}:{height},fps=30',
+         '-filter_complex', f'[0:v]scale={width}:-2:flags=lanczos,crop={width}:{height},fps=30[v];{audio}',
+         '-map', '[v]', '-map', '[a]',
          '-c:v', 'libx264', '-profile:v', 'high', '-level', '4.0', '-pix_fmt', 'yuv420p',
          '-b:v', '10M', '-maxrate', '12M', '-bufsize', '20M',
          '-c:a', 'aac', '-b:a', '256k', '-ar', '48000', '-ac', '2',
-         '-movflags', '+faststart', '-shortest', out],
+         '-movflags', '+faststart', out],
         check=True,
     )
 
@@ -127,12 +175,12 @@ def main():
             elapsed = time.time() - started
             recorder.send_signal(signal.SIGINT)
             recorder.wait(timeout=30)
-            pending.append((raw, lang, number, elapsed))
+            pending.append((raw, lang, number, elapsed, steps))
     remote.go('/', 1)
-    for raw, lang, number, elapsed in pending:
+    for raw, lang, number, elapsed, steps in pending:
         out = os.path.join(ROOT, 'store-previews', lang, device, f'preview-{number}.mp4')
         # Kaydın ilk 2 saniyesi bekleme payıdır; video ilk adımla başlar.
-        encode(raw, out, size, 2.0, min(29.5, elapsed))
+        encode(raw, out, size, 2.0, min(29.5, elapsed), steps)
         print(lang, device, number, f'{elapsed:.1f}s', flush=True)
 
 

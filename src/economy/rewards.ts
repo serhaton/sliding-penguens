@@ -29,18 +29,39 @@ export function levelRewards(stars: Record<string, number>): number {
 export const dailyPuzzleKey = (date: string) => `daily:${date}`;
 /** `day`: 7 günlük döngüdeki gün (1–7). */
 export const loginKey = (date: string, day: number) => `login:${date}:${day}`;
+/**
+ * Şans çarkı. `spin`: o günün kaçıncı çevirmesi (1 = karşılıksız, 2 = videoyla).
+ * `prize`: çıkan dilimin kimliği; kostüm çıkması gerekirken oyuncu hepsine
+ * sahipse `WHEEL_ITEM_FALLBACK` yazılır.
+ */
+export const wheelKey = (date: string, spin: number, prize: string) => `wheel:${date}:${spin}:${prize}`;
+export const WHEEL_ITEM_FALLBACK = 'itemc';
+
+/** Bir çark ödülünün coin karşılığı (kostüm ve bilinmeyen kimlik 0). */
+export function wheelCoins(prize: string): number {
+  if (prize === WHEEL_ITEM_FALLBACK) return economy.wheel.itemFallback;
+  return economy.wheel.segments.find((segment) => segment.id === prize)?.coins ?? 0;
+}
 
 /**
  * Günlük ödüller. Aynı gün için iki cihaz farklı seri günü kaydetmiş olabilir
  * (biri çevrimdışıyken seriyi yanlış saymış olabilir): gün başına tek ödül
- * verilir, büyük olanı.
+ * verilir, büyük olanı. Çark da öyle: iki cihaz aynı günün aynı çevirmesini
+ * ayrı ayrı yaptıysa çevirme başına tek ödül sayılır, büyük olanı.
  */
 export function dailyRewards(claims: readonly string[]): number {
   const puzzles = new Set<string>();
   const logins = new Map<string, number>();
+  const spins = new Map<string, number>();
   for (const claim of claims) {
-    const [kind, date, day] = claim.split(':');
+    const [kind, date, day, prize] = claim.split(':');
     if (!date) continue;
+    if (kind === 'wheel') {
+      const spin = Number(day);
+      if (!prize || !(spin >= 1 && spin <= economy.wheel.spinsPerDay)) continue;
+      const key = `${date}:${spin}`;
+      spins.set(key, Math.max(spins.get(key) ?? 0, wheelCoins(prize)));
+    }
     if (kind === 'daily') puzzles.add(date);
     if (kind === 'login') {
       const index = Math.min(economy.loginStreak.length, Math.max(1, Number(day) || 1));
@@ -49,6 +70,7 @@ export function dailyRewards(claims: readonly string[]): number {
   }
   let total = puzzles.size * economy.dailyPuzzle;
   for (const reward of logins.values()) total += reward;
+  for (const reward of spins.values()) total += reward;
   return total;
 }
 
